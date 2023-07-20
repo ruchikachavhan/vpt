@@ -20,7 +20,7 @@ _MODEL_TYPES = {
 }
 
 
-def build_model(cfg):
+def build_model(cfg, gpu=None):
     """
     build model here
     """
@@ -36,7 +36,11 @@ def build_model(cfg):
     model = _MODEL_TYPES[train_type](cfg)
 
     log_model_info(model, verbose=cfg.DBG)
-    model, device = load_model_to_device(model, cfg)
+    #  Load prompts to the model
+    if cfg.MODEL.PROMPT.PROMPT_PATH:
+        model = model.load_prompt(cfg.MODEL.PROMPT_PATH, cfg)
+    #  load model to gpu
+    model, device = load_model_to_device(model, cfg, gpu=gpu)
     logger.info(f"Device used for model: {device}")
 
     return model, device
@@ -63,18 +67,26 @@ def get_current_device():
     return cur_device
 
 
-def load_model_to_device(model, cfg):
-    cur_device = get_current_device()
+def load_model_to_device(model, cfg, gpu=None):
     if torch.cuda.is_available():
         # Transfer the model to the current GPU device
-        model = model.cuda(device=cur_device)
+        # model = model.cuda(device=cur_device)
         # Use multi-process data parallel model in the multi-gpu setting
         if cfg.NUM_GPUS > 1:
             # Make model replica operate on the current device
+            model = torch.nn.SyncBatchNorm.convert_sync_batchnorm(model)
+            torch.cuda.set_device(gpu)
+            cur_device = get_current_device()
+            model = model.cuda(cur_device)
+            # ngpus = cfg.NUM_GPUS
+            # workers = cfg.NUM_WORKERS
+            # cfg.DATA.BATCH_SIZE = int(cfg.DATA.BATCH_SIZE.batch_size)
+            # cfg.NUM_WORKERS = int((workers + ngpus - 1) / ngpus)
             model = torch.nn.parallel.DistributedDataParallel(
                 module=model, device_ids=[cur_device], output_device=cur_device,
                 find_unused_parameters=True,
             )
-    else:
-        model = model.to(cur_device)
+        else:
+            cur_device = get_current_device()
+            model = model.to(cur_device)
     return model, cur_device

@@ -27,7 +27,7 @@ class PromptedTransformer(Transformer):
         assert prompt_config.NUM_DEEP_LAYERS is None
         assert not prompt_config.DEEP_SHARED
         super(PromptedTransformer, self).__init__(
-            config, img_size, vis)
+            config, img_size, vis, prompt_config.NUM_INVAR_TYPES)
         
         self.prompt_config = prompt_config
         self.vit_config = config
@@ -72,16 +72,46 @@ class PromptedTransformer(Transformer):
         else:
             raise ValueError("Other initiation scheme is not supported")
 
-    def incorporate_prompt(self, x):
+    def incorporate_prompt(self, x, indices = None):
         # combine prompt embeddings with image-patch embeddings
         B = x.shape[0]
         # after CLS token, all before image patches
-        x = self.embeddings(x)  # (batch_size, 1 + n_patches, hidden_dim)
-        x = torch.cat((
-                x[:, :1, :],
-                self.prompt_dropout(self.prompt_proj(self.prompt_embeddings).expand(B, -1, -1)),
-                x[:, 1:, :]
-            ), dim=1)
+        x = self.embeddings(x, indices)  # (batch_size, 1 + n_patches, hidden_dim)
+        if indices is not None:
+            # assert that number of prompt toeksn is 5*100
+            try:
+                assert self.prompt_config.NUM_TOKENS_PER_TYPE != -1
+                assert self.prompt_config.NUM_INVAR_TYPES != -1
+                assert self.prompt_config.NUM_TOKENS == self.prompt_config.NUM_TOKENS_PER_TYPE * self.prompt_config.NUM_INVAR_TYPES
+            except:
+                raise ValueError("Prompt config is not correctly set")
+            #  Choose 100 tokens corresponding to the indices, For index =0, choose firat 100 tokens
+            #  For index = 1, choose next 100 tokens and so on
+            prompt_indices = []
+            ind = indices[0].item()
+            prompt_indices = torch.arange(
+                ind*self.prompt_config.NUM_TOKENS_PER_TYPE,
+                (ind+1)*self.prompt_config.NUM_TOKENS_PER_TYPE).tolist()
+
+            # prompt_embeddings = self.prompt_embeddings.expand(B, -1, -1)
+            # check if all indices are same
+            unique_indices = torch.unique(indices)
+            assert len(unique_indices) == 1
+
+            prompt_append = self.prompt_embeddings[:, prompt_indices, :]
+            self.num_tokens = prompt_append.shape[1]
+            x = torch.cat((
+                    x[:, :1, :],
+                    self.prompt_dropout(self.prompt_proj(prompt_append).expand(B, -1, -1)),
+                    x[:, 1:, :]
+                ), dim=1)
+        else:
+            prompt_append = self.prompt_embeddings
+            x = torch.cat((
+                    x[:, :1, :],
+                    self.prompt_dropout(self.prompt_proj(prompt_append).expand(B, -1, -1)),
+                    x[:, 1:, :]
+                ), dim=1)
         # (batch_size, cls_token + n_prompt + n_patches, hidden_dim)
 
         return x
@@ -99,7 +129,7 @@ class PromptedTransformer(Transformer):
             for module in self.children():
                 module.train(mode)
 
-    def forward_deep_prompt(self, embedding_output):
+    def forward_deep_prompt(self, embedding_output, indices = None):
         attn_weights = []
         hidden_states = None
         weights = None
@@ -111,8 +141,19 @@ class PromptedTransformer(Transformer):
                 hidden_states, weights = self.encoder.layer[i](embedding_output)
             else:
                 if i <= self.deep_prompt_embeddings.shape[0]:
-                    deep_prompt_emb = self.prompt_dropout(self.prompt_proj(
-                        self.deep_prompt_embeddings[i-1]).expand(B, -1, -1))
+                    if indices is not None:
+                        deep_prompt_emb = self.deep_prompt_embeddings[i-1].expand(B, -1, -1)
+                        prompt_indices = []
+                        ind = indices[0].item()
+                        prompt_indices = torch.arange(
+                            ind*self.prompt_config.NUM_TOKENS_PER_TYPE,
+                            (ind+1)*self.prompt_config.NUM_TOKENS_PER_TYPE).tolist()
+                        
+                        prompt_append = deep_prompt_emb[:, prompt_indices, :]
+                        deep_prompt_emb = self.prompt_dropout(self.prompt_proj(prompt_append).expand(B, -1, -1))
+                    else:
+                        deep_prompt_emb = self.prompt_dropout(self.prompt_proj(
+                            self.deep_prompt_embeddings[i-1]).expand(B, -1, -1))
 
                     hidden_states = torch.cat((
                         hidden_states[:, :1, :],
@@ -121,7 +162,7 @@ class PromptedTransformer(Transformer):
                     ), dim=1)
 
 
-                hidden_states, weights = self.encoder.layer[i](hidden_states)
+                    hidden_states, weights = self.encoder.layer[i](hidden_states)
 
             if self.encoder.vis:
                 attn_weights.append(weights)
@@ -129,18 +170,18 @@ class PromptedTransformer(Transformer):
         encoded = self.encoder.encoder_norm(hidden_states)
         return encoded, attn_weights
 
-    def forward(self, x):
-        # this is the default version:
-        embedding_output = self.incorporate_prompt(x)
+    def forward(self, x, indices = None):
+        # this is the default version:            
+        embedding_output = self.incorporate_prompt(x, indices)
 
         if self.prompt_config.DEEP:
             encoded, attn_weights = self.forward_deep_prompt(
-                embedding_output)
+                embedding_output, indices)
         else:
+
             encoded, attn_weights = self.encoder(embedding_output)
 
         return encoded, attn_weights
-
 
 class PromptedVisionTransformer(VisionTransformer):
     def __init__(
@@ -156,14 +197,20 @@ class PromptedVisionTransformer(VisionTransformer):
         vit_cfg = CONFIGS[model_type]
         self.transformer = PromptedTransformer(
             prompt_cfg, vit_cfg, img_size, vis)
+        
+        self.num_classes = num_classes
 
-    def forward(self, x, vis=False):
-        x, attn_weights = self.transformer(x)
+    def forward(self, x, indices = None, vis=False):
+        x, attn_weights = self.transformer(x, indices)
 
+        # Average all the tokens that correspond to the image fatures
+        image_feats = x[:, (1+self.transformer.num_tokens):, :].mean(dim=1)
         x = x[:, 0]
-
+        # remove the cls token and all the prompt tokens
+       
         logits = self.head(x)
 
         if not vis:
             return logits
-        return logits, attn_weights
+
+        return logits, attn_weights, x, image_feats

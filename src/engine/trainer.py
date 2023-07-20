@@ -84,6 +84,7 @@ class Trainer():
         # forward
         with torch.set_grad_enabled(is_train):
             outputs = self.model(inputs)  # (batchsize, num_cls)
+
             if self.cfg.DBG:
                 logger.info(
                     "shape of model output: {}, targets: {}".format(

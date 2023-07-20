@@ -17,7 +17,9 @@ _C.RUN_N_TIMES = 5
 # Note that this may increase the memory usage and will likely not result
 # in overall speedups when variable size inputs are used (e.g. COCO training)
 _C.CUDNN_BENCHMARK = False
-
+_C.RANK = -1
+_C.GPU_ID = None
+_C.WORLD_SIZE = 1
 # Number of GPUs to use (applies to both training and testing)
 _C.NUM_GPUS = 1
 _C.NUM_SHARDS = 1
@@ -34,10 +36,12 @@ _C.MODEL.TRANSFER_TYPE = "linear"  # one of linear, end2end, prompt, adapter, si
 _C.MODEL.WEIGHT_PATH = ""  # if resume from some checkpoint file
 _C.MODEL.SAVE_CKPT = False
 
-_C.MODEL.MODEL_ROOT = ""  # root folder for pretrained model weights
+_C.MODEL.MODEL_ROOT = "checkpoints"  # root folder for pretrained model weights
 
 _C.MODEL.TYPE = "vit"
 _C.MODEL.MLP_NUM = 0
+#  multiple heads to learn invariances
+_C.MODEL.MULTIPLE_HEAD = False
 
 _C.MODEL.LINEAR = CfgNode()
 _C.MODEL.LINEAR.MLP_SIZES = []
@@ -48,6 +52,8 @@ _C.MODEL.LINEAR.DROPOUT = 0.1
 # ----------------------------------------------------------------------
 _C.MODEL.PROMPT = CfgNode()
 _C.MODEL.PROMPT.NUM_TOKENS = 5
+_C.MODEL.PROMPT.NUM_TOKENS_PER_TYPE = -1
+_C.MODEL.PROMPT.NUM_INVAR_TYPES = -1
 _C.MODEL.PROMPT.LOCATION = "prepend"
 # prompt initalizatioin: 
     # (1) default "random"
@@ -73,6 +79,7 @@ _C.MODEL.PROMPT.FORWARD_DEEP_NOEXPAND = False  # if true, will not expand input 
 _C.MODEL.PROMPT.VIT_POOL_TYPE = "original"
 _C.MODEL.PROMPT.DROPOUT = 0.0
 _C.MODEL.PROMPT.SAVE_FOR_EACH_EPOCH = False
+_C.MODEL.PROMPT.PROMPT_PATH = ''
 # ----------------------------------------------------------------------
 # adapter options
 # ----------------------------------------------------------------------
@@ -95,7 +102,7 @@ _C.SOLVER.WEIGHT_DECAY_BIAS = 0
 _C.SOLVER.PATIENCE = 300
 
 
-_C.SOLVER.SCHEDULER = "cosine"
+_C.SOLVER.SCHEDULER = "cosine_hardrestart"
 
 _C.SOLVER.BASE_LR = 0.01
 _C.SOLVER.BIAS_MULTIPLIER = 1.              # for prompt + bias
@@ -104,6 +111,7 @@ _C.SOLVER.WARMUP_EPOCH = 5
 _C.SOLVER.TOTAL_EPOCH = 30
 _C.SOLVER.LOG_EVERY_N = 1000
 
+_C.SOLVER.USE_CLS_TOKEN = False
 
 _C.SOLVER.DBG_TRAINABLE = False # if True, will print the name of trainable params
 
@@ -120,9 +128,11 @@ _C.DATA.PERCENTAGE = 1.0
 _C.DATA.NUMBER_CLASSES = -1
 _C.DATA.MULTILABEL = False
 _C.DATA.CLASS_WEIGHTS_TYPE = "none"
-
+_C.DATA.TRANSFORM = ""
+_C.DATA.PREDICT_ROTATION = False
+_C.DATA.MODE = 'classification'
 _C.DATA.CROPSIZE = 224  # or 384
-
+_C.DATA.AUGMENTED = False  # or 384
 _C.DATA.NO_TEST = False
 _C.DATA.BATCH_SIZE = 32
 # Number of data loader workers per training process
@@ -133,7 +143,6 @@ _C.DATA.PIN_MEMORY = True
 _C.DIST_BACKEND = "nccl"
 _C.DIST_INIT_PATH = "env://"
 _C.DIST_INIT_FILE = ""
-
 
 def get_cfg():
     """

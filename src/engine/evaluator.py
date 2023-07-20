@@ -10,6 +10,16 @@ from ..utils import logging
 logger = logging.get_logger("visual_prompt")
 
 
+def dist_acc(dists, thr=0.001):
+    ''' Return percentage below threshold while ignoring values with a -1 '''
+    # dists = dists.detach().cpu().numpy()
+    dist_cal = np.not_equal(dists, 0.0)
+    num_dist_cal = dist_cal.sum()
+    if num_dist_cal > 0:
+        return np.less(dists[dist_cal], thr).sum() * 1.0 / num_dist_cal
+    else:
+        return -1
+
 class Evaluator():
     """
     An evaluator with below logics:
@@ -59,11 +69,24 @@ class Evaluator():
         else:
             self._eval_singlelabel(probs, targets, test_data)
 
+    def regress(self, pred, target, eval_type, mode = 'pose_estimation'):
+        # Return PKA score
+        pka =  dist_acc((pred - target)**2) 
+
+        acc_dict = {}
+        acc_dict['pka'] = pka
+        log_results = {
+            k: np.around(v * 100, decimals=2) for k, v in acc_dict.items()
+        }
+        save_results = acc_dict
+        self.log_and_update(log_results, save_results, eval_type, mode)
+
     def _eval_singlelabel(
         self,
         scores: np.ndarray,
         targets: List[int],
-        eval_type: str
+        eval_type: str,
+        mode = 'classification'
     ) -> None:
         """
         if number of labels > 2:
@@ -78,13 +101,14 @@ class Evaluator():
         }
         save_results = acc_dict
 
-        self.log_and_update(log_results, save_results, eval_type)
+        self.log_and_update(log_results, save_results, eval_type, mode)
 
     def _eval_multilabel(
         self,
         scores: np.ndarray,
         targets: np.ndarray,
-        eval_type: str
+        eval_type: str,
+        mode = 'classification'
     ) -> None:
         num_labels = scores.shape[-1]
         targets = multilabel.multihot(targets, num_labels)
@@ -101,15 +125,15 @@ class Evaluator():
         save_results = {
             "ap": ap, "ar": ar, "mAP": mAP, "mAR": mAR, "f1": f1_dict
         }
-        self.log_and_update(log_results, save_results, eval_type)
+        self.log_and_update(log_results, save_results, eval_type, mode)
 
-    def log_and_update(self, log_results, save_results, eval_type):
+    def log_and_update(self, log_results, save_results, eval_type, mode):
         log_str = ""
         for k, result in log_results.items():
             if not isinstance(result, np.ndarray):
                 log_str += f"{k}: {result:.2f}\t"
             else:
                 log_str += f"{k}: {list(result)}\t"
-        logger.info(f"Classification results with {eval_type}: {log_str}")
+        logger.info(f"{mode} results with {eval_type}: {log_str}")
         # save everything
-        self.update_result("classification", {eval_type: save_results})
+        self.update_result(mode, {eval_type: save_results})

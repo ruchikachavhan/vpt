@@ -7,6 +7,47 @@ from typing import Optional
 from ..utils import logging
 logger = logging.get_logger("visual_prompt")
 
+class MSELoss(nn.Module):
+    def __init__(self, cfg=None):
+        super(MSELoss, self).__init__()
+        self.cos = nn.CosineSimilarity(dim=1, eps=1e-6)
+    
+    def is_single(self):
+        return True
+    
+    def is_local(self):
+        return False
+    
+    def loss(self, pred, target):
+        # return self.cos(pred, target)
+        
+        return F.l1_loss(pred, target)
+    
+    def forward(self, pred, target, per_cls_weights=None):
+        loss = self.loss(pred, target).mean()
+        return loss
+
+class KLD(nn.Module):
+    def __init__(self, cfg=None):
+        super(KLD, self).__init__()
+        self.kl_div = nn.KLDivLoss(reduction='batchmean')
+        # According to https://pytorch.org/docs/stable/generated/torch.nn.KLDivLoss.html#torch.nn.KLDivLoss
+        #  We do log_softmax of input and softmax of target
+    
+    def is_single(self):
+        return True
+    
+    def is_local(self):
+        return False
+    
+    def loss(self, pred, target):
+        pred = F.log_softmax(pred, dim=1)
+        target = F.softmax(target, dim=1)
+        return self.kl_div(pred, target)
+    
+    def forward(self, pred, target, per_cls_weights=None):
+        loss = self.loss(pred, target)
+        return loss
 
 class SigmoidLoss(nn.Module):
     def __init__(self, cfg=None):
@@ -69,6 +110,9 @@ class SoftmaxLoss(SigmoidLoss):
 
 LOSS = {
     "softmax": SoftmaxLoss,
+    "mse": MSELoss,
+    "kl": KLD,
+    "cross_entropy": SoftmaxLoss,
 }
 
 

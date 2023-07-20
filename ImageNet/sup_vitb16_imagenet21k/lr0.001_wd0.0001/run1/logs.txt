@@ -1,0 +1,1 @@
+[05/22 15:02:25][INFO] visual_prompt:   95: Rank of current process: 0. World size: 1

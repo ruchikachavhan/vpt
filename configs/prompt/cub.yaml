@@ -2,7 +2,7 @@ _BASE_: "../base-prompt.yaml"
 RUN_N_TIMES: 1
 DATA:
   NAME: "CUB"
-  DATAPATH: ""  #TODO: need to specify here
+  DATAPATH: "../TestDatasets/CUB200/"  #TODO: need to specify here
   NUMBER_CLASSES: 200
   MULTILABEL: False
 MODEL:

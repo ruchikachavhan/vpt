@@ -1,0 +1,1158 @@
+[06/12 14:14:25][INFO] visual_prompt:   95: Rank of current process: 0. World size: 4
+[06/12 14:14:25][INFO] visual_prompt:   97: Environment info:
+-------------------  ---------------------------------------------------
+Python               3.8.13 (default, Mar 28 2022, 11:38:47) [GCC 7.5.0]
+ENV_MODULE           <not set>
+PyTorch              1.13.0+cu117
+PyTorch Debug Build  False
+CUDA available       True
+CUDA ID              3,5,6,7
+GPU 0,1,2,3          Tesla V100-SXM2-32GB
+Pillow               9.3.0
+cv2                  4.7.0
+-------------------  ---------------------------------------------------
+PyTorch built with:
+  - GCC 9.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.6.0 (Git Hash 52b5f107dd9cf10910aaa19cb47f3abf9b349815)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.7
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.5
+  - Magma 2.6.1
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.7, CUDNN_VERSION=8.5.0, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -fabi-version=11 -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wunused-local-typedefs -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Werror=cast-function-type -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.13.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+[06/12 14:14:25][INFO] visual_prompt:   99: Command line arguments: None
+[06/12 14:14:25][INFO] visual_prompt:  108: Training with config:
+[06/12 14:14:25][INFO] visual_prompt:  109: {'CUDNN_BENCHMARK': False,
+ 'DATA': {'AUGMENTED': True,
+          'BATCH_SIZE': 256,
+          'CLASS_WEIGHTS_TYPE': 'none',
+          'CROPSIZE': 224,
+          'DATAPATH': '../../imagenet1k',
+          'FEATURE': 'sup_vitb16_imagenet21k',
+          'MODE': 'classification',
+          'MULTILABEL': False,
+          'NAME': 'imagenet',
+          'NO_TEST': True,
+          'NUMBER_CLASSES': 1000,
+          'NUM_WORKERS': 4,
+          'PERCENTAGE': 1.0,
+          'PIN_MEMORY': True,
+          'PREDICT_ROTATION': False,
+          'TRANSFORM': 'rotation'},
+ 'DBG': False,
+ 'DIST_BACKEND': 'nccl',
+ 'DIST_INIT_FILE': '',
+ 'DIST_INIT_PATH': 'tcp://localhost:10001',
+ 'GPU_ID': None,
+ 'MODEL': {'ADAPTER': CfgNode({'REDUCATION_FACTOR': 8, 'STYLE': 'Pfeiffer'}),
+           'LINEAR': CfgNode({'MLP_SIZES': [], 'DROPOUT': 0.1}),
+           'MLP_NUM': 0,
+           'MODEL_ROOT': 'checkpoints',
+           'MULTIPLE_HEAD': True,
+           'PROMPT': {'CLSEMB_FOLDER': '',
+                      'CLSEMB_PATH': '',
+                      'DEEP': False,
+                      'DEEP_SHARED': False,
+                      'DROPOUT': 0.1,
+                      'FORWARD_DEEP_NOEXPAND': False,
+                      'INITIATION': 'random',
+                      'LOCATION': 'prepend',
+                      'NUM_DEEP_LAYERS': None,
+                      'NUM_INVAR_TYPES': 10,
+                      'NUM_TOKENS': 500,
+                      'NUM_TOKENS_PER_TYPE': 50,
+                      'PROJECT': -1,
+                      'PROMPT_PATH': '',
+                      'REVERSE_DEEP': False,
+                      'SAVE_FOR_EACH_EPOCH': True,
+                      'VIT_POOL_TYPE': 'original'},
+           'SAVE_CKPT': False,
+           'TRANSFER_TYPE': 'cls+prompt',
+           'TYPE': 'vit',
+           'WEIGHT_PATH': ''},
+ 'NUM_GPUS': 4,
+ 'NUM_SHARDS': 1,
+ 'OUTPUT_DIR': 'output_ce_10/imagenet/sup_vitb16_imagenet21k/lr0.5_wd0.001/run1',
+ 'RANK': 0,
+ 'RUN_N_TIMES': 1,
+ 'SEED': None,
+ 'SOLVER': {'BASE_LR': 0.5,
+            'BIAS_MULTIPLIER': 1.0,
+            'DBG_TRAINABLE': False,
+            'LOG_EVERY_N': 100,
+            'LOSS': 'cross_entropy',
+            'LOSS_ALPHA': 0.01,
+            'MOMENTUM': 0.9,
+            'OPTIMIZER': 'sgd',
+            'PATIENCE': 300,
+            'SCHEDULER': 'cosine',
+            'TOTAL_EPOCH': 100,
+            'WARMUP_EPOCH': 10,
+            'WEIGHT_DECAY': 0.001,
+            'WEIGHT_DECAY_BIAS': 0},
+ 'WORLD_SIZE': 4}
+[06/12 14:14:31][INFO] visual_prompt:   56: Total Parameters: 93872656	 Gradient Parameters: 8074768
+[06/12 14:14:31][INFO] visual_prompt:   58: tuned percent:8.602
+[06/12 14:14:31][INFO] visual_prompt:   44: Device used for model: 0
+[06/12 14:14:31][INFO] visual_prompt:   72: Loading training data (final training data for vtab)...
+[06/12 14:14:31][INFO] visual_prompt:   49: Constructing imagenet dataset train...
+[06/12 14:14:36][INFO] visual_prompt:  118: Number of images: 1281167
+[06/12 14:14:36][INFO] visual_prompt:  119: Number of classes: 1000
+[06/12 14:14:36][INFO] visual_prompt:   78: Loading validation data...
+[06/12 14:14:36][INFO] visual_prompt:   49: Constructing imagenet dataset val...
+[06/12 14:14:36][INFO] visual_prompt:  118: Number of images: 50000
+[06/12 14:14:36][INFO] visual_prompt:  119: Number of classes: 1000
+[06/12 14:14:36][INFO] visual_prompt:   81: Loading test data...
+[06/12 14:14:36][INFO] visual_prompt:   83: ...no test data is constructed
+[06/12 14:14:36][INFO] visual_prompt:  111: Constructing models...
+[06/12 14:14:36][INFO] visual_prompt:  114: Setting up Evalutator...
+[06/12 14:14:36][INFO] visual_prompt:  116: Setting up Trainer...
+[06/12 14:14:36][INFO] visual_prompt:   47: 	Setting up the optimizer...
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.prompt_embeddings: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.embeddings.position_embeddings: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.embeddings.cls_token: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.embeddings.patch_embeddings.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.embeddings.patch_embeddings.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attention_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attention_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.ffn_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.ffn_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.ffn.fc1.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.ffn.fc1.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.ffn.fc2.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.ffn.fc2.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attn.query.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attn.query.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attn.key.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attn.key.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attn.value.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attn.value.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attn.out.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attn.out.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attention_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attention_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.ffn_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.ffn_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.ffn.fc1.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.ffn.fc1.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.ffn.fc2.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.ffn.fc2.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attn.query.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attn.query.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attn.key.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attn.key.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attn.value.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attn.value.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attn.out.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attn.out.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attention_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attention_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.ffn_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.ffn_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.ffn.fc1.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.ffn.fc1.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.ffn.fc2.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.ffn.fc2.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attn.query.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attn.query.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attn.key.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attn.key.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attn.value.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attn.value.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attn.out.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attn.out.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attention_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attention_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.ffn_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.ffn_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.ffn.fc1.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.ffn.fc1.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.ffn.fc2.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.ffn.fc2.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attn.query.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attn.query.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attn.key.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attn.key.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attn.value.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attn.value.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attn.out.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attn.out.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attention_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attention_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.ffn_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.ffn_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.ffn.fc1.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.ffn.fc1.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.ffn.fc2.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.ffn.fc2.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attn.query.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attn.query.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attn.key.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attn.key.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attn.value.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attn.value.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attn.out.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attn.out.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attention_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attention_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.ffn_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.ffn_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.ffn.fc1.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.ffn.fc1.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.ffn.fc2.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.ffn.fc2.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attn.query.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attn.query.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attn.key.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attn.key.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attn.value.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attn.value.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attn.out.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attn.out.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attention_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attention_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.ffn_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.ffn_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.ffn.fc1.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.ffn.fc1.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.ffn.fc2.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.ffn.fc2.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attn.query.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attn.query.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attn.key.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attn.key.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attn.value.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attn.value.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attn.out.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attn.out.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attention_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attention_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.ffn_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.ffn_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.ffn.fc1.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.ffn.fc1.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.ffn.fc2.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.ffn.fc2.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attn.query.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attn.query.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attn.key.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attn.key.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attn.value.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attn.value.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attn.out.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attn.out.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attention_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attention_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.ffn_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.ffn_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.ffn.fc1.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.ffn.fc1.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.ffn.fc2.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.ffn.fc2.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attn.query.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attn.query.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attn.key.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attn.key.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attn.value.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attn.value.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attn.out.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attn.out.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attention_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attention_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.ffn_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.ffn_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.ffn.fc1.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.ffn.fc1.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.ffn.fc2.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.ffn.fc2.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attn.query.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attn.query.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attn.key.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attn.key.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attn.value.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attn.value.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attn.out.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attn.out.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attention_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attention_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.ffn_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.ffn_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.ffn.fc1.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.ffn.fc1.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.ffn.fc2.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.ffn.fc2.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attn.query.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attn.query.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attn.key.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attn.key.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attn.value.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attn.value.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attn.out.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attn.out.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attention_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attention_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.ffn_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.ffn_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.ffn.fc1.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.ffn.fc1.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.ffn.fc2.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.ffn.fc2.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attn.query.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attn.query.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attn.key.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attn.key.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attn.value.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attn.value.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attn.out.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attn.out.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.encoder_norm.weight: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.enc.transformer.encoder.encoder_norm.bias: False
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.0.last_layer.weight: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.0.last_layer.bias: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.1.last_layer.weight: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.1.last_layer.bias: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.2.last_layer.weight: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.2.last_layer.bias: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.3.last_layer.weight: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.3.last_layer.bias: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.4.last_layer.weight: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.4.last_layer.bias: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.5.last_layer.weight: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.5.last_layer.bias: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.6.last_layer.weight: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.6.last_layer.bias: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.7.last_layer.weight: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.7.last_layer.bias: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.8.last_layer.weight: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.8.last_layer.bias: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.9.last_layer.weight: True
+[06/12 14:14:36][INFO] visual_prompt:   59: module.head.9.last_layer.bias: True
+[06/12 14:14:36][INFO] visual_prompt:  229: class weights: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+[06/12 14:14:36][INFO] visual_prompt:  248: Training 1 / 100 epoch, with learning rate 0.0
+[06/12 14:16:34][INFO] visual_prompt:  297: 	Training 100/5004. train loss: 6.9278,	0.8719 s / batch. (data: 2.92e-04). ETA=5 days, 1:10:31, max mem: 15.0 GB 
+[06/12 14:18:02][INFO] visual_prompt:  297: 	Training 200/5004. train loss: 6.9347,	0.8825 s / batch. (data: 2.83e-04). ETA=5 days, 2:37:29, max mem: 15.0 GB 
+[06/12 14:19:31][INFO] visual_prompt:  297: 	Training 300/5004. train loss: 6.9451,	0.8861 s / batch. (data: 3.42e-04). ETA=5 days, 3:05:54, max mem: 15.0 GB 
+[06/12 14:20:59][INFO] visual_prompt:  297: 	Training 400/5004. train loss: 6.9028,	0.8937 s / batch. (data: 3.76e-04). ETA=5 days, 4:07:13, max mem: 15.0 GB 
+[06/12 14:22:28][INFO] visual_prompt:  297: 	Training 500/5004. train loss: 6.9065,	0.8692 s / batch. (data: 2.92e-04). ETA=5 days, 0:42:05, max mem: 15.0 GB 
+[06/12 14:23:57][INFO] visual_prompt:  297: 	Training 600/5004. train loss: 6.9257,	0.8964 s / batch. (data: 4.55e-04). ETA=5 days, 4:26:40, max mem: 15.0 GB 
+[06/12 14:25:25][INFO] visual_prompt:  297: 	Training 700/5004. train loss: 6.8987,	0.8863 s / batch. (data: 5.29e-04). ETA=5 days, 3:01:18, max mem: 15.0 GB 
+[06/12 14:26:54][INFO] visual_prompt:  297: 	Training 800/5004. train loss: 6.8828,	0.8804 s / batch. (data: 2.58e-04). ETA=5 days, 2:11:09, max mem: 15.0 GB 
+[06/12 14:28:22][INFO] visual_prompt:  297: 	Training 900/5004. train loss: 6.9525,	0.8886 s / batch. (data: 5.38e-03). ETA=5 days, 3:17:20, max mem: 15.0 GB 
+[06/12 14:29:51][INFO] visual_prompt:  297: 	Training 1000/5004. train loss: 6.9489,	0.8841 s / batch. (data: 4.65e-04). ETA=5 days, 2:39:04, max mem: 15.0 GB 
+[06/12 14:31:20][INFO] visual_prompt:  297: 	Training 1100/5004. train loss: 6.9170,	0.8769 s / batch. (data: 3.80e-04). ETA=5 days, 1:37:29, max mem: 15.0 GB 
+[06/12 14:32:49][INFO] visual_prompt:  297: 	Training 1200/5004. train loss: 6.9480,	0.8845 s / batch. (data: 3.43e-04). ETA=5 days, 2:38:37, max mem: 15.0 GB 
+[06/12 14:34:17][INFO] visual_prompt:  297: 	Training 1300/5004. train loss: 6.9183,	0.8924 s / batch. (data: 5.93e-04). ETA=5 days, 3:43:10, max mem: 15.0 GB 
+[06/12 14:35:46][INFO] visual_prompt:  297: 	Training 1400/5004. train loss: 6.9409,	0.8879 s / batch. (data: 3.60e-04). ETA=5 days, 3:04:00, max mem: 15.0 GB 
+[06/12 14:37:15][INFO] visual_prompt:  297: 	Training 1500/5004. train loss: 6.9858,	0.8891 s / batch. (data: 5.21e-04). ETA=5 days, 3:13:14, max mem: 15.0 GB 
+[06/12 14:38:43][INFO] visual_prompt:  297: 	Training 1600/5004. train loss: 6.9470,	0.8888 s / batch. (data: 3.36e-04). ETA=5 days, 3:08:36, max mem: 15.0 GB 
+[06/12 14:40:12][INFO] visual_prompt:  297: 	Training 1700/5004. train loss: 6.9229,	0.8934 s / batch. (data: 3.68e-04). ETA=5 days, 3:45:31, max mem: 15.0 GB 
+[06/12 14:41:40][INFO] visual_prompt:  297: 	Training 1800/5004. train loss: 6.8857,	0.8748 s / batch. (data: 3.24e-04). ETA=5 days, 1:09:58, max mem: 15.0 GB 
+[06/12 14:43:09][INFO] visual_prompt:  297: 	Training 1900/5004. train loss: 6.9086,	0.8893 s / batch. (data: 3.10e-04). ETA=5 days, 3:08:50, max mem: 15.0 GB 
+[06/12 14:44:38][INFO] visual_prompt:  297: 	Training 2000/5004. train loss: 6.9358,	0.8966 s / batch. (data: 4.93e-04). ETA=5 days, 4:07:35, max mem: 15.0 GB 
+[06/12 14:46:07][INFO] visual_prompt:  297: 	Training 2100/5004. train loss: 6.9420,	0.8834 s / batch. (data: 4.14e-04). ETA=5 days, 2:16:24, max mem: 15.0 GB 
+[06/12 14:47:35][INFO] visual_prompt:  297: 	Training 2200/5004. train loss: 6.8981,	0.8993 s / batch. (data: 8.33e-04). ETA=5 days, 4:26:57, max mem: 15.0 GB 
+[06/12 14:49:04][INFO] visual_prompt:  297: 	Training 2300/5004. train loss: 6.9342,	0.8948 s / batch. (data: 2.39e-03). ETA=5 days, 3:48:00, max mem: 15.0 GB 
+[06/12 14:50:33][INFO] visual_prompt:  297: 	Training 2400/5004. train loss: 6.9202,	0.8762 s / batch. (data: 3.13e-04). ETA=5 days, 1:12:28, max mem: 15.0 GB 
+[06/12 14:52:02][INFO] visual_prompt:  297: 	Training 2500/5004. train loss: 6.9685,	0.8869 s / batch. (data: 2.49e-04). ETA=5 days, 2:39:22, max mem: 15.0 GB 
+[06/12 14:53:30][INFO] visual_prompt:  297: 	Training 2600/5004. train loss: 6.9740,	0.8741 s / batch. (data: 3.48e-04). ETA=5 days, 0:52:00, max mem: 15.0 GB 
+[06/12 14:54:59][INFO] visual_prompt:  297: 	Training 2700/5004. train loss: 6.9520,	0.8793 s / batch. (data: 3.39e-04). ETA=5 days, 1:33:52, max mem: 15.0 GB 
+[06/12 14:56:28][INFO] visual_prompt:  297: 	Training 2800/5004. train loss: 6.9346,	0.8889 s / batch. (data: 3.04e-04). ETA=5 days, 2:52:10, max mem: 15.0 GB 
+[06/12 14:57:56][INFO] visual_prompt:  297: 	Training 2900/5004. train loss: 6.9725,	0.8767 s / batch. (data: 2.88e-04). ETA=5 days, 1:09:18, max mem: 15.0 GB 
+[06/12 14:59:25][INFO] visual_prompt:  297: 	Training 3000/5004. train loss: 6.9275,	0.8850 s / batch. (data: 4.32e-04). ETA=5 days, 2:16:50, max mem: 15.0 GB 
+[06/12 15:00:54][INFO] visual_prompt:  297: 	Training 3100/5004. train loss: 6.9235,	0.8905 s / batch. (data: 3.49e-04). ETA=5 days, 3:00:51, max mem: 15.0 GB 
+[06/12 15:02:22][INFO] visual_prompt:  297: 	Training 3200/5004. train loss: 6.9257,	0.8844 s / batch. (data: 3.31e-04). ETA=5 days, 2:08:22, max mem: 15.0 GB 
+[06/12 15:03:51][INFO] visual_prompt:  297: 	Training 3300/5004. train loss: 6.9329,	0.8871 s / batch. (data: 3.40e-04). ETA=5 days, 2:29:56, max mem: 15.0 GB 
+[06/12 15:05:20][INFO] visual_prompt:  297: 	Training 3400/5004. train loss: 6.9186,	0.9024 s / batch. (data: 5.62e-03). ETA=5 days, 4:34:56, max mem: 15.0 GB 
+[06/12 15:06:48][INFO] visual_prompt:  297: 	Training 3500/5004. train loss: 6.9146,	0.8706 s / batch. (data: 2.75e-04). ETA=5 days, 0:09:39, max mem: 15.0 GB 
+[06/12 15:08:17][INFO] visual_prompt:  297: 	Training 3600/5004. train loss: 6.9319,	0.8829 s / batch. (data: 5.10e-04). ETA=5 days, 1:50:28, max mem: 15.0 GB 
+[06/12 15:09:46][INFO] visual_prompt:  297: 	Training 3700/5004. train loss: 6.9133,	0.8823 s / batch. (data: 2.80e-04). ETA=5 days, 1:44:12, max mem: 15.0 GB 
+[06/12 15:11:14][INFO] visual_prompt:  297: 	Training 3800/5004. train loss: 6.9052,	0.8794 s / batch. (data: 3.28e-04). ETA=5 days, 1:18:15, max mem: 15.0 GB 
+[06/12 15:12:43][INFO] visual_prompt:  297: 	Training 3900/5004. train loss: 6.9173,	0.8914 s / batch. (data: 2.93e-04). ETA=5 days, 2:56:31, max mem: 15.0 GB 
+[06/12 15:14:12][INFO] visual_prompt:  297: 	Training 4000/5004. train loss: 6.9761,	0.8897 s / batch. (data: 3.88e-04). ETA=5 days, 2:40:23, max mem: 15.0 GB 
+[06/12 15:15:41][INFO] visual_prompt:  297: 	Training 4100/5004. train loss: 6.9482,	0.8812 s / batch. (data: 2.76e-04). ETA=5 days, 1:29:14, max mem: 15.0 GB 
+[06/12 15:17:09][INFO] visual_prompt:  297: 	Training 4200/5004. train loss: 6.9830,	0.8783 s / batch. (data: 3.63e-04). ETA=5 days, 1:03:24, max mem: 15.0 GB 
+[06/12 15:18:38][INFO] visual_prompt:  297: 	Training 4300/5004. train loss: 6.9326,	0.8856 s / batch. (data: 6.02e-04). ETA=5 days, 2:02:01, max mem: 15.0 GB 
+[06/12 15:20:07][INFO] visual_prompt:  297: 	Training 4400/5004. train loss: 6.9405,	0.8806 s / batch. (data: 3.45e-04). ETA=5 days, 1:19:47, max mem: 15.0 GB 
+[06/12 15:21:35][INFO] visual_prompt:  297: 	Training 4500/5004. train loss: 6.9408,	0.8843 s / batch. (data: 3.56e-04). ETA=5 days, 1:48:52, max mem: 15.0 GB 
+[06/12 15:23:04][INFO] visual_prompt:  297: 	Training 4600/5004. train loss: 6.9434,	0.8810 s / batch. (data: 3.36e-04). ETA=5 days, 1:20:13, max mem: 15.0 GB 
+[06/12 15:24:33][INFO] visual_prompt:  297: 	Training 4700/5004. train loss: 6.9503,	0.8769 s / batch. (data: 3.54e-04). ETA=5 days, 0:44:25, max mem: 15.0 GB 
+[06/12 15:26:02][INFO] visual_prompt:  297: 	Training 4800/5004. train loss: 6.9152,	0.8933 s / batch. (data: 3.34e-04). ETA=5 days, 2:58:18, max mem: 15.0 GB 
+[06/12 15:27:30][INFO] visual_prompt:  297: 	Training 4900/5004. train loss: 6.9390,	0.8963 s / batch. (data: 3.19e-04). ETA=5 days, 3:22:01, max mem: 15.0 GB 
+[06/12 15:28:59][INFO] visual_prompt:  297: 	Training 5000/5004. train loss: 6.9509,	0.8784 s / batch. (data: 1.08e-04). ETA=5 days, 0:52:46, max mem: 15.0 GB 
+[06/12 15:29:04][INFO] visual_prompt:  310: Epoch 1 / 100: avg data time: 5.88e-03, avg batch time: 0.8926, average train loss: 6.9273
+[06/12 15:38:12][INFO] visual_prompt:  430: 	Test 100/196. loss: 69.217, 5.2231 s / batch. (data: 2.15e-04)max mem: 15.00347 GB 
+[06/12 15:46:35][INFO] visual_prompt:  467: Inference (val):avg data time: 2.17e-04, avg batch time: 5.2383, average loss: 69.2923
+[06/12 15:46:35][INFO] visual_prompt:  484: Saved invariances for val_imagenet at output_ce_10/imagenet/sup_vitb16_imagenet21k/lr0.5_wd0.001/run1/val_imagenet_invariances.json
+[06/12 15:46:35][INFO] visual_prompt:  248: Training 2 / 100 epoch, with learning rate 0.05
+[06/12 15:48:42][INFO] visual_prompt:  297: 	Training 100/5004. train loss: 6.9250,	0.8838 s / batch. (data: 3.43e-04). ETA=5 days, 1:35:59, max mem: 15.0 GB 
+[06/12 15:50:11][INFO] visual_prompt:  297: 	Training 200/5004. train loss: 6.9034,	0.9197 s / batch. (data: 3.70e-04). ETA=5 days, 6:30:54, max mem: 15.0 GB 
+[06/12 15:51:40][INFO] visual_prompt:  297: 	Training 300/5004. train loss: 6.8077,	0.8890 s / batch. (data: 3.49e-04). ETA=5 days, 2:15:55, max mem: 15.0 GB 
+[06/12 15:53:09][INFO] visual_prompt:  297: 	Training 400/5004. train loss: 6.7516,	0.8937 s / batch. (data: 2.66e-04). ETA=5 days, 2:52:40, max mem: 15.0 GB 
+[06/12 15:54:38][INFO] visual_prompt:  297: 	Training 500/5004. train loss: 6.7342,	0.8916 s / batch. (data: 3.26e-04). ETA=5 days, 2:34:27, max mem: 15.0 GB 
+[06/12 15:56:07][INFO] visual_prompt:  297: 	Training 600/5004. train loss: 6.7009,	0.8786 s / batch. (data: 3.29e-04). ETA=5 days, 0:45:23, max mem: 15.0 GB 
+[06/12 15:57:36][INFO] visual_prompt:  297: 	Training 700/5004. train loss: 6.6816,	0.9016 s / batch. (data: 3.53e-04). ETA=5 days, 3:54:01, max mem: 15.0 GB 
+[06/12 15:59:06][INFO] visual_prompt:  297: 	Training 800/5004. train loss: 6.6037,	0.8994 s / batch. (data: 4.44e-04). ETA=5 days, 3:33:58, max mem: 15.0 GB 
+[06/12 16:00:35][INFO] visual_prompt:  297: 	Training 900/5004. train loss: 6.6401,	0.8899 s / batch. (data: 2.46e-03). ETA=5 days, 2:13:50, max mem: 15.0 GB 
+[06/12 16:02:04][INFO] visual_prompt:  297: 	Training 1000/5004. train loss: 6.5883,	0.8857 s / batch. (data: 3.28e-04). ETA=5 days, 1:38:11, max mem: 15.0 GB 
+[06/12 16:03:33][INFO] visual_prompt:  297: 	Training 1100/5004. train loss: 6.5944,	0.8907 s / batch. (data: 3.71e-04). ETA=5 days, 2:18:06, max mem: 15.0 GB 
+[06/12 16:05:02][INFO] visual_prompt:  297: 	Training 1200/5004. train loss: 6.5052,	0.8878 s / batch. (data: 2.16e-03). ETA=5 days, 1:52:32, max mem: 15.0 GB 
+[06/12 16:06:31][INFO] visual_prompt:  297: 	Training 1300/5004. train loss: 6.5151,	0.8849 s / batch. (data: 4.08e-04). ETA=5 days, 1:27:01, max mem: 15.0 GB 
+[06/12 16:08:00][INFO] visual_prompt:  297: 	Training 1400/5004. train loss: 6.4598,	0.8930 s / batch. (data: 2.61e-04). ETA=5 days, 2:32:24, max mem: 15.0 GB 
+[06/12 16:09:29][INFO] visual_prompt:  297: 	Training 1500/5004. train loss: 6.4895,	0.8939 s / batch. (data: 3.81e-04). ETA=5 days, 2:38:25, max mem: 15.0 GB 
+[06/12 16:10:58][INFO] visual_prompt:  297: 	Training 1600/5004. train loss: 6.4199,	0.8718 s / batch. (data: 3.25e-04). ETA=4 days, 23:35:13, max mem: 15.0 GB 
+[06/12 16:12:27][INFO] visual_prompt:  297: 	Training 1700/5004. train loss: 6.4888,	0.9025 s / batch. (data: 3.26e-04). ETA=5 days, 3:45:46, max mem: 15.0 GB 
+[06/12 16:13:56][INFO] visual_prompt:  297: 	Training 1800/5004. train loss: 6.4121,	0.8862 s / batch. (data: 3.30e-04). ETA=5 days, 1:30:44, max mem: 15.0 GB 
+[06/12 16:15:25][INFO] visual_prompt:  297: 	Training 1900/5004. train loss: 6.3708,	0.8976 s / batch. (data: 4.68e-04). ETA=5 days, 3:02:23, max mem: 15.0 GB 
+[06/12 16:16:55][INFO] visual_prompt:  297: 	Training 2000/5004. train loss: 6.4170,	0.8997 s / batch. (data: 1.61e-02). ETA=5 days, 3:18:17, max mem: 15.0 GB 
+[06/12 16:18:24][INFO] visual_prompt:  297: 	Training 2100/5004. train loss: 6.3735,	0.8963 s / batch. (data: 3.35e-04). ETA=5 days, 2:48:39, max mem: 15.0 GB 
+[06/12 16:19:53][INFO] visual_prompt:  297: 	Training 2200/5004. train loss: 6.3343,	0.8951 s / batch. (data: 3.78e-04). ETA=5 days, 2:37:50, max mem: 15.0 GB 
+[06/12 16:21:22][INFO] visual_prompt:  297: 	Training 2300/5004. train loss: 6.3294,	0.8888 s / batch. (data: 3.53e-04). ETA=5 days, 1:44:07, max mem: 15.0 GB 
+[06/12 16:22:51][INFO] visual_prompt:  297: 	Training 2400/5004. train loss: 6.2956,	0.8868 s / batch. (data: 2.69e-04). ETA=5 days, 1:26:45, max mem: 15.0 GB 
+[06/12 16:24:21][INFO] visual_prompt:  297: 	Training 2500/5004. train loss: 6.3103,	0.8962 s / batch. (data: 3.35e-04). ETA=5 days, 2:42:19, max mem: 15.0 GB 
+[06/12 16:25:50][INFO] visual_prompt:  297: 	Training 2600/5004. train loss: 6.3153,	0.8797 s / batch. (data: 3.47e-04). ETA=5 days, 0:25:09, max mem: 15.0 GB 
+[06/12 16:27:19][INFO] visual_prompt:  297: 	Training 2700/5004. train loss: 6.2954,	0.8896 s / batch. (data: 2.89e-04). ETA=5 days, 1:45:03, max mem: 15.0 GB 
+[06/12 16:28:48][INFO] visual_prompt:  297: 	Training 2800/5004. train loss: 6.2891,	0.8901 s / batch. (data: 3.72e-04). ETA=5 days, 1:47:20, max mem: 15.0 GB 
+[06/12 16:30:17][INFO] visual_prompt:  297: 	Training 2900/5004. train loss: 6.2141,	0.9000 s / batch. (data: 3.51e-04). ETA=5 days, 3:07:31, max mem: 15.0 GB 
+[06/12 16:31:46][INFO] visual_prompt:  297: 	Training 3000/5004. train loss: 6.3065,	0.8933 s / batch. (data: 3.50e-04). ETA=5 days, 2:11:03, max mem: 15.0 GB 
+[06/12 16:33:15][INFO] visual_prompt:  297: 	Training 3100/5004. train loss: 6.2700,	0.8919 s / batch. (data: 3.31e-04). ETA=5 days, 1:58:07, max mem: 15.0 GB 
+[06/12 16:34:45][INFO] visual_prompt:  297: 	Training 3200/5004. train loss: 6.2210,	0.8816 s / batch. (data: 3.71e-04). ETA=5 days, 0:31:55, max mem: 15.0 GB 
+[06/12 16:36:14][INFO] visual_prompt:  297: 	Training 3300/5004. train loss: 6.2215,	0.8942 s / batch. (data: 3.58e-04). ETA=5 days, 2:13:46, max mem: 15.0 GB 
+[06/12 16:37:43][INFO] visual_prompt:  297: 	Training 3400/5004. train loss: 6.1898,	0.8918 s / batch. (data: 4.50e-04). ETA=5 days, 1:53:01, max mem: 15.0 GB 
+[06/12 16:39:12][INFO] visual_prompt:  297: 	Training 3500/5004. train loss: 6.2011,	0.8979 s / batch. (data: 2.55e-04). ETA=5 days, 2:41:34, max mem: 15.0 GB 
+[06/12 16:40:41][INFO] visual_prompt:  297: 	Training 3600/5004. train loss: 6.1534,	0.8930 s / batch. (data: 3.87e-04). ETA=5 days, 1:59:30, max mem: 15.0 GB 
+[06/12 16:42:10][INFO] visual_prompt:  297: 	Training 3700/5004. train loss: 6.1586,	0.8950 s / batch. (data: 3.35e-04). ETA=5 days, 2:14:19, max mem: 15.0 GB 
+[06/12 16:43:39][INFO] visual_prompt:  297: 	Training 3800/5004. train loss: 6.1585,	0.8877 s / batch. (data: 3.66e-04). ETA=5 days, 1:13:24, max mem: 15.0 GB 
+[06/12 16:45:08][INFO] visual_prompt:  297: 	Training 3900/5004. train loss: 6.1973,	0.8852 s / batch. (data: 3.12e-04). ETA=5 days, 0:51:13, max mem: 15.0 GB 
+[06/12 16:46:37][INFO] visual_prompt:  297: 	Training 4000/5004. train loss: 6.1455,	0.8969 s / batch. (data: 4.10e-04). ETA=5 days, 2:25:53, max mem: 15.0 GB 
+[06/12 16:48:06][INFO] visual_prompt:  297: 	Training 4100/5004. train loss: 6.1482,	0.8917 s / batch. (data: 3.27e-04). ETA=5 days, 1:41:22, max mem: 15.0 GB 
+[06/12 16:49:35][INFO] visual_prompt:  297: 	Training 4200/5004. train loss: 6.1522,	0.8947 s / batch. (data: 3.47e-04). ETA=5 days, 2:04:21, max mem: 15.0 GB 
+[06/12 16:51:04][INFO] visual_prompt:  297: 	Training 4300/5004. train loss: 6.1586,	0.8929 s / batch. (data: 4.45e-04). ETA=5 days, 1:48:03, max mem: 15.0 GB 
+[06/12 16:52:34][INFO] visual_prompt:  297: 	Training 4400/5004. train loss: 6.1021,	0.8929 s / batch. (data: 3.75e-04). ETA=5 days, 1:47:11, max mem: 15.0 GB 
+[06/12 16:54:03][INFO] visual_prompt:  297: 	Training 4500/5004. train loss: 6.1030,	0.8974 s / batch. (data: 3.76e-04). ETA=5 days, 2:22:30, max mem: 15.0 GB 
+[06/12 16:55:32][INFO] visual_prompt:  297: 	Training 4600/5004. train loss: 6.1035,	0.8799 s / batch. (data: 3.96e-04). ETA=4 days, 23:57:15, max mem: 15.0 GB 
+[06/12 16:57:01][INFO] visual_prompt:  297: 	Training 4700/5004. train loss: 6.0411,	0.8969 s / batch. (data: 3.46e-04). ETA=5 days, 2:14:46, max mem: 15.0 GB 
+[06/12 16:58:30][INFO] visual_prompt:  297: 	Training 4800/5004. train loss: 6.0747,	0.8872 s / batch. (data: 3.37e-04). ETA=5 days, 0:54:07, max mem: 15.0 GB 
+[06/12 16:59:59][INFO] visual_prompt:  297: 	Training 4900/5004. train loss: 6.0326,	0.8858 s / batch. (data: 2.97e-04). ETA=5 days, 0:41:43, max mem: 15.0 GB 
+[06/12 17:01:28][INFO] visual_prompt:  297: 	Training 5000/5004. train loss: 6.0471,	0.8783 s / batch. (data: 1.20e-04). ETA=4 days, 23:38:55, max mem: 15.0 GB 
+[06/12 17:01:33][INFO] visual_prompt:  310: Epoch 2 / 100: avg data time: 5.84e-03, avg batch time: 0.8985, average train loss: 6.3690
+[06/12 17:10:36][INFO] visual_prompt:  430: 	Test 100/196. loss: 61.030, 5.2373 s / batch. (data: 3.34e-05)max mem: 15.00347 GB 
+[06/12 17:18:59][INFO] visual_prompt:  467: Inference (val):avg data time: 2.15e-04, avg batch time: 5.2246, average loss: 61.1228
+[06/12 17:18:59][INFO] visual_prompt:  484: Saved invariances for val_imagenet at output_ce_10/imagenet/sup_vitb16_imagenet21k/lr0.5_wd0.001/run1/val_imagenet_invariances.json
+[06/12 17:18:59][INFO] visual_prompt:  248: Training 3 / 100 epoch, with learning rate 0.1
+[06/12 17:21:06][INFO] visual_prompt:  297: 	Training 100/5004. train loss: 6.0772,	0.8776 s / batch. (data: 3.11e-04). ETA=4 days, 23:31:25, max mem: 15.0 GB 
+[06/12 17:22:35][INFO] visual_prompt:  297: 	Training 200/5004. train loss: 6.1342,	0.9040 s / batch. (data: 3.58e-04). ETA=5 days, 3:05:09, max mem: 15.0 GB 
+[06/12 17:24:04][INFO] visual_prompt:  297: 	Training 300/5004. train loss: 6.0719,	0.8918 s / batch. (data: 5.33e-04). ETA=5 days, 1:24:03, max mem: 15.0 GB 
+[06/12 17:25:33][INFO] visual_prompt:  297: 	Training 400/5004. train loss: 6.1154,	0.8887 s / batch. (data: 3.40e-04). ETA=5 days, 0:57:39, max mem: 15.0 GB 
+[06/12 17:27:03][INFO] visual_prompt:  297: 	Training 500/5004. train loss: 6.0795,	0.8880 s / batch. (data: 2.70e-04). ETA=5 days, 0:50:12, max mem: 15.0 GB 
+[06/12 17:28:32][INFO] visual_prompt:  297: 	Training 600/5004. train loss: 6.0369,	0.8851 s / batch. (data: 3.94e-04). ETA=5 days, 0:25:25, max mem: 15.0 GB 
+[06/12 17:30:00][INFO] visual_prompt:  297: 	Training 700/5004. train loss: 6.0275,	0.9001 s / batch. (data: 3.60e-04). ETA=5 days, 2:26:00, max mem: 15.0 GB 
+[06/12 17:31:30][INFO] visual_prompt:  297: 	Training 800/5004. train loss: 5.9789,	0.8969 s / batch. (data: 3.09e-04). ETA=5 days, 1:58:12, max mem: 15.0 GB 
+[06/12 17:32:59][INFO] visual_prompt:  297: 	Training 900/5004. train loss: 6.1026,	0.9022 s / batch. (data: 4.12e-04). ETA=5 days, 2:40:23, max mem: 15.0 GB 
+[06/12 17:34:28][INFO] visual_prompt:  297: 	Training 1000/5004. train loss: 5.9676,	0.9000 s / batch. (data: 2.88e-04). ETA=5 days, 2:20:56, max mem: 15.0 GB 
+[06/12 17:35:57][INFO] visual_prompt:  297: 	Training 1100/5004. train loss: 6.0293,	0.8976 s / batch. (data: 4.05e-04). ETA=5 days, 1:59:47, max mem: 15.0 GB 
+[06/12 17:37:26][INFO] visual_prompt:  297: 	Training 1200/5004. train loss: 5.9797,	0.8918 s / batch. (data: 4.27e-04). ETA=5 days, 1:10:44, max mem: 15.0 GB 
+[06/12 17:38:55][INFO] visual_prompt:  297: 	Training 1300/5004. train loss: 6.0080,	0.8889 s / batch. (data: 2.48e-03). ETA=5 days, 0:45:49, max mem: 15.0 GB 
+[06/12 17:40:24][INFO] visual_prompt:  297: 	Training 1400/5004. train loss: 5.9424,	0.8876 s / batch. (data: 3.25e-04). ETA=5 days, 0:33:57, max mem: 15.0 GB 
+[06/12 17:41:53][INFO] visual_prompt:  297: 	Training 1500/5004. train loss: 6.0393,	0.8916 s / batch. (data: 2.47e-04). ETA=5 days, 1:04:58, max mem: 15.0 GB 
+[06/12 17:43:22][INFO] visual_prompt:  297: 	Training 1600/5004. train loss: 5.9112,	0.8831 s / batch. (data: 3.39e-04). ETA=4 days, 23:53:52, max mem: 15.0 GB 
+[06/12 17:44:51][INFO] visual_prompt:  297: 	Training 1700/5004. train loss: 6.0347,	0.8943 s / batch. (data: 8.39e-04). ETA=5 days, 1:23:48, max mem: 15.0 GB 
+[06/12 17:46:20][INFO] visual_prompt:  297: 	Training 1800/5004. train loss: 5.9106,	0.8899 s / batch. (data: 2.83e-04). ETA=5 days, 0:46:31, max mem: 15.0 GB 
+[06/12 17:47:49][INFO] visual_prompt:  297: 	Training 1900/5004. train loss: 5.9854,	0.8990 s / batch. (data: 4.48e-04). ETA=5 days, 1:59:19, max mem: 15.0 GB 
+[06/12 17:49:18][INFO] visual_prompt:  297: 	Training 2000/5004. train loss: 6.0542,	0.8882 s / batch. (data: 3.34e-04). ETA=5 days, 0:30:10, max mem: 15.0 GB 
+[06/12 17:50:47][INFO] visual_prompt:  297: 	Training 2100/5004. train loss: 5.9846,	0.8941 s / batch. (data: 4.39e-04). ETA=5 days, 1:16:38, max mem: 15.0 GB 
+[06/12 17:52:16][INFO] visual_prompt:  297: 	Training 2200/5004. train loss: 5.9449,	0.8889 s / batch. (data: 3.24e-04). ETA=5 days, 0:32:46, max mem: 15.0 GB 
+[06/12 17:53:45][INFO] visual_prompt:  297: 	Training 2300/5004. train loss: 5.9381,	0.8849 s / batch. (data: 3.38e-04). ETA=4 days, 23:58:45, max mem: 15.0 GB 
+[06/12 17:55:14][INFO] visual_prompt:  297: 	Training 2400/5004. train loss: 5.9197,	0.8911 s / batch. (data: 3.69e-04). ETA=5 days, 0:47:36, max mem: 15.0 GB 
+[06/12 17:56:43][INFO] visual_prompt:  297: 	Training 2500/5004. train loss: 5.9498,	0.8912 s / batch. (data: 2.73e-04). ETA=5 days, 0:46:41, max mem: 15.0 GB 
+[06/12 17:58:12][INFO] visual_prompt:  297: 	Training 2600/5004. train loss: 6.0258,	0.8857 s / batch. (data: 2.99e-04). ETA=5 days, 0:00:17, max mem: 15.0 GB 
+[06/12 17:59:41][INFO] visual_prompt:  297: 	Training 2700/5004. train loss: 5.9889,	0.8725 s / batch. (data: 3.74e-04). ETA=4 days, 22:11:29, max mem: 15.0 GB 
+[06/12 18:01:10][INFO] visual_prompt:  297: 	Training 2800/5004. train loss: 5.9430,	0.8991 s / batch. (data: 4.41e-04). ETA=5 days, 1:46:56, max mem: 15.0 GB 
+[06/12 18:02:39][INFO] visual_prompt:  297: 	Training 2900/5004. train loss: 5.9180,	0.8915 s / batch. (data: 3.59e-04). ETA=5 days, 0:43:27, max mem: 15.0 GB 
+[06/12 18:04:08][INFO] visual_prompt:  297: 	Training 3000/5004. train loss: 6.0214,	0.8875 s / batch. (data: 3.32e-04). ETA=5 days, 0:09:23, max mem: 15.0 GB 
+[06/12 18:05:37][INFO] visual_prompt:  297: 	Training 3100/5004. train loss: 6.0421,	0.8809 s / batch. (data: 3.44e-04). ETA=4 days, 23:14:08, max mem: 15.0 GB 
+[06/12 18:07:06][INFO] visual_prompt:  297: 	Training 3200/5004. train loss: 5.9333,	0.8972 s / batch. (data: 5.35e-03). ETA=5 days, 1:24:50, max mem: 15.0 GB 
+[06/12 18:08:34][INFO] visual_prompt:  297: 	Training 3300/5004. train loss: 5.9838,	0.8937 s / batch. (data: 3.36e-04). ETA=5 days, 0:55:01, max mem: 15.0 GB 
+[06/12 18:10:04][INFO] visual_prompt:  297: 	Training 3400/5004. train loss: 5.9651,	0.8952 s / batch. (data: 3.57e-04). ETA=5 days, 1:05:43, max mem: 15.0 GB 
+[06/12 18:11:32][INFO] visual_prompt:  297: 	Training 3500/5004. train loss: 5.9668,	0.8988 s / batch. (data: 3.24e-04). ETA=5 days, 1:33:39, max mem: 15.0 GB 
+[06/12 18:13:01][INFO] visual_prompt:  297: 	Training 3600/5004. train loss: 5.9428,	0.8940 s / batch. (data: 3.35e-04). ETA=5 days, 0:53:29, max mem: 15.0 GB 
+[06/12 18:14:30][INFO] visual_prompt:  297: 	Training 3700/5004. train loss: 5.8718,	0.8813 s / batch. (data: 3.86e-04). ETA=4 days, 23:08:36, max mem: 15.0 GB 
+[06/12 18:15:59][INFO] visual_prompt:  297: 	Training 3800/5004. train loss: 5.9515,	0.8805 s / batch. (data: 5.71e-04). ETA=4 days, 23:00:59, max mem: 15.0 GB 
+[06/12 18:17:28][INFO] visual_prompt:  297: 	Training 3900/5004. train loss: 5.9910,	0.8972 s / batch. (data: 4.17e-04). ETA=5 days, 1:14:26, max mem: 15.0 GB 
+[06/12 18:18:57][INFO] visual_prompt:  297: 	Training 4000/5004. train loss: 5.9485,	0.8851 s / batch. (data: 4.42e-04). ETA=4 days, 23:34:59, max mem: 15.0 GB 
+[06/12 18:20:26][INFO] visual_prompt:  297: 	Training 4100/5004. train loss: 5.8703,	0.8949 s / batch. (data: 3.26e-04). ETA=5 days, 0:52:40, max mem: 15.0 GB 
+[06/12 18:21:55][INFO] visual_prompt:  297: 	Training 4200/5004. train loss: 5.9602,	0.8923 s / batch. (data: 3.65e-04). ETA=5 days, 0:30:29, max mem: 15.0 GB 
+[06/12 18:23:24][INFO] visual_prompt:  297: 	Training 4300/5004. train loss: 5.9799,	0.8906 s / batch. (data: 4.37e-04). ETA=5 days, 0:15:22, max mem: 15.0 GB 
+[06/12 18:24:53][INFO] visual_prompt:  297: 	Training 4400/5004. train loss: 5.9364,	0.8924 s / batch. (data: 2.34e-03). ETA=5 days, 0:28:23, max mem: 15.0 GB 
+[06/12 18:26:22][INFO] visual_prompt:  297: 	Training 4500/5004. train loss: 5.9160,	0.8798 s / batch. (data: 3.43e-04). ETA=4 days, 22:44:50, max mem: 15.0 GB 
+[06/12 18:27:51][INFO] visual_prompt:  297: 	Training 4600/5004. train loss: 5.9167,	0.8769 s / batch. (data: 2.83e-04). ETA=4 days, 22:19:29, max mem: 15.0 GB 
+[06/12 18:29:20][INFO] visual_prompt:  297: 	Training 4700/5004. train loss: 5.8913,	0.8978 s / batch. (data: 2.99e-04). ETA=5 days, 1:07:28, max mem: 15.0 GB 
+[06/12 18:30:49][INFO] visual_prompt:  297: 	Training 4800/5004. train loss: 5.9300,	0.9047 s / batch. (data: 3.61e-04). ETA=5 days, 2:02:03, max mem: 15.0 GB 
+[06/12 18:32:18][INFO] visual_prompt:  297: 	Training 4900/5004. train loss: 5.8730,	0.8883 s / batch. (data: 3.45e-04). ETA=4 days, 23:47:26, max mem: 15.0 GB 
+[06/12 18:33:46][INFO] visual_prompt:  297: 	Training 5000/5004. train loss: 5.9297,	0.8762 s / batch. (data: 1.29e-04). ETA=4 days, 22:08:35, max mem: 15.0 GB 
+[06/12 18:33:51][INFO] visual_prompt:  310: Epoch 3 / 100: avg data time: 5.77e-03, avg batch time: 0.8975, average train loss: 5.9798
+[06/12 18:42:56][INFO] visual_prompt:  430: 	Test 100/196. loss: 59.486, 5.2426 s / batch. (data: 1.56e-03)max mem: 15.00347 GB 
+[06/12 18:51:19][INFO] visual_prompt:  467: Inference (val):avg data time: 2.14e-04, avg batch time: 5.2258, average loss: 59.7252
+[06/12 18:51:19][INFO] visual_prompt:  484: Saved invariances for val_imagenet at output_ce_10/imagenet/sup_vitb16_imagenet21k/lr0.5_wd0.001/run1/val_imagenet_invariances.json
+[06/12 18:51:20][INFO] visual_prompt:  248: Training 4 / 100 epoch, with learning rate 0.15
+[06/12 18:53:25][INFO] visual_prompt:  297: 	Training 100/5004. train loss: 5.9553,	0.8933 s / batch. (data: 3.31e-04). ETA=5 days, 0:25:08, max mem: 15.0 GB 
+[06/12 18:54:54][INFO] visual_prompt:  297: 	Training 200/5004. train loss: 6.0078,	0.8803 s / batch. (data: 3.37e-04). ETA=4 days, 22:38:31, max mem: 15.0 GB 
+[06/12 18:56:23][INFO] visual_prompt:  297: 	Training 300/5004. train loss: 5.9682,	0.8963 s / batch. (data: 3.26e-04). ETA=5 days, 0:46:06, max mem: 15.0 GB 
+[06/12 18:57:52][INFO] visual_prompt:  297: 	Training 400/5004. train loss: 6.0307,	0.8841 s / batch. (data: 3.26e-04). ETA=4 days, 23:06:22, max mem: 15.0 GB 
+[06/12 18:59:21][INFO] visual_prompt:  297: 	Training 500/5004. train loss: 5.9636,	0.8945 s / batch. (data: 1.04e-03). ETA=5 days, 0:28:31, max mem: 15.0 GB 
+[06/12 19:00:50][INFO] visual_prompt:  297: 	Training 600/5004. train loss: 5.8943,	0.8992 s / batch. (data: 3.50e-04). ETA=5 days, 1:05:30, max mem: 15.0 GB 
+[06/12 19:02:19][INFO] visual_prompt:  297: 	Training 700/5004. train loss: 5.9386,	0.8981 s / batch. (data: 4.65e-04). ETA=5 days, 0:54:53, max mem: 15.0 GB 
+[06/12 19:03:48][INFO] visual_prompt:  297: 	Training 800/5004. train loss: 5.9345,	0.8882 s / batch. (data: 4.17e-04). ETA=4 days, 23:33:37, max mem: 15.0 GB 
+[06/12 19:05:17][INFO] visual_prompt:  297: 	Training 900/5004. train loss: 6.0081,	0.8761 s / batch. (data: 2.77e-04). ETA=4 days, 21:54:39, max mem: 15.0 GB 
+[06/12 19:06:46][INFO] visual_prompt:  297: 	Training 1000/5004. train loss: 5.9083,	0.8969 s / batch. (data: 3.60e-04). ETA=5 days, 0:40:47, max mem: 15.0 GB 
+[06/12 19:08:15][INFO] visual_prompt:  297: 	Training 1100/5004. train loss: 5.8860,	0.8939 s / batch. (data: 4.86e-04). ETA=5 days, 0:15:04, max mem: 15.0 GB 
+[06/12 19:09:44][INFO] visual_prompt:  297: 	Training 1200/5004. train loss: 5.9092,	0.8982 s / batch. (data: 4.34e-04). ETA=5 days, 0:48:41, max mem: 15.0 GB 
+[06/12 19:11:13][INFO] visual_prompt:  297: 	Training 1300/5004. train loss: 5.8249,	0.8909 s / batch. (data: 3.96e-04). ETA=4 days, 23:47:53, max mem: 15.0 GB 
+[06/12 19:12:42][INFO] visual_prompt:  297: 	Training 1400/5004. train loss: 5.8309,	0.8722 s / batch. (data: 1.68e-03). ETA=4 days, 21:15:27, max mem: 15.0 GB 
+[06/12 19:14:11][INFO] visual_prompt:  297: 	Training 1500/5004. train loss: 5.9852,	0.9033 s / batch. (data: 1.33e-02). ETA=5 days, 1:24:36, max mem: 15.0 GB 
+[06/12 19:15:40][INFO] visual_prompt:  297: 	Training 1600/5004. train loss: 5.8191,	0.8923 s / batch. (data: 3.52e-04). ETA=4 days, 23:55:00, max mem: 15.0 GB 
+[06/12 19:17:09][INFO] visual_prompt:  297: 	Training 1700/5004. train loss: 5.9755,	0.8897 s / batch. (data: 3.72e-04). ETA=4 days, 23:32:30, max mem: 15.0 GB 
+[06/12 19:18:38][INFO] visual_prompt:  297: 	Training 1800/5004. train loss: 5.8574,	0.8826 s / batch. (data: 3.89e-04). ETA=4 days, 22:33:54, max mem: 15.0 GB 
+[06/12 19:20:07][INFO] visual_prompt:  297: 	Training 1900/5004. train loss: 5.8536,	0.8785 s / batch. (data: 3.26e-04). ETA=4 days, 21:59:12, max mem: 15.0 GB 
+[06/12 19:21:36][INFO] visual_prompt:  297: 	Training 2000/5004. train loss: 5.9395,	0.8903 s / batch. (data: 1.49e-03). ETA=4 days, 23:32:54, max mem: 15.0 GB 
+[06/12 19:23:05][INFO] visual_prompt:  297: 	Training 2100/5004. train loss: 5.9567,	0.8889 s / batch. (data: 3.72e-04). ETA=4 days, 23:19:51, max mem: 15.0 GB 
+[06/12 19:24:34][INFO] visual_prompt:  297: 	Training 2200/5004. train loss: 5.8428,	0.8800 s / batch. (data: 5.12e-04). ETA=4 days, 22:06:51, max mem: 15.0 GB 
+[06/12 19:26:03][INFO] visual_prompt:  297: 	Training 2300/5004. train loss: 5.8723,	0.8931 s / batch. (data: 3.52e-04). ETA=4 days, 23:50:46, max mem: 15.0 GB 
+[06/12 19:27:32][INFO] visual_prompt:  297: 	Training 2400/5004. train loss: 5.8624,	0.8947 s / batch. (data: 2.76e-03). ETA=5 days, 0:02:31, max mem: 15.0 GB 
+[06/12 19:29:01][INFO] visual_prompt:  297: 	Training 2500/5004. train loss: 5.9027,	0.8865 s / batch. (data: 2.81e-04). ETA=4 days, 22:54:52, max mem: 15.0 GB 
+[06/12 19:30:30][INFO] visual_prompt:  297: 	Training 2600/5004. train loss: 5.9027,	0.8752 s / batch. (data: 3.09e-04). ETA=4 days, 21:22:36, max mem: 15.0 GB 
+[06/12 19:31:59][INFO] visual_prompt:  297: 	Training 2700/5004. train loss: 5.9721,	0.8985 s / batch. (data: 3.68e-04). ETA=5 days, 0:28:24, max mem: 15.0 GB 
+[06/12 19:33:28][INFO] visual_prompt:  297: 	Training 2800/5004. train loss: 5.9988,	0.8931 s / batch. (data: 4.50e-04). ETA=4 days, 23:43:23, max mem: 15.0 GB 
+[06/12 19:34:57][INFO] visual_prompt:  297: 	Training 2900/5004. train loss: 5.7915,	0.8939 s / batch. (data: 4.33e-03). ETA=4 days, 23:48:28, max mem: 15.0 GB 
+[06/12 19:36:26][INFO] visual_prompt:  297: 	Training 3000/5004. train loss: 6.0266,	0.8931 s / batch. (data: 4.00e-04). ETA=4 days, 23:40:23, max mem: 15.0 GB 
+[06/12 19:37:54][INFO] visual_prompt:  297: 	Training 3100/5004. train loss: 5.9387,	0.8949 s / batch. (data: 3.42e-04). ETA=4 days, 23:53:10, max mem: 15.0 GB 
+[06/12 19:39:23][INFO] visual_prompt:  297: 	Training 3200/5004. train loss: 5.9328,	0.8931 s / batch. (data: 3.58e-04). ETA=4 days, 23:37:39, max mem: 15.0 GB 
+[06/12 19:40:52][INFO] visual_prompt:  297: 	Training 3300/5004. train loss: 5.9480,	0.8896 s / batch. (data: 3.90e-04). ETA=4 days, 23:07:52, max mem: 15.0 GB 
+[06/12 19:42:21][INFO] visual_prompt:  297: 	Training 3400/5004. train loss: 5.8573,	0.8850 s / batch. (data: 3.00e-04). ETA=4 days, 22:29:39, max mem: 15.0 GB 
+[06/12 19:43:50][INFO] visual_prompt:  297: 	Training 3500/5004. train loss: 5.8780,	0.8844 s / batch. (data: 3.76e-04). ETA=4 days, 22:23:21, max mem: 15.0 GB 
+[06/12 19:45:19][INFO] visual_prompt:  297: 	Training 3600/5004. train loss: 5.8555,	0.8921 s / batch. (data: 1.73e-03). ETA=4 days, 23:23:31, max mem: 15.0 GB 
+[06/12 19:46:48][INFO] visual_prompt:  297: 	Training 3700/5004. train loss: 5.8751,	0.8875 s / batch. (data: 3.19e-04). ETA=4 days, 22:44:49, max mem: 15.0 GB 
+[06/12 19:48:17][INFO] visual_prompt:  297: 	Training 3800/5004. train loss: 5.8909,	0.8915 s / batch. (data: 3.62e-04). ETA=4 days, 23:15:40, max mem: 15.0 GB 
+[06/12 19:49:46][INFO] visual_prompt:  297: 	Training 3900/5004. train loss: 5.9160,	0.8864 s / batch. (data: 3.51e-04). ETA=4 days, 22:33:00, max mem: 15.0 GB 
+[06/12 19:51:15][INFO] visual_prompt:  297: 	Training 4000/5004. train loss: 5.9327,	0.9053 s / batch. (data: 1.48e-02). ETA=5 days, 1:03:37, max mem: 15.0 GB 
+[06/12 19:52:44][INFO] visual_prompt:  297: 	Training 4100/5004. train loss: 5.8816,	0.8903 s / batch. (data: 3.61e-04). ETA=4 days, 23:01:38, max mem: 15.0 GB 
+[06/12 19:54:13][INFO] visual_prompt:  297: 	Training 4200/5004. train loss: 5.8740,	0.8846 s / batch. (data: 3.48e-04). ETA=4 days, 22:14:27, max mem: 15.0 GB 
+[06/12 19:55:41][INFO] visual_prompt:  297: 	Training 4300/5004. train loss: 5.9174,	0.8761 s / batch. (data: 4.03e-04). ETA=4 days, 21:04:55, max mem: 15.0 GB 
+[06/12 19:57:10][INFO] visual_prompt:  297: 	Training 4400/5004. train loss: 5.8794,	0.8929 s / batch. (data: 3.40e-04). ETA=4 days, 23:17:30, max mem: 15.0 GB 
+[06/12 19:58:38][INFO] visual_prompt:  297: 	Training 4500/5004. train loss: 5.9247,	0.8970 s / batch. (data: 3.19e-04). ETA=4 days, 23:49:03, max mem: 15.0 GB 
+[06/12 20:00:06][INFO] visual_prompt:  297: 	Training 4600/5004. train loss: 5.9500,	0.8835 s / batch. (data: 2.80e-04). ETA=4 days, 21:59:50, max mem: 15.0 GB 
+[06/12 20:01:35][INFO] visual_prompt:  297: 	Training 4700/5004. train loss: 5.8569,	0.8732 s / batch. (data: 2.66e-04). ETA=4 days, 20:35:42, max mem: 15.0 GB 
+[06/12 20:03:03][INFO] visual_prompt:  297: 	Training 4800/5004. train loss: 5.9109,	0.8915 s / batch. (data: 3.33e-04). ETA=4 days, 23:00:46, max mem: 15.0 GB 
+[06/12 20:04:32][INFO] visual_prompt:  297: 	Training 4900/5004. train loss: 5.7644,	0.9009 s / batch. (data: 3.44e-04). ETA=5 days, 0:14:22, max mem: 15.0 GB 
+[06/12 20:06:00][INFO] visual_prompt:  297: 	Training 5000/5004. train loss: 5.8120,	0.8672 s / batch. (data: 1.58e-04). ETA=4 days, 19:43:14, max mem: 15.0 GB 
+[06/12 20:06:04][INFO] visual_prompt:  310: Epoch 4 / 100: avg data time: 5.79e-03, avg batch time: 0.8960, average train loss: 5.9076
+[06/12 20:14:55][INFO] visual_prompt:  430: 	Test 100/196. loss: 58.826, 5.1741 s / batch. (data: 1.52e-04)max mem: 15.00347 GB 
+[06/12 20:23:10][INFO] visual_prompt:  467: Inference (val):avg data time: 1.43e-04, avg batch time: 5.1529, average loss: 59.2283
+[06/12 20:23:10][INFO] visual_prompt:  484: Saved invariances for val_imagenet at output_ce_10/imagenet/sup_vitb16_imagenet21k/lr0.5_wd0.001/run1/val_imagenet_invariances.json
+[06/12 20:23:10][INFO] visual_prompt:  248: Training 5 / 100 epoch, with learning rate 0.2
+[06/12 20:25:11][INFO] visual_prompt:  297: 	Training 100/5004. train loss: 5.9299,	0.8711 s / batch. (data: 3.15e-04). ETA=4 days, 20:13:00, max mem: 15.0 GB 
+[06/12 20:26:38][INFO] visual_prompt:  297: 	Training 200/5004. train loss: 5.8901,	0.8717 s / batch. (data: 2.99e-04). ETA=4 days, 20:16:12, max mem: 15.0 GB 
+[06/12 20:28:06][INFO] visual_prompt:  297: 	Training 300/5004. train loss: 5.9051,	0.8706 s / batch. (data: 3.08e-04). ETA=4 days, 20:06:24, max mem: 15.0 GB 
+[06/12 20:29:33][INFO] visual_prompt:  297: 	Training 400/5004. train loss: 5.9839,	0.8934 s / batch. (data: 2.97e-04). ETA=4 days, 23:06:57, max mem: 15.0 GB 
+[06/12 20:31:00][INFO] visual_prompt:  297: 	Training 500/5004. train loss: 5.9006,	0.8764 s / batch. (data: 2.83e-04). ETA=4 days, 20:49:22, max mem: 15.0 GB 
+[06/12 20:32:28][INFO] visual_prompt:  297: 	Training 600/5004. train loss: 5.9592,	0.8751 s / batch. (data: 3.04e-04). ETA=4 days, 20:37:30, max mem: 15.0 GB 
+[06/12 20:33:55][INFO] visual_prompt:  297: 	Training 700/5004. train loss: 5.9145,	0.8763 s / batch. (data: 2.62e-04). ETA=4 days, 20:45:25, max mem: 15.0 GB 
+[06/12 20:35:22][INFO] visual_prompt:  297: 	Training 800/5004. train loss: 5.8028,	0.8734 s / batch. (data: 2.42e-04). ETA=4 days, 20:21:03, max mem: 15.0 GB 
+[06/12 20:36:50][INFO] visual_prompt:  297: 	Training 900/5004. train loss: 5.8964,	0.8756 s / batch. (data: 2.88e-04). ETA=4 days, 20:37:18, max mem: 15.0 GB 
+[06/12 20:38:17][INFO] visual_prompt:  297: 	Training 1000/5004. train loss: 5.8911,	0.8724 s / batch. (data: 2.97e-04). ETA=4 days, 20:10:05, max mem: 15.0 GB 
+[06/12 20:39:44][INFO] visual_prompt:  297: 	Training 1100/5004. train loss: 5.9691,	0.8709 s / batch. (data: 2.96e-04). ETA=4 days, 19:56:45, max mem: 15.0 GB 
+[06/12 20:41:12][INFO] visual_prompt:  297: 	Training 1200/5004. train loss: 5.8963,	0.8700 s / batch. (data: 3.10e-04). ETA=4 days, 19:48:21, max mem: 15.0 GB 
+[06/12 20:42:39][INFO] visual_prompt:  297: 	Training 1300/5004. train loss: 5.8272,	0.8716 s / batch. (data: 3.11e-04). ETA=4 days, 19:59:07, max mem: 15.0 GB 
+[06/12 20:44:06][INFO] visual_prompt:  297: 	Training 1400/5004. train loss: 5.7381,	0.8747 s / batch. (data: 2.76e-04). ETA=4 days, 20:22:44, max mem: 15.0 GB 
+[06/12 20:45:34][INFO] visual_prompt:  297: 	Training 1500/5004. train loss: 5.9376,	0.8766 s / batch. (data: 2.92e-04). ETA=4 days, 20:36:18, max mem: 15.0 GB 
+[06/12 20:47:01][INFO] visual_prompt:  297: 	Training 1600/5004. train loss: 5.7608,	0.8748 s / batch. (data: 2.89e-04). ETA=4 days, 20:20:40, max mem: 15.0 GB 
+[06/12 20:48:28][INFO] visual_prompt:  297: 	Training 1700/5004. train loss: 6.0109,	0.8729 s / batch. (data: 3.30e-04). ETA=4 days, 20:04:09, max mem: 15.0 GB 
+[06/12 20:49:55][INFO] visual_prompt:  297: 	Training 1800/5004. train loss: 5.7992,	0.8718 s / batch. (data: 3.16e-04). ETA=4 days, 19:54:07, max mem: 15.0 GB 
+[06/12 20:51:22][INFO] visual_prompt:  297: 	Training 1900/5004. train loss: 5.7935,	0.8719 s / batch. (data: 3.69e-04). ETA=4 days, 19:52:51, max mem: 15.0 GB 
+[06/12 20:52:50][INFO] visual_prompt:  297: 	Training 2000/5004. train loss: 5.9125,	0.8700 s / batch. (data: 3.44e-04). ETA=4 days, 19:36:14, max mem: 15.0 GB 
+[06/12 20:54:17][INFO] visual_prompt:  297: 	Training 2100/5004. train loss: 5.9065,	0.8733 s / batch. (data: 3.01e-04). ETA=4 days, 20:01:27, max mem: 15.0 GB 
+[06/12 20:55:44][INFO] visual_prompt:  297: 	Training 2200/5004. train loss: 5.8717,	0.8725 s / batch. (data: 3.52e-04). ETA=4 days, 19:53:56, max mem: 15.0 GB 
+[06/12 20:57:11][INFO] visual_prompt:  297: 	Training 2300/5004. train loss: 5.8189,	0.8746 s / batch. (data: 2.82e-04). ETA=4 days, 20:09:10, max mem: 15.0 GB 
+[06/12 20:58:39][INFO] visual_prompt:  297: 	Training 2400/5004. train loss: 5.8832,	0.8701 s / batch. (data: 2.71e-04). ETA=4 days, 19:31:38, max mem: 15.0 GB 
+[06/12 21:00:06][INFO] visual_prompt:  297: 	Training 2500/5004. train loss: 5.9128,	0.8760 s / batch. (data: 3.11e-04). ETA=4 days, 20:16:54, max mem: 15.0 GB 
+[06/12 21:01:33][INFO] visual_prompt:  297: 	Training 2600/5004. train loss: 5.8715,	0.8720 s / batch. (data: 3.10e-04). ETA=4 days, 19:44:02, max mem: 15.0 GB 
+[06/12 21:03:00][INFO] visual_prompt:  297: 	Training 2700/5004. train loss: 5.8932,	0.8769 s / batch. (data: 2.78e-04). ETA=4 days, 20:21:31, max mem: 15.0 GB 
+[06/12 21:04:27][INFO] visual_prompt:  297: 	Training 2800/5004. train loss: 5.9305,	0.8751 s / batch. (data: 2.61e-04). ETA=4 days, 20:05:11, max mem: 15.0 GB 
+[06/12 21:05:55][INFO] visual_prompt:  297: 	Training 2900/5004. train loss: 5.7865,	0.8721 s / batch. (data: 2.94e-04). ETA=4 days, 19:40:34, max mem: 15.0 GB 
+[06/12 21:07:22][INFO] visual_prompt:  297: 	Training 3000/5004. train loss: 5.9650,	0.8718 s / batch. (data: 2.50e-04). ETA=4 days, 19:36:07, max mem: 15.0 GB 
+[06/12 21:08:49][INFO] visual_prompt:  297: 	Training 3100/5004. train loss: 5.8840,	0.8729 s / batch. (data: 3.19e-04). ETA=4 days, 19:43:44, max mem: 15.0 GB 
+[06/12 21:10:16][INFO] visual_prompt:  297: 	Training 3200/5004. train loss: 5.8404,	0.8718 s / batch. (data: 3.33e-04). ETA=4 days, 19:33:39, max mem: 15.0 GB 
+[06/12 21:11:43][INFO] visual_prompt:  297: 	Training 3300/5004. train loss: 5.8512,	0.8724 s / batch. (data: 3.37e-04). ETA=4 days, 19:37:10, max mem: 15.0 GB 
+[06/12 21:13:11][INFO] visual_prompt:  297: 	Training 3400/5004. train loss: 5.8978,	0.8738 s / batch. (data: 3.28e-04). ETA=4 days, 19:46:52, max mem: 15.0 GB 
+[06/12 21:14:38][INFO] visual_prompt:  297: 	Training 3500/5004. train loss: 5.8565,	0.8723 s / batch. (data: 2.90e-04). ETA=4 days, 19:32:56, max mem: 15.0 GB 
+[06/12 21:16:05][INFO] visual_prompt:  297: 	Training 3600/5004. train loss: 5.8178,	0.8703 s / batch. (data: 3.03e-04). ETA=4 days, 19:16:01, max mem: 15.0 GB 
+[06/12 21:17:32][INFO] visual_prompt:  297: 	Training 3700/5004. train loss: 5.8538,	0.8707 s / batch. (data: 2.58e-04). ETA=4 days, 19:17:19, max mem: 15.0 GB 
+[06/12 21:19:00][INFO] visual_prompt:  297: 	Training 3800/5004. train loss: 5.8317,	0.8723 s / batch. (data: 3.33e-04). ETA=4 days, 19:29:06, max mem: 15.0 GB 
+[06/12 21:20:27][INFO] visual_prompt:  297: 	Training 3900/5004. train loss: 5.9098,	0.8716 s / batch. (data: 3.42e-04). ETA=4 days, 19:22:05, max mem: 15.0 GB 
+[06/12 21:21:54][INFO] visual_prompt:  297: 	Training 4000/5004. train loss: 5.8973,	0.8789 s / batch. (data: 2.95e-04). ETA=4 days, 20:18:34, max mem: 15.0 GB 
+[06/12 21:23:21][INFO] visual_prompt:  297: 	Training 4100/5004. train loss: 5.7952,	0.8751 s / batch. (data: 3.09e-04). ETA=4 days, 19:46:37, max mem: 15.0 GB 
+[06/12 21:24:49][INFO] visual_prompt:  297: 	Training 4200/5004. train loss: 5.8622,	0.8703 s / batch. (data: 2.74e-04). ETA=4 days, 19:06:42, max mem: 15.0 GB 
+[06/12 21:26:16][INFO] visual_prompt:  297: 	Training 4300/5004. train loss: 5.8505,	0.8730 s / batch. (data: 2.89e-04). ETA=4 days, 19:27:10, max mem: 15.0 GB 
+[06/12 21:27:44][INFO] visual_prompt:  297: 	Training 4400/5004. train loss: 5.8122,	0.8754 s / batch. (data: 2.78e-04). ETA=4 days, 19:44:56, max mem: 15.0 GB 
+[06/12 21:29:11][INFO] visual_prompt:  297: 	Training 4500/5004. train loss: 5.9692,	0.8775 s / batch. (data: 2.84e-04). ETA=4 days, 19:59:42, max mem: 15.0 GB 
+[06/12 21:30:39][INFO] visual_prompt:  297: 	Training 4600/5004. train loss: 5.8232,	0.8754 s / batch. (data: 2.50e-04). ETA=4 days, 19:41:38, max mem: 15.0 GB 
+[06/12 21:32:06][INFO] visual_prompt:  297: 	Training 4700/5004. train loss: 5.8249,	0.8768 s / batch. (data: 2.62e-04). ETA=4 days, 19:51:36, max mem: 15.0 GB 
+[06/12 21:33:33][INFO] visual_prompt:  297: 	Training 4800/5004. train loss: 5.8668,	0.8720 s / batch. (data: 3.27e-04). ETA=4 days, 19:11:34, max mem: 15.0 GB 
+[06/12 21:35:01][INFO] visual_prompt:  297: 	Training 4900/5004. train loss: 5.7994,	0.8759 s / batch. (data: 3.21e-04). ETA=4 days, 19:41:05, max mem: 15.0 GB 
+[06/12 21:36:28][INFO] visual_prompt:  297: 	Training 5000/5004. train loss: 5.8822,	0.8714 s / batch. (data: 8.30e-05). ETA=4 days, 19:04:01, max mem: 15.0 GB 
+[06/12 21:36:33][INFO] visual_prompt:  310: Epoch 5 / 100: avg data time: 3.89e-03, avg batch time: 0.8796, average train loss: 5.8766
+[06/12 21:45:25][INFO] visual_prompt:  430: 	Test 100/196. loss: 58.668, 5.1852 s / batch. (data: 9.20e-05)max mem: 15.00347 GB 
+[06/12 21:53:40][INFO] visual_prompt:  467: Inference (val):avg data time: 1.51e-04, avg batch time: 5.1596, average loss: 59.0347
+[06/12 21:53:40][INFO] visual_prompt:  484: Saved invariances for val_imagenet at output_ce_10/imagenet/sup_vitb16_imagenet21k/lr0.5_wd0.001/run1/val_imagenet_invariances.json
+[06/12 21:53:40][INFO] visual_prompt:  248: Training 6 / 100 epoch, with learning rate 0.25
+[06/12 21:55:40][INFO] visual_prompt:  297: 	Training 100/5004. train loss: 5.9291,	0.8747 s / batch. (data: 3.04e-04). ETA=4 days, 19:28:25, max mem: 15.0 GB 
+[06/12 21:57:07][INFO] visual_prompt:  297: 	Training 200/5004. train loss: 5.9700,	0.8753 s / batch. (data: 2.53e-04). ETA=4 days, 19:32:14, max mem: 15.0 GB 
+[06/12 21:58:34][INFO] visual_prompt:  297: 	Training 300/5004. train loss: 5.9222,	0.8781 s / batch. (data: 2.93e-04). ETA=4 days, 19:52:31, max mem: 15.0 GB 
+[06/12 22:00:02][INFO] visual_prompt:  297: 	Training 400/5004. train loss: 5.9388,	0.8730 s / batch. (data: 3.08e-04). ETA=4 days, 19:11:10, max mem: 15.0 GB 
+[06/12 22:01:29][INFO] visual_prompt:  297: 	Training 500/5004. train loss: 5.9100,	0.8717 s / batch. (data: 2.98e-04). ETA=4 days, 18:59:07, max mem: 15.0 GB 
+[06/12 22:02:56][INFO] visual_prompt:  297: 	Training 600/5004. train loss: 5.8784,	0.8723 s / batch. (data: 2.73e-04). ETA=4 days, 19:02:42, max mem: 15.0 GB 
+[06/12 22:04:24][INFO] visual_prompt:  297: 	Training 700/5004. train loss: 5.8663,	0.8710 s / batch. (data: 2.70e-04). ETA=4 days, 18:51:06, max mem: 15.0 GB 
+[06/12 22:05:51][INFO] visual_prompt:  297: 	Training 800/5004. train loss: 5.8522,	0.8714 s / batch. (data: 3.15e-04). ETA=4 days, 18:52:28, max mem: 15.0 GB 
+[06/12 22:07:18][INFO] visual_prompt:  297: 	Training 900/5004. train loss: 5.8898,	0.8725 s / batch. (data: 2.73e-04). ETA=4 days, 19:00:07, max mem: 15.0 GB 
+[06/12 22:08:46][INFO] visual_prompt:  297: 	Training 1000/5004. train loss: 5.9122,	0.8703 s / batch. (data: 3.15e-04). ETA=4 days, 18:41:01, max mem: 15.0 GB 
+[06/12 22:10:13][INFO] visual_prompt:  297: 	Training 1100/5004. train loss: 5.9610,	0.8793 s / batch. (data: 2.79e-04). ETA=4 days, 19:50:41, max mem: 15.0 GB 
+[06/12 22:11:40][INFO] visual_prompt:  297: 	Training 1200/5004. train loss: 5.8370,	0.8723 s / batch. (data: 2.70e-04). ETA=4 days, 18:53:39, max mem: 15.0 GB 
+[06/12 22:13:08][INFO] visual_prompt:  297: 	Training 1300/5004. train loss: 5.7794,	0.8720 s / batch. (data: 2.33e-04). ETA=4 days, 18:50:12, max mem: 15.0 GB 
+[06/12 22:14:35][INFO] visual_prompt:  297: 	Training 1400/5004. train loss: 5.8114,	0.8744 s / batch. (data: 3.31e-04). ETA=4 days, 19:07:26, max mem: 15.0 GB 
+[06/12 22:16:02][INFO] visual_prompt:  297: 	Training 1500/5004. train loss: 5.9183,	0.8729 s / batch. (data: 3.26e-04). ETA=4 days, 18:53:51, max mem: 15.0 GB 
+[06/12 22:17:29][INFO] visual_prompt:  297: 	Training 1600/5004. train loss: 5.8610,	0.8740 s / batch. (data: 2.63e-04). ETA=4 days, 19:01:01, max mem: 15.0 GB 
+[06/12 22:18:57][INFO] visual_prompt:  297: 	Training 1700/5004. train loss: 5.8784,	0.8695 s / batch. (data: 3.03e-04). ETA=4 days, 18:24:08, max mem: 15.0 GB 
+[06/12 22:20:24][INFO] visual_prompt:  297: 	Training 1800/5004. train loss: 5.9212,	0.8699 s / batch. (data: 3.06e-04). ETA=4 days, 18:26:05, max mem: 15.0 GB 
+[06/12 22:21:51][INFO] visual_prompt:  297: 	Training 1900/5004. train loss: 5.8269,	0.8716 s / batch. (data: 2.59e-04). ETA=4 days, 18:38:00, max mem: 15.0 GB 
+[06/12 22:23:19][INFO] visual_prompt:  297: 	Training 2000/5004. train loss: 5.9129,	0.8740 s / batch. (data: 2.95e-04). ETA=4 days, 18:55:43, max mem: 15.0 GB 
+[06/12 22:24:46][INFO] visual_prompt:  297: 	Training 2100/5004. train loss: 5.8754,	0.8728 s / batch. (data: 2.97e-04). ETA=4 days, 18:44:48, max mem: 15.0 GB 
+[06/12 22:26:13][INFO] visual_prompt:  297: 	Training 2200/5004. train loss: 5.8055,	0.8737 s / batch. (data: 2.84e-04). ETA=4 days, 18:49:56, max mem: 15.0 GB 
+[06/12 22:27:40][INFO] visual_prompt:  297: 	Training 2300/5004. train loss: 5.8378,	0.8720 s / batch. (data: 3.52e-04). ETA=4 days, 18:35:48, max mem: 15.0 GB 
+[06/12 22:29:08][INFO] visual_prompt:  297: 	Training 2400/5004. train loss: 5.7867,	0.8757 s / batch. (data: 3.54e-04). ETA=4 days, 19:03:26, max mem: 15.0 GB 
+[06/12 22:30:35][INFO] visual_prompt:  297: 	Training 2500/5004. train loss: 5.8125,	0.8756 s / batch. (data: 3.01e-04). ETA=4 days, 19:00:49, max mem: 15.0 GB 
+[06/12 22:32:02][INFO] visual_prompt:  297: 	Training 2600/5004. train loss: 5.9049,	0.8689 s / batch. (data: 2.54e-04). ETA=4 days, 18:06:56, max mem: 15.0 GB 
+[06/12 22:33:29][INFO] visual_prompt:  297: 	Training 2700/5004. train loss: 6.0051,	0.8754 s / batch. (data: 4.10e-04). ETA=4 days, 18:56:37, max mem: 15.0 GB 
+[06/12 22:34:57][INFO] visual_prompt:  297: 	Training 2800/5004. train loss: 5.9071,	0.8742 s / batch. (data: 3.41e-04). ETA=4 days, 18:45:43, max mem: 15.0 GB 
+[06/12 22:36:24][INFO] visual_prompt:  297: 	Training 2900/5004. train loss: 5.7963,	0.8742 s / batch. (data: 2.38e-04). ETA=4 days, 18:43:59, max mem: 15.0 GB 
+[06/12 22:37:51][INFO] visual_prompt:  297: 	Training 3000/5004. train loss: 5.9715,	0.8691 s / batch. (data: 2.98e-04). ETA=4 days, 18:02:13, max mem: 15.0 GB 
+[06/12 22:39:18][INFO] visual_prompt:  297: 	Training 3100/5004. train loss: 5.9761,	0.8724 s / batch. (data: 3.33e-04). ETA=4 days, 18:27:18, max mem: 15.0 GB 
+[06/12 22:40:46][INFO] visual_prompt:  297: 	Training 3200/5004. train loss: 5.8939,	0.8721 s / batch. (data: 3.91e-04). ETA=4 days, 18:23:03, max mem: 15.0 GB 
+[06/12 22:42:13][INFO] visual_prompt:  297: 	Training 3300/5004. train loss: 5.9036,	0.8706 s / batch. (data: 2.97e-04). ETA=4 days, 18:09:44, max mem: 15.0 GB 
+[06/12 22:43:40][INFO] visual_prompt:  297: 	Training 3400/5004. train loss: 5.8919,	0.8728 s / batch. (data: 3.16e-04). ETA=4 days, 18:25:24, max mem: 15.0 GB 
+[06/12 22:45:07][INFO] visual_prompt:  297: 	Training 3500/5004. train loss: 5.8876,	0.8751 s / batch. (data: 2.93e-04). ETA=4 days, 18:42:27, max mem: 15.0 GB 
+[06/12 22:46:35][INFO] visual_prompt:  297: 	Training 3600/5004. train loss: 5.7594,	0.8726 s / batch. (data: 3.24e-04). ETA=4 days, 18:21:08, max mem: 15.0 GB 
+[06/12 22:48:02][INFO] visual_prompt:  297: 	Training 3700/5004. train loss: 5.8991,	0.8691 s / batch. (data: 3.22e-04). ETA=4 days, 17:52:01, max mem: 15.0 GB 
+[06/12 22:49:29][INFO] visual_prompt:  297: 	Training 3800/5004. train loss: 5.9059,	0.8691 s / batch. (data: 2.83e-04). ETA=4 days, 17:50:28, max mem: 15.0 GB 
+[06/12 22:50:56][INFO] visual_prompt:  297: 	Training 3900/5004. train loss: 5.9661,	0.8692 s / batch. (data: 3.05e-04). ETA=4 days, 17:50:19, max mem: 15.0 GB 
+[06/12 22:52:24][INFO] visual_prompt:  297: 	Training 4000/5004. train loss: 5.8410,	0.8716 s / batch. (data: 3.17e-04). ETA=4 days, 18:07:38, max mem: 15.0 GB 
+[06/12 22:53:51][INFO] visual_prompt:  297: 	Training 4100/5004. train loss: 5.9179,	0.8712 s / batch. (data: 2.95e-04). ETA=4 days, 18:03:09, max mem: 15.0 GB 
+[06/12 22:55:18][INFO] visual_prompt:  297: 	Training 4200/5004. train loss: 5.8989,	0.8738 s / batch. (data: 3.29e-04). ETA=4 days, 18:21:33, max mem: 15.0 GB 
+[06/12 22:56:45][INFO] visual_prompt:  297: 	Training 4300/5004. train loss: 5.9136,	0.8709 s / batch. (data: 3.38e-04). ETA=4 days, 17:58:04, max mem: 15.0 GB 
+[06/12 22:58:13][INFO] visual_prompt:  297: 	Training 4400/5004. train loss: 5.8594,	0.8759 s / batch. (data: 3.06e-04). ETA=4 days, 18:35:49, max mem: 15.0 GB 
+[06/12 22:59:40][INFO] visual_prompt:  297: 	Training 4500/5004. train loss: 5.9205,	0.8743 s / batch. (data: 2.97e-04). ETA=4 days, 18:21:29, max mem: 15.0 GB 
+[06/12 23:01:07][INFO] visual_prompt:  297: 	Training 4600/5004. train loss: 5.9206,	0.8722 s / batch. (data: 3.11e-04). ETA=4 days, 18:03:53, max mem: 15.0 GB 
+[06/12 23:02:34][INFO] visual_prompt:  297: 	Training 4700/5004. train loss: 5.8125,	0.8777 s / batch. (data: 2.91e-04). ETA=4 days, 18:45:02, max mem: 15.0 GB 
+[06/12 23:04:02][INFO] visual_prompt:  297: 	Training 4800/5004. train loss: 5.8312,	0.8697 s / batch. (data: 2.53e-04). ETA=4 days, 17:41:11, max mem: 15.0 GB 
+[06/12 23:05:29][INFO] visual_prompt:  297: 	Training 4900/5004. train loss: 5.8234,	0.8747 s / batch. (data: 3.53e-04). ETA=4 days, 18:18:31, max mem: 15.0 GB 
+[06/12 23:06:56][INFO] visual_prompt:  297: 	Training 5000/5004. train loss: 5.8126,	0.8689 s / batch. (data: 1.04e-04). ETA=4 days, 17:32:06, max mem: 15.0 GB 
+[06/12 23:07:01][INFO] visual_prompt:  310: Epoch 6 / 100: avg data time: 3.97e-03, avg batch time: 0.8793, average train loss: 5.8819
+[06/12 23:15:58][INFO] visual_prompt:  430: 	Test 100/196. loss: 58.798, 5.1708 s / batch. (data: 2.93e-04)max mem: 15.00347 GB 
+[06/12 23:24:14][INFO] visual_prompt:  467: Inference (val):avg data time: 1.60e-04, avg batch time: 5.1891, average loss: 59.1914
+[06/12 23:24:14][INFO] visual_prompt:  484: Saved invariances for val_imagenet at output_ce_10/imagenet/sup_vitb16_imagenet21k/lr0.5_wd0.001/run1/val_imagenet_invariances.json
+[06/12 23:24:14][INFO] visual_prompt:  248: Training 7 / 100 epoch, with learning rate 0.3
+[06/12 23:26:07][INFO] visual_prompt:  297: 	Training 100/5004. train loss: 5.9341,	0.8745 s / batch. (data: 5.61e-04). ETA=4 days, 18:13:58, max mem: 15.0 GB 
+[06/12 23:27:34][INFO] visual_prompt:  297: 	Training 200/5004. train loss: 5.9639,	0.8685 s / batch. (data: 3.25e-04). ETA=4 days, 17:25:29, max mem: 15.0 GB 
+[06/12 23:29:02][INFO] visual_prompt:  297: 	Training 300/5004. train loss: 5.9737,	0.8756 s / batch. (data: 2.52e-04). ETA=4 days, 18:19:38, max mem: 15.0 GB 
+[06/12 23:30:29][INFO] visual_prompt:  297: 	Training 400/5004. train loss: 5.9498,	0.8711 s / batch. (data: 3.04e-04). ETA=4 days, 17:43:29, max mem: 15.0 GB 
+[06/12 23:31:56][INFO] visual_prompt:  297: 	Training 500/5004. train loss: 5.9722,	0.8728 s / batch. (data: 3.07e-04). ETA=4 days, 17:55:10, max mem: 15.0 GB 
+[06/12 23:33:24][INFO] visual_prompt:  297: 	Training 600/5004. train loss: 5.9364,	0.8776 s / batch. (data: 3.20e-04). ETA=4 days, 18:31:28, max mem: 15.0 GB 
+[06/12 23:34:51][INFO] visual_prompt:  297: 	Training 700/5004. train loss: 5.8537,	0.8711 s / batch. (data: 3.32e-04). ETA=4 days, 17:39:17, max mem: 15.0 GB 
+[06/12 23:36:19][INFO] visual_prompt:  297: 	Training 800/5004. train loss: 5.8184,	0.8718 s / batch. (data: 3.17e-04). ETA=4 days, 17:42:33, max mem: 15.0 GB 
+[06/12 23:37:46][INFO] visual_prompt:  297: 	Training 900/5004. train loss: 5.9362,	0.8711 s / batch. (data: 3.18e-04). ETA=4 days, 17:36:20, max mem: 15.0 GB 
+[06/12 23:39:14][INFO] visual_prompt:  297: 	Training 1000/5004. train loss: 5.8854,	0.8739 s / batch. (data: 3.38e-04). ETA=4 days, 17:56:41, max mem: 15.0 GB 
+[06/12 23:40:42][INFO] visual_prompt:  297: 	Training 1100/5004. train loss: 5.9616,	0.8786 s / batch. (data: 2.91e-04). ETA=4 days, 18:31:49, max mem: 15.0 GB 
+[06/12 23:42:09][INFO] visual_prompt:  297: 	Training 1200/5004. train loss: 5.8265,	0.8727 s / batch. (data: 2.86e-04). ETA=4 days, 17:43:53, max mem: 15.0 GB 
+[06/12 23:43:37][INFO] visual_prompt:  297: 	Training 1300/5004. train loss: 5.7226,	0.8750 s / batch. (data: 2.75e-04). ETA=4 days, 18:00:37, max mem: 15.0 GB 
+[06/12 23:45:04][INFO] visual_prompt:  297: 	Training 1400/5004. train loss: 5.7807,	0.8722 s / batch. (data: 3.28e-04). ETA=4 days, 17:37:09, max mem: 15.0 GB 
+[06/12 23:46:32][INFO] visual_prompt:  297: 	Training 1500/5004. train loss: 5.8848,	0.8740 s / batch. (data: 2.76e-04). ETA=4 days, 17:49:41, max mem: 15.0 GB 
+[06/12 23:47:59][INFO] visual_prompt:  297: 	Training 1600/5004. train loss: 5.8214,	0.8713 s / batch. (data: 2.54e-04). ETA=4 days, 17:27:12, max mem: 15.0 GB 
+[06/12 23:49:27][INFO] visual_prompt:  297: 	Training 1700/5004. train loss: 5.9402,	0.8712 s / batch. (data: 2.87e-04). ETA=4 days, 17:25:03, max mem: 15.0 GB 
+[06/12 23:50:54][INFO] visual_prompt:  297: 	Training 1800/5004. train loss: 5.7902,	0.8741 s / batch. (data: 2.97e-04). ETA=4 days, 17:46:40, max mem: 15.0 GB 
+[06/12 23:52:22][INFO] visual_prompt:  297: 	Training 1900/5004. train loss: 5.7763,	0.8820 s / batch. (data: 3.18e-04). ETA=4 days, 18:46:52, max mem: 15.0 GB 
+[06/12 23:53:49][INFO] visual_prompt:  297: 	Training 2000/5004. train loss: 5.9206,	0.8718 s / batch. (data: 3.44e-04). ETA=4 days, 17:25:53, max mem: 15.0 GB 
+[06/12 23:55:17][INFO] visual_prompt:  297: 	Training 2100/5004. train loss: 5.9025,	0.8737 s / batch. (data: 2.86e-04). ETA=4 days, 17:38:48, max mem: 15.0 GB 
+[06/12 23:56:44][INFO] visual_prompt:  297: 	Training 2200/5004. train loss: 5.8792,	0.8789 s / batch. (data: 2.85e-04). ETA=4 days, 18:18:00, max mem: 15.0 GB 
+[06/12 23:58:11][INFO] visual_prompt:  297: 	Training 2300/5004. train loss: 5.8292,	0.8753 s / batch. (data: 2.60e-04). ETA=4 days, 17:48:40, max mem: 15.0 GB 
+[06/12 23:59:39][INFO] visual_prompt:  297: 	Training 2400/5004. train loss: 5.8444,	0.8769 s / batch. (data: 3.23e-04). ETA=4 days, 17:59:29, max mem: 15.0 GB 
+[06/13 00:01:07][INFO] visual_prompt:  297: 	Training 2500/5004. train loss: 5.8700,	0.8697 s / batch. (data: 3.20e-04). ETA=4 days, 17:02:03, max mem: 15.0 GB 
+[06/13 00:02:34][INFO] visual_prompt:  297: 	Training 2600/5004. train loss: 5.8151,	0.8717 s / batch. (data: 3.65e-04). ETA=4 days, 17:16:12, max mem: 15.0 GB 
+[06/13 00:04:02][INFO] visual_prompt:  297: 	Training 2700/5004. train loss: 5.7975,	0.8794 s / batch. (data: 2.74e-04). ETA=4 days, 18:14:39, max mem: 15.0 GB 
+[06/13 00:05:29][INFO] visual_prompt:  297: 	Training 2800/5004. train loss: 5.8620,	0.8770 s / batch. (data: 2.88e-04). ETA=4 days, 17:54:15, max mem: 15.0 GB 
+[06/13 00:06:57][INFO] visual_prompt:  297: 	Training 2900/5004. train loss: 5.8315,	0.8734 s / batch. (data: 2.76e-04). ETA=4 days, 17:25:11, max mem: 15.0 GB 
+[06/13 00:08:25][INFO] visual_prompt:  297: 	Training 3000/5004. train loss: 5.9011,	0.8746 s / batch. (data: 2.99e-04). ETA=4 days, 17:32:46, max mem: 15.0 GB 
+[06/13 00:09:52][INFO] visual_prompt:  297: 	Training 3100/5004. train loss: 5.9578,	0.8765 s / batch. (data: 2.95e-04). ETA=4 days, 17:46:18, max mem: 15.0 GB 
+[06/13 00:11:20][INFO] visual_prompt:  297: 	Training 3200/5004. train loss: 5.8591,	0.8803 s / batch. (data: 2.73e-04). ETA=4 days, 18:14:26, max mem: 15.0 GB 
+[06/13 00:12:47][INFO] visual_prompt:  297: 	Training 3300/5004. train loss: 5.8451,	0.8742 s / batch. (data: 3.08e-04). ETA=4 days, 17:25:05, max mem: 15.0 GB 
+[06/13 00:14:15][INFO] visual_prompt:  297: 	Training 3400/5004. train loss: 5.8794,	0.8815 s / batch. (data: 2.95e-04). ETA=4 days, 18:20:53, max mem: 15.0 GB 
+[06/13 00:15:43][INFO] visual_prompt:  297: 	Training 3500/5004. train loss: 5.9095,	0.8732 s / batch. (data: 2.98e-04). ETA=4 days, 17:14:23, max mem: 15.0 GB 
+[06/13 00:17:10][INFO] visual_prompt:  297: 	Training 3600/5004. train loss: 5.8735,	0.8747 s / batch. (data: 2.88e-04). ETA=4 days, 17:25:03, max mem: 15.0 GB 
+[06/13 00:18:38][INFO] visual_prompt:  297: 	Training 3700/5004. train loss: 5.8649,	0.8758 s / batch. (data: 3.01e-04). ETA=4 days, 17:31:42, max mem: 15.0 GB 
+[06/13 00:20:05][INFO] visual_prompt:  297: 	Training 3800/5004. train loss: 5.9174,	0.8784 s / batch. (data: 2.55e-04). ETA=4 days, 17:50:36, max mem: 15.0 GB 
+[06/13 00:21:33][INFO] visual_prompt:  297: 	Training 3900/5004. train loss: 5.8246,	0.8752 s / batch. (data: 2.57e-04). ETA=4 days, 17:24:00, max mem: 15.0 GB 
+[06/13 00:23:00][INFO] visual_prompt:  297: 	Training 4000/5004. train loss: 5.8997,	0.8753 s / batch. (data: 3.26e-04). ETA=4 days, 17:23:38, max mem: 15.0 GB 
+[06/13 00:24:28][INFO] visual_prompt:  297: 	Training 4100/5004. train loss: 5.8980,	0.8761 s / batch. (data: 2.76e-04). ETA=4 days, 17:28:39, max mem: 15.0 GB 
+[06/13 00:25:55][INFO] visual_prompt:  297: 	Training 4200/5004. train loss: 5.8201,	0.8729 s / batch. (data: 3.12e-04). ETA=4 days, 17:02:14, max mem: 15.0 GB 
+[06/13 00:27:23][INFO] visual_prompt:  297: 	Training 4300/5004. train loss: 5.9031,	0.8760 s / batch. (data: 3.21e-04). ETA=4 days, 17:24:30, max mem: 15.0 GB 
+[06/13 00:28:51][INFO] visual_prompt:  297: 	Training 4400/5004. train loss: 5.8530,	0.8772 s / batch. (data: 3.73e-04). ETA=4 days, 17:32:55, max mem: 15.0 GB 
+[06/13 00:30:18][INFO] visual_prompt:  297: 	Training 4500/5004. train loss: 5.9435,	0.8725 s / batch. (data: 3.57e-04). ETA=4 days, 16:54:34, max mem: 15.0 GB 
+[06/13 00:31:46][INFO] visual_prompt:  297: 	Training 4600/5004. train loss: 5.8342,	0.8790 s / batch. (data: 2.63e-04). ETA=4 days, 17:43:32, max mem: 15.0 GB 
+[06/13 00:33:13][INFO] visual_prompt:  297: 	Training 4700/5004. train loss: 5.7657,	0.8730 s / batch. (data: 3.28e-04). ETA=4 days, 16:55:25, max mem: 15.0 GB 
+[06/13 00:34:41][INFO] visual_prompt:  297: 	Training 4800/5004. train loss: 5.9400,	0.8773 s / batch. (data: 3.43e-04). ETA=4 days, 17:27:46, max mem: 15.0 GB 
+[06/13 00:36:09][INFO] visual_prompt:  297: 	Training 4900/5004. train loss: 5.7549,	0.8724 s / batch. (data: 3.42e-04). ETA=4 days, 16:48:03, max mem: 15.0 GB 
+[06/13 00:37:36][INFO] visual_prompt:  297: 	Training 5000/5004. train loss: 5.9065,	0.8720 s / batch. (data: 1.06e-04). ETA=4 days, 16:43:06, max mem: 15.0 GB 
+[06/13 00:37:41][INFO] visual_prompt:  310: Epoch 7 / 100: avg data time: 4.01e-03, avg batch time: 0.8804, average train loss: 5.8870
+[06/13 00:46:39][INFO] visual_prompt:  430: 	Test 100/196. loss: 58.898, 5.2618 s / batch. (data: 2.00e-04)max mem: 15.00347 GB 
+[06/13 00:55:00][INFO] visual_prompt:  467: Inference (val):avg data time: 1.65e-04, avg batch time: 5.2173, average loss: 59.2969
+[06/13 00:55:00][INFO] visual_prompt:  484: Saved invariances for val_imagenet at output_ce_10/imagenet/sup_vitb16_imagenet21k/lr0.5_wd0.001/run1/val_imagenet_invariances.json
+[06/13 00:55:00][INFO] visual_prompt:  248: Training 8 / 100 epoch, with learning rate 0.35
+[06/13 00:56:53][INFO] visual_prompt:  297: 	Training 100/5004. train loss: 5.8767,	0.8727 s / batch. (data: 3.15e-04). ETA=4 days, 16:47:20, max mem: 15.0 GB 
+[06/13 00:58:21][INFO] visual_prompt:  297: 	Training 200/5004. train loss: 5.9030,	0.8726 s / batch. (data: 3.43e-04). ETA=4 days, 16:45:00, max mem: 15.0 GB 
+[06/13 00:59:48][INFO] visual_prompt:  297: 	Training 300/5004. train loss: 5.9002,	0.8747 s / batch. (data: 3.51e-04). ETA=4 days, 17:00:05, max mem: 15.0 GB 
+[06/13 01:01:16][INFO] visual_prompt:  297: 	Training 400/5004. train loss: 5.9938,	0.8719 s / batch. (data: 3.80e-04). ETA=4 days, 16:36:53, max mem: 15.0 GB 
+[06/13 01:02:43][INFO] visual_prompt:  297: 	Training 500/5004. train loss: 6.0118,	0.8774 s / batch. (data: 2.96e-04). ETA=4 days, 17:17:39, max mem: 15.0 GB 
+[06/13 01:04:11][INFO] visual_prompt:  297: 	Training 600/5004. train loss: 5.9547,	0.8786 s / batch. (data: 3.29e-04). ETA=4 days, 17:25:46, max mem: 15.0 GB 
+[06/13 01:05:38][INFO] visual_prompt:  297: 	Training 700/5004. train loss: 6.0346,	0.8781 s / batch. (data: 3.34e-04). ETA=4 days, 17:20:18, max mem: 15.0 GB 
+[06/13 01:07:06][INFO] visual_prompt:  297: 	Training 800/5004. train loss: 5.8586,	0.8786 s / batch. (data: 2.93e-04). ETA=4 days, 17:22:41, max mem: 15.0 GB 
+[06/13 01:08:34][INFO] visual_prompt:  297: 	Training 900/5004. train loss: 5.9661,	0.8790 s / batch. (data: 3.17e-04). ETA=4 days, 17:24:50, max mem: 15.0 GB 
+[06/13 01:10:01][INFO] visual_prompt:  297: 	Training 1000/5004. train loss: 5.8324,	0.8778 s / batch. (data: 2.50e-04). ETA=4 days, 17:13:26, max mem: 15.0 GB 
+[06/13 01:11:29][INFO] visual_prompt:  297: 	Training 1100/5004. train loss: 5.9557,	0.8802 s / batch. (data: 3.27e-04). ETA=4 days, 17:30:33, max mem: 15.0 GB 
+[06/13 01:12:57][INFO] visual_prompt:  297: 	Training 1200/5004. train loss: 5.8635,	0.8783 s / batch. (data: 3.38e-04). ETA=4 days, 17:14:47, max mem: 15.0 GB 
+[06/13 01:14:25][INFO] visual_prompt:  297: 	Training 1300/5004. train loss: 5.8450,	0.8847 s / batch. (data: 3.59e-04). ETA=4 days, 18:02:22, max mem: 15.0 GB 
+[06/13 01:15:52][INFO] visual_prompt:  297: 	Training 1400/5004. train loss: 5.8692,	0.8766 s / batch. (data: 3.15e-04). ETA=4 days, 16:58:55, max mem: 15.0 GB 
+[06/13 01:17:20][INFO] visual_prompt:  297: 	Training 1500/5004. train loss: 5.9365,	0.8791 s / batch. (data: 2.83e-04). ETA=4 days, 17:16:38, max mem: 15.0 GB 
+[06/13 01:18:48][INFO] visual_prompt:  297: 	Training 1600/5004. train loss: 5.8312,	0.8745 s / batch. (data: 4.51e-04). ETA=4 days, 16:39:18, max mem: 15.0 GB 
+[06/13 01:20:15][INFO] visual_prompt:  297: 	Training 1700/5004. train loss: 5.9868,	0.8776 s / batch. (data: 3.20e-04). ETA=4 days, 17:01:55, max mem: 15.0 GB 
+[06/13 01:21:43][INFO] visual_prompt:  297: 	Training 1800/5004. train loss: 5.9210,	0.8822 s / batch. (data: 2.61e-04). ETA=4 days, 17:35:46, max mem: 15.0 GB 
+[06/13 01:23:11][INFO] visual_prompt:  297: 	Training 1900/5004. train loss: 5.9236,	0.8772 s / batch. (data: 2.72e-04). ETA=4 days, 16:55:46, max mem: 15.0 GB 
+[06/13 01:24:38][INFO] visual_prompt:  297: 	Training 2000/5004. train loss: 5.9342,	0.8738 s / batch. (data: 3.08e-04). ETA=4 days, 16:27:59, max mem: 15.0 GB 
+[06/13 01:26:06][INFO] visual_prompt:  297: 	Training 2100/5004. train loss: 5.8040,	0.8780 s / batch. (data: 3.26e-04). ETA=4 days, 16:59:27, max mem: 15.0 GB 
+[06/13 01:27:33][INFO] visual_prompt:  297: 	Training 2200/5004. train loss: 5.8803,	0.8775 s / batch. (data: 2.68e-04). ETA=4 days, 16:54:15, max mem: 15.0 GB 
+[06/13 01:29:01][INFO] visual_prompt:  297: 	Training 2300/5004. train loss: 5.8397,	0.8746 s / batch. (data: 2.96e-04). ETA=4 days, 16:30:16, max mem: 15.0 GB 
+[06/13 01:30:28][INFO] visual_prompt:  297: 	Training 2400/5004. train loss: 5.8898,	0.8760 s / batch. (data: 3.14e-04). ETA=4 days, 16:39:36, max mem: 15.0 GB 
+[06/13 01:31:56][INFO] visual_prompt:  297: 	Training 2500/5004. train loss: 5.8919,	0.8744 s / batch. (data: 3.59e-04). ETA=4 days, 16:25:29, max mem: 15.0 GB 
+[06/13 01:33:23][INFO] visual_prompt:  297: 	Training 2600/5004. train loss: 5.9189,	0.8745 s / batch. (data: 3.04e-04). ETA=4 days, 16:25:11, max mem: 15.0 GB 
+[06/13 01:34:51][INFO] visual_prompt:  297: 	Training 2700/5004. train loss: 5.9175,	0.8744 s / batch. (data: 4.04e-04). ETA=4 days, 16:22:43, max mem: 15.0 GB 
+[06/13 01:36:18][INFO] visual_prompt:  297: 	Training 2800/5004. train loss: 5.8471,	0.8748 s / batch. (data: 3.63e-04). ETA=4 days, 16:23:58, max mem: 15.0 GB 
+[06/13 01:37:46][INFO] visual_prompt:  297: 	Training 2900/5004. train loss: 5.8333,	0.8777 s / batch. (data: 2.97e-04). ETA=4 days, 16:45:17, max mem: 15.0 GB 
+[06/13 01:39:13][INFO] visual_prompt:  297: 	Training 3000/5004. train loss: 5.9854,	0.8789 s / batch. (data: 3.05e-04). ETA=4 days, 16:53:05, max mem: 15.0 GB 
+[06/13 01:40:41][INFO] visual_prompt:  297: 	Training 3100/5004. train loss: 5.8780,	0.8779 s / batch. (data: 3.14e-04). ETA=4 days, 16:43:43, max mem: 15.0 GB 
+[06/13 01:42:08][INFO] visual_prompt:  297: 	Training 3200/5004. train loss: 5.9325,	0.8724 s / batch. (data: 2.71e-04). ETA=4 days, 16:00:18, max mem: 15.0 GB 
+[06/13 01:43:36][INFO] visual_prompt:  297: 	Training 3300/5004. train loss: 5.9396,	0.8759 s / batch. (data: 3.24e-04). ETA=4 days, 16:25:36, max mem: 15.0 GB 
+[06/13 01:45:04][INFO] visual_prompt:  297: 	Training 3400/5004. train loss: 5.9001,	0.8738 s / batch. (data: 2.87e-04). ETA=4 days, 16:07:59, max mem: 15.0 GB 
+[06/13 01:46:31][INFO] visual_prompt:  297: 	Training 3500/5004. train loss: 5.8941,	0.8788 s / batch. (data: 2.83e-04). ETA=4 days, 16:45:12, max mem: 15.0 GB 
+[06/13 01:47:59][INFO] visual_prompt:  297: 	Training 3600/5004. train loss: 5.8000,	0.8776 s / batch. (data: 2.94e-04). ETA=4 days, 16:34:08, max mem: 15.0 GB 
+[06/13 01:49:27][INFO] visual_prompt:  297: 	Training 3700/5004. train loss: 5.8778,	0.8753 s / batch. (data: 3.29e-04). ETA=4 days, 16:15:24, max mem: 15.0 GB 
+[06/13 01:50:54][INFO] visual_prompt:  297: 	Training 3800/5004. train loss: 5.8541,	0.8765 s / batch. (data: 3.33e-04). ETA=4 days, 16:23:00, max mem: 15.0 GB 
+[06/13 01:52:22][INFO] visual_prompt:  297: 	Training 3900/5004. train loss: 5.8870,	0.8780 s / batch. (data: 2.82e-04). ETA=4 days, 16:32:50, max mem: 15.0 GB 
+[06/13 01:53:50][INFO] visual_prompt:  297: 	Training 4000/5004. train loss: 5.8504,	0.8719 s / batch. (data: 3.75e-04). ETA=4 days, 15:44:28, max mem: 15.0 GB 
+[06/13 01:55:17][INFO] visual_prompt:  297: 	Training 4100/5004. train loss: 5.8728,	0.8781 s / batch. (data: 2.68e-04). ETA=4 days, 16:30:32, max mem: 15.0 GB 
+[06/13 01:56:45][INFO] visual_prompt:  297: 	Training 4200/5004. train loss: 5.9945,	0.8769 s / batch. (data: 3.50e-04). ETA=4 days, 16:20:06, max mem: 15.0 GB 
+[06/13 01:58:12][INFO] visual_prompt:  297: 	Training 4300/5004. train loss: 5.8717,	0.8774 s / batch. (data: 3.60e-04). ETA=4 days, 16:22:13, max mem: 15.0 GB 
+[06/13 01:59:40][INFO] visual_prompt:  297: 	Training 4400/5004. train loss: 5.7969,	0.8778 s / batch. (data: 3.64e-04). ETA=4 days, 16:23:50, max mem: 15.0 GB 
+[06/13 02:01:07][INFO] visual_prompt:  297: 	Training 4500/5004. train loss: 5.8785,	0.8779 s / batch. (data: 3.18e-04). ETA=4 days, 16:23:26, max mem: 15.0 GB 
+[06/13 02:02:35][INFO] visual_prompt:  297: 	Training 4600/5004. train loss: 5.9790,	0.8711 s / batch. (data: 2.91e-04). ETA=4 days, 15:29:46, max mem: 15.0 GB 
+[06/13 02:04:03][INFO] visual_prompt:  297: 	Training 4700/5004. train loss: 5.8855,	0.8761 s / batch. (data: 3.77e-04). ETA=4 days, 16:06:51, max mem: 15.0 GB 
+[06/13 02:05:30][INFO] visual_prompt:  297: 	Training 4800/5004. train loss: 5.9123,	0.8745 s / batch. (data: 3.14e-04). ETA=4 days, 15:52:48, max mem: 15.0 GB 
+[06/13 02:06:58][INFO] visual_prompt:  297: 	Training 4900/5004. train loss: 5.7274,	0.8748 s / batch. (data: 3.71e-04). ETA=4 days, 15:53:40, max mem: 15.0 GB 
+[06/13 02:08:25][INFO] visual_prompt:  297: 	Training 5000/5004. train loss: 5.9302,	0.8703 s / batch. (data: 1.01e-04). ETA=4 days, 15:17:31, max mem: 15.0 GB 
+[06/13 02:08:30][INFO] visual_prompt:  310: Epoch 8 / 100: avg data time: 4.14e-03, avg batch time: 0.8810, average train loss: 5.8976
+[06/13 02:17:28][INFO] visual_prompt:  430: 	Test 100/196. loss: 58.852, 5.1864 s / batch. (data: 1.50e-04)max mem: 15.00347 GB 
+[06/13 02:25:46][INFO] visual_prompt:  467: Inference (val):avg data time: 1.60e-04, avg batch time: 5.2010, average loss: 59.3320
+[06/13 02:25:46][INFO] visual_prompt:  484: Saved invariances for val_imagenet at output_ce_10/imagenet/sup_vitb16_imagenet21k/lr0.5_wd0.001/run1/val_imagenet_invariances.json
+[06/13 02:25:46][INFO] visual_prompt:  248: Training 9 / 100 epoch, with learning rate 0.4
+[06/13 02:27:42][INFO] visual_prompt:  297: 	Training 100/5004. train loss: 6.0036,	0.8718 s / batch. (data: 2.51e-04). ETA=4 days, 15:27:41, max mem: 15.0 GB 
+[06/13 02:29:09][INFO] visual_prompt:  297: 	Training 200/5004. train loss: 6.0859,	0.8791 s / batch. (data: 2.94e-04). ETA=4 days, 16:21:55, max mem: 15.0 GB 
+[06/13 02:30:37][INFO] visual_prompt:  297: 	Training 300/5004. train loss: 5.9974,	0.8735 s / batch. (data: 2.85e-04). ETA=4 days, 15:37:55, max mem: 15.0 GB 
+[06/13 02:32:05][INFO] visual_prompt:  297: 	Training 400/5004. train loss: 5.9433,	0.8759 s / batch. (data: 2.85e-04). ETA=4 days, 15:54:43, max mem: 15.0 GB 
+[06/13 02:33:33][INFO] visual_prompt:  297: 	Training 500/5004. train loss: 5.9529,	0.8755 s / batch. (data: 2.96e-04). ETA=4 days, 15:50:15, max mem: 15.0 GB 
+[06/13 02:35:00][INFO] visual_prompt:  297: 	Training 600/5004. train loss: 5.9375,	0.8755 s / batch. (data: 2.44e-04). ETA=4 days, 15:48:40, max mem: 15.0 GB 
+[06/13 02:36:28][INFO] visual_prompt:  297: 	Training 700/5004. train loss: 5.8789,	0.8739 s / batch. (data: 2.88e-04). ETA=4 days, 15:35:01, max mem: 15.0 GB 
+[06/13 02:37:55][INFO] visual_prompt:  297: 	Training 800/5004. train loss: 5.9223,	0.8738 s / batch. (data: 2.68e-04). ETA=4 days, 15:32:47, max mem: 15.0 GB 
+[06/13 02:39:23][INFO] visual_prompt:  297: 	Training 900/5004. train loss: 5.9376,	0.8780 s / batch. (data: 2.99e-04). ETA=4 days, 16:03:18, max mem: 15.0 GB 
+[06/13 02:40:50][INFO] visual_prompt:  297: 	Training 1000/5004. train loss: 5.8126,	0.8738 s / batch. (data: 2.66e-04). ETA=4 days, 15:30:06, max mem: 15.0 GB 
+[06/13 02:42:18][INFO] visual_prompt:  297: 	Training 1100/5004. train loss: 5.9871,	0.8746 s / batch. (data: 2.76e-04). ETA=4 days, 15:34:52, max mem: 15.0 GB 
+[06/13 02:43:46][INFO] visual_prompt:  297: 	Training 1200/5004. train loss: 5.8206,	0.8789 s / batch. (data: 2.94e-04). ETA=4 days, 16:06:17, max mem: 15.0 GB 
+[06/13 02:45:13][INFO] visual_prompt:  297: 	Training 1300/5004. train loss: 5.8148,	0.8769 s / batch. (data: 3.19e-04). ETA=4 days, 15:49:30, max mem: 15.0 GB 
+[06/13 02:46:41][INFO] visual_prompt:  297: 	Training 1400/5004. train loss: 5.7234,	0.8772 s / batch. (data: 3.60e-04). ETA=4 days, 15:50:19, max mem: 15.0 GB 
+[06/13 02:48:08][INFO] visual_prompt:  297: 	Training 1500/5004. train loss: 5.9391,	0.8720 s / batch. (data: 2.64e-04). ETA=4 days, 15:08:50, max mem: 15.0 GB 
+[06/13 02:49:36][INFO] visual_prompt:  297: 	Training 1600/5004. train loss: 5.9244,	0.8747 s / batch. (data: 2.73e-04). ETA=4 days, 15:28:23, max mem: 15.0 GB 
+[06/13 02:51:04][INFO] visual_prompt:  297: 	Training 1700/5004. train loss: 6.0050,	0.8738 s / batch. (data: 3.31e-04). ETA=4 days, 15:19:57, max mem: 15.0 GB 
+[06/13 02:52:31][INFO] visual_prompt:  297: 	Training 1800/5004. train loss: 5.9405,	0.8771 s / batch. (data: 2.61e-04). ETA=4 days, 15:43:41, max mem: 15.0 GB 
+[06/13 02:53:59][INFO] visual_prompt:  297: 	Training 1900/5004. train loss: 5.8105,	0.8782 s / batch. (data: 3.07e-04). ETA=4 days, 15:50:32, max mem: 15.0 GB 
+[06/13 02:55:26][INFO] visual_prompt:  297: 	Training 2000/5004. train loss: 5.9593,	0.8781 s / batch. (data: 4.10e-04). ETA=4 days, 15:48:07, max mem: 15.0 GB 
+[06/13 02:56:54][INFO] visual_prompt:  297: 	Training 2100/5004. train loss: 5.8745,	0.8716 s / batch. (data: 2.68e-04). ETA=4 days, 14:56:49, max mem: 15.0 GB 
+[06/13 02:58:22][INFO] visual_prompt:  297: 	Training 2200/5004. train loss: 5.8819,	0.8767 s / batch. (data: 2.69e-04). ETA=4 days, 15:34:14, max mem: 15.0 GB 
+[06/13 02:59:49][INFO] visual_prompt:  297: 	Training 2300/5004. train loss: 5.9175,	0.8762 s / batch. (data: 3.06e-04). ETA=4 days, 15:29:00, max mem: 15.0 GB 
+[06/13 03:01:17][INFO] visual_prompt:  297: 	Training 2400/5004. train loss: 5.8652,	0.8766 s / batch. (data: 3.18e-04). ETA=4 days, 15:31:04, max mem: 15.0 GB 
+[06/13 03:02:45][INFO] visual_prompt:  297: 	Training 2500/5004. train loss: 5.8731,	0.8779 s / batch. (data: 3.76e-04). ETA=4 days, 15:39:09, max mem: 15.0 GB 
+[06/13 03:04:12][INFO] visual_prompt:  297: 	Training 2600/5004. train loss: 5.9099,	0.8780 s / batch. (data: 4.09e-04). ETA=4 days, 15:38:21, max mem: 15.0 GB 
+[06/13 03:05:40][INFO] visual_prompt:  297: 	Training 2700/5004. train loss: 5.9011,	0.8755 s / batch. (data: 3.22e-04). ETA=4 days, 15:17:57, max mem: 15.0 GB 
+[06/13 03:07:07][INFO] visual_prompt:  297: 	Training 2800/5004. train loss: 5.9424,	0.8758 s / batch. (data: 3.11e-04). ETA=4 days, 15:19:04, max mem: 15.0 GB 
+[06/13 03:08:35][INFO] visual_prompt:  297: 	Training 2900/5004. train loss: 5.8252,	0.8762 s / batch. (data: 2.52e-04). ETA=4 days, 15:20:47, max mem: 15.0 GB 
+[06/13 03:10:03][INFO] visual_prompt:  297: 	Training 3000/5004. train loss: 5.9322,	0.8774 s / batch. (data: 2.83e-04). ETA=4 days, 15:28:19, max mem: 15.0 GB 
+[06/13 03:11:30][INFO] visual_prompt:  297: 	Training 3100/5004. train loss: 5.9797,	0.8778 s / batch. (data: 2.81e-04). ETA=4 days, 15:30:00, max mem: 15.0 GB 
+[06/13 03:12:58][INFO] visual_prompt:  297: 	Training 3200/5004. train loss: 5.8314,	0.8748 s / batch. (data: 3.69e-04). ETA=4 days, 15:05:16, max mem: 15.0 GB 
+[06/13 03:14:26][INFO] visual_prompt:  297: 	Training 3300/5004. train loss: 5.9739,	0.8754 s / batch. (data: 4.30e-04). ETA=4 days, 15:08:16, max mem: 15.0 GB 
+[06/13 03:15:53][INFO] visual_prompt:  297: 	Training 3400/5004. train loss: 5.8879,	0.8747 s / batch. (data: 3.02e-04). ETA=4 days, 15:01:48, max mem: 15.0 GB 
+[06/13 03:17:21][INFO] visual_prompt:  297: 	Training 3500/5004. train loss: 5.9115,	0.8764 s / batch. (data: 3.57e-04). ETA=4 days, 15:13:07, max mem: 15.0 GB 
+[06/13 03:18:49][INFO] visual_prompt:  297: 	Training 3600/5004. train loss: 5.8864,	0.8757 s / batch. (data: 3.23e-04). ETA=4 days, 15:06:45, max mem: 15.0 GB 
+[06/13 03:20:16][INFO] visual_prompt:  297: 	Training 3700/5004. train loss: 5.8669,	0.8759 s / batch. (data: 3.28e-04). ETA=4 days, 15:06:54, max mem: 15.0 GB 
+[06/13 03:21:44][INFO] visual_prompt:  297: 	Training 3800/5004. train loss: 5.8194,	0.8763 s / batch. (data: 3.11e-04). ETA=4 days, 15:08:28, max mem: 15.0 GB 
+[06/13 03:23:11][INFO] visual_prompt:  297: 	Training 3900/5004. train loss: 5.8590,	0.8750 s / batch. (data: 3.31e-04). ETA=4 days, 14:56:47, max mem: 15.0 GB 
+[06/13 03:24:39][INFO] visual_prompt:  297: 	Training 4000/5004. train loss: 5.9444,	0.8800 s / batch. (data: 3.23e-04). ETA=4 days, 15:33:07, max mem: 15.0 GB 
+[06/13 03:26:06][INFO] visual_prompt:  297: 	Training 4100/5004. train loss: 5.8591,	0.8765 s / batch. (data: 2.90e-04). ETA=4 days, 15:05:35, max mem: 15.0 GB 
+[06/13 03:27:34][INFO] visual_prompt:  297: 	Training 4200/5004. train loss: 5.8920,	0.8767 s / batch. (data: 3.50e-04). ETA=4 days, 15:05:30, max mem: 15.0 GB 
+[06/13 03:29:02][INFO] visual_prompt:  297: 	Training 4300/5004. train loss: 5.9347,	0.8794 s / batch. (data: 3.22e-04). ETA=4 days, 15:24:25, max mem: 15.0 GB 
+[06/13 03:30:29][INFO] visual_prompt:  297: 	Training 4400/5004. train loss: 5.9253,	0.8788 s / batch. (data: 2.62e-04). ETA=4 days, 15:18:35, max mem: 15.0 GB 
+[06/13 03:31:57][INFO] visual_prompt:  297: 	Training 4500/5004. train loss: 5.8846,	0.8783 s / batch. (data: 3.61e-04). ETA=4 days, 15:13:31, max mem: 15.0 GB 
+[06/13 03:33:24][INFO] visual_prompt:  297: 	Training 4600/5004. train loss: 5.9182,	0.8765 s / batch. (data: 2.79e-04). ETA=4 days, 14:58:00, max mem: 15.0 GB 
+[06/13 03:34:52][INFO] visual_prompt:  297: 	Training 4700/5004. train loss: 5.8500,	0.8754 s / batch. (data: 2.67e-04). ETA=4 days, 14:48:19, max mem: 15.0 GB 
+[06/13 03:36:20][INFO] visual_prompt:  297: 	Training 4800/5004. train loss: 5.9531,	0.8765 s / batch. (data: 2.47e-04). ETA=4 days, 14:54:53, max mem: 15.0 GB 
+[06/13 03:37:47][INFO] visual_prompt:  297: 	Training 4900/5004. train loss: 5.7794,	0.8784 s / batch. (data: 1.75e-04). ETA=4 days, 15:08:14, max mem: 15.0 GB 
+[06/13 03:39:15][INFO] visual_prompt:  297: 	Training 5000/5004. train loss: 5.8528,	0.8726 s / batch. (data: 1.09e-04). ETA=4 days, 14:22:20, max mem: 15.0 GB 
+[06/13 03:39:19][INFO] visual_prompt:  310: Epoch 9 / 100: avg data time: 4.17e-03, avg batch time: 0.8818, average train loss: 5.9050
+[06/13 03:48:14][INFO] visual_prompt:  430: 	Test 100/196. loss: 58.986, 5.1845 s / batch. (data: 1.31e-04)max mem: 15.00347 GB 
+[06/13 03:56:31][INFO] visual_prompt:  467: Inference (val):avg data time: 1.55e-04, avg batch time: 5.1735, average loss: 59.4574
+[06/13 03:56:31][INFO] visual_prompt:  484: Saved invariances for val_imagenet at output_ce_10/imagenet/sup_vitb16_imagenet21k/lr0.5_wd0.001/run1/val_imagenet_invariances.json
+[06/13 03:56:31][INFO] visual_prompt:  248: Training 10 / 100 epoch, with learning rate 0.45
+[06/13 03:58:30][INFO] visual_prompt:  297: 	Training 100/5004. train loss: 6.0102,	0.8692 s / batch. (data: 2.76e-04). ETA=4 days, 13:55:16, max mem: 15.0 GB 
+[06/13 03:59:57][INFO] visual_prompt:  297: 	Training 200/5004. train loss: 6.0115,	0.8761 s / batch. (data: 3.11e-04). ETA=4 days, 14:46:17, max mem: 15.0 GB 
+[06/13 04:01:25][INFO] visual_prompt:  297: 	Training 300/5004. train loss: 6.0575,	0.8729 s / batch. (data: 3.44e-04). ETA=4 days, 14:20:05, max mem: 15.0 GB 
+[06/13 04:02:53][INFO] visual_prompt:  297: 	Training 400/5004. train loss: 5.9181,	0.8783 s / batch. (data: 3.18e-04). ETA=4 days, 15:00:09, max mem: 15.0 GB 
+[06/13 04:04:20][INFO] visual_prompt:  297: 	Training 500/5004. train loss: 5.8691,	0.8794 s / batch. (data: 3.08e-04). ETA=4 days, 15:06:42, max mem: 15.0 GB 
+[06/13 04:05:48][INFO] visual_prompt:  297: 	Training 600/5004. train loss: 5.7911,	0.8777 s / batch. (data: 3.17e-04). ETA=4 days, 14:52:26, max mem: 15.0 GB 
+[06/13 04:07:15][INFO] visual_prompt:  297: 	Training 700/5004. train loss: 5.9655,	0.8788 s / batch. (data: 3.47e-04). ETA=4 days, 14:59:14, max mem: 15.0 GB 
+[06/13 04:08:43][INFO] visual_prompt:  297: 	Training 800/5004. train loss: 5.9251,	0.8738 s / batch. (data: 2.62e-04). ETA=4 days, 14:19:52, max mem: 15.0 GB 
+[06/13 04:10:11][INFO] visual_prompt:  297: 	Training 900/5004. train loss: 5.9704,	0.8794 s / batch. (data: 3.06e-04). ETA=4 days, 15:01:17, max mem: 15.0 GB 
+[06/13 04:11:38][INFO] visual_prompt:  297: 	Training 1000/5004. train loss: 5.9333,	0.8718 s / batch. (data: 3.10e-04). ETA=4 days, 14:01:41, max mem: 15.0 GB 
+[06/13 04:13:06][INFO] visual_prompt:  297: 	Training 1100/5004. train loss: 5.9711,	0.8784 s / batch. (data: 3.31e-04). ETA=4 days, 14:50:32, max mem: 15.0 GB 
+[06/13 04:14:33][INFO] visual_prompt:  297: 	Training 1200/5004. train loss: 5.8713,	0.8778 s / batch. (data: 2.84e-04). ETA=4 days, 14:44:08, max mem: 15.0 GB 
+[06/13 04:16:01][INFO] visual_prompt:  297: 	Training 1300/5004. train loss: 5.8734,	0.8780 s / batch. (data: 2.97e-04). ETA=4 days, 14:44:32, max mem: 15.0 GB 
+[06/13 04:17:29][INFO] visual_prompt:  297: 	Training 1400/5004. train loss: 5.7837,	0.8788 s / batch. (data: 3.27e-04). ETA=4 days, 14:48:59, max mem: 15.0 GB 
+[06/13 04:18:56][INFO] visual_prompt:  297: 	Training 1500/5004. train loss: 5.9243,	0.8758 s / batch. (data: 2.85e-04). ETA=4 days, 14:25:09, max mem: 15.0 GB 
+[06/13 04:20:24][INFO] visual_prompt:  297: 	Training 1600/5004. train loss: 5.7945,	0.8725 s / batch. (data: 2.83e-04). ETA=4 days, 13:58:37, max mem: 15.0 GB 
+[06/13 04:21:51][INFO] visual_prompt:  297: 	Training 1700/5004. train loss: 5.9967,	0.8758 s / batch. (data: 3.21e-04). ETA=4 days, 14:22:09, max mem: 15.0 GB 
+[06/13 04:23:19][INFO] visual_prompt:  297: 	Training 1800/5004. train loss: 5.7865,	0.8730 s / batch. (data: 3.02e-04). ETA=4 days, 13:59:17, max mem: 15.0 GB 
+[06/13 04:24:46][INFO] visual_prompt:  297: 	Training 1900/5004. train loss: 5.9015,	0.8776 s / batch. (data: 3.03e-04). ETA=4 days, 14:32:55, max mem: 15.0 GB 
+[06/13 04:26:14][INFO] visual_prompt:  297: 	Training 2000/5004. train loss: 5.9399,	0.8778 s / batch. (data: 3.12e-04). ETA=4 days, 14:32:56, max mem: 15.0 GB 
+[06/13 04:27:42][INFO] visual_prompt:  297: 	Training 2100/5004. train loss: 5.9279,	0.8781 s / batch. (data: 3.55e-04). ETA=4 days, 14:33:53, max mem: 15.0 GB 
+[06/13 04:29:09][INFO] visual_prompt:  297: 	Training 2200/5004. train loss: 5.8453,	0.8745 s / batch. (data: 3.26e-04). ETA=4 days, 14:04:53, max mem: 15.0 GB 
+[06/13 04:30:37][INFO] visual_prompt:  297: 	Training 2300/5004. train loss: 5.8161,	0.8753 s / batch. (data: 2.63e-04). ETA=4 days, 14:09:24, max mem: 15.0 GB 
+[06/13 04:32:04][INFO] visual_prompt:  297: 	Training 2400/5004. train loss: 5.8326,	0.8772 s / batch. (data: 2.93e-04). ETA=4 days, 14:22:07, max mem: 15.0 GB 
+[06/13 04:33:32][INFO] visual_prompt:  297: 	Training 2500/5004. train loss: 5.9098,	0.8762 s / batch. (data: 3.79e-04). ETA=4 days, 14:13:17, max mem: 15.0 GB 
+[06/13 04:34:59][INFO] visual_prompt:  297: 	Training 2600/5004. train loss: 5.9988,	0.8777 s / batch. (data: 4.30e-04). ETA=4 days, 14:23:00, max mem: 15.0 GB 
+[06/13 04:36:27][INFO] visual_prompt:  297: 	Training 2700/5004. train loss: 5.9463,	0.8739 s / batch. (data: 3.27e-04). ETA=4 days, 13:52:54, max mem: 15.0 GB 
+[06/13 04:37:55][INFO] visual_prompt:  297: 	Training 2800/5004. train loss: 6.0288,	0.8716 s / batch. (data: 3.65e-04). ETA=4 days, 13:34:00, max mem: 15.0 GB 
+[06/13 04:39:22][INFO] visual_prompt:  297: 	Training 2900/5004. train loss: 5.8437,	0.8745 s / batch. (data: 3.50e-04). ETA=4 days, 13:54:48, max mem: 15.0 GB 
+[06/13 04:40:50][INFO] visual_prompt:  297: 	Training 3000/5004. train loss: 5.9537,	0.8808 s / batch. (data: 3.47e-04). ETA=4 days, 14:40:49, max mem: 15.0 GB 
+[06/13 04:42:17][INFO] visual_prompt:  297: 	Training 3100/5004. train loss: 6.0411,	0.8716 s / batch. (data: 3.02e-04). ETA=4 days, 13:30:12, max mem: 15.0 GB 
+[06/13 04:43:45][INFO] visual_prompt:  297: 	Training 3200/5004. train loss: 5.8127,	0.8739 s / batch. (data: 2.77e-04). ETA=4 days, 13:46:01, max mem: 15.0 GB 
+[06/13 04:45:13][INFO] visual_prompt:  297: 	Training 3300/5004. train loss: 5.9697,	0.8777 s / batch. (data: 3.22e-04). ETA=4 days, 14:13:02, max mem: 15.0 GB 
+[06/13 04:46:40][INFO] visual_prompt:  297: 	Training 3400/5004. train loss: 5.8914,	0.8742 s / batch. (data: 2.68e-04). ETA=4 days, 13:45:13, max mem: 15.0 GB 
+[06/13 04:48:08][INFO] visual_prompt:  297: 	Training 3500/5004. train loss: 5.8456,	0.8729 s / batch. (data: 3.35e-04). ETA=4 days, 13:34:09, max mem: 15.0 GB 
+[06/13 04:49:35][INFO] visual_prompt:  297: 	Training 3600/5004. train loss: 5.9294,	0.8772 s / batch. (data: 3.54e-04). ETA=4 days, 14:04:47, max mem: 15.0 GB 
+[06/13 04:51:03][INFO] visual_prompt:  297: 	Training 3700/5004. train loss: 5.9032,	0.8799 s / batch. (data: 3.27e-04). ETA=4 days, 14:23:32, max mem: 15.0 GB 
+[06/13 04:52:31][INFO] visual_prompt:  297: 	Training 3800/5004. train loss: 5.9254,	0.8732 s / batch. (data: 3.01e-04). ETA=4 days, 13:31:30, max mem: 15.0 GB 
+[06/13 04:53:58][INFO] visual_prompt:  297: 	Training 3900/5004. train loss: 5.9279,	0.8733 s / batch. (data: 2.80e-04). ETA=4 days, 13:31:01, max mem: 15.0 GB 
+[06/13 04:55:26][INFO] visual_prompt:  297: 	Training 4000/5004. train loss: 5.8200,	0.8764 s / batch. (data: 2.92e-04). ETA=4 days, 13:53:02, max mem: 15.0 GB 
+[06/13 04:56:53][INFO] visual_prompt:  297: 	Training 4100/5004. train loss: 5.8824,	0.8752 s / batch. (data: 3.24e-04). ETA=4 days, 13:42:32, max mem: 15.0 GB 
+[06/13 04:58:21][INFO] visual_prompt:  297: 	Training 4200/5004. train loss: 5.9975,	0.8764 s / batch. (data: 3.62e-04). ETA=4 days, 13:49:49, max mem: 15.0 GB 
+[06/13 04:59:48][INFO] visual_prompt:  297: 	Training 4300/5004. train loss: 6.0294,	0.8746 s / batch. (data: 3.05e-04). ETA=4 days, 13:35:08, max mem: 15.0 GB 
+[06/13 05:01:16][INFO] visual_prompt:  297: 	Training 4400/5004. train loss: 5.8329,	0.8802 s / batch. (data: 3.43e-04). ETA=4 days, 14:15:21, max mem: 15.0 GB 
+[06/13 05:02:44][INFO] visual_prompt:  297: 	Training 4500/5004. train loss: 5.9146,	0.8736 s / batch. (data: 3.05e-04). ETA=4 days, 13:24:27, max mem: 15.0 GB 
+[06/13 05:04:11][INFO] visual_prompt:  297: 	Training 4600/5004. train loss: 5.9896,	0.8738 s / batch. (data: 3.00e-04). ETA=4 days, 13:24:17, max mem: 15.0 GB 
+[06/13 05:05:39][INFO] visual_prompt:  297: 	Training 4700/5004. train loss: 5.8718,	0.8791 s / batch. (data: 3.68e-04). ETA=4 days, 14:03:18, max mem: 15.0 GB 
+[06/13 05:07:07][INFO] visual_prompt:  297: 	Training 4800/5004. train loss: 5.9300,	0.8794 s / batch. (data: 3.11e-04). ETA=4 days, 14:03:47, max mem: 15.0 GB 
+[06/13 05:08:34][INFO] visual_prompt:  297: 	Training 4900/5004. train loss: 5.7756,	0.8779 s / batch. (data: 2.88e-04). ETA=4 days, 13:51:01, max mem: 15.0 GB 
+[06/13 05:10:02][INFO] visual_prompt:  297: 	Training 5000/5004. train loss: 5.8698,	0.8748 s / batch. (data: 1.16e-04). ETA=4 days, 13:26:00, max mem: 15.0 GB 
+[06/13 05:10:06][INFO] visual_prompt:  310: Epoch 10 / 100: avg data time: 4.16e-03, avg batch time: 0.8822, average train loss: 5.9150
+[06/13 05:19:01][INFO] visual_prompt:  430: 	Test 100/196. loss: 59.049, 5.1838 s / batch. (data: 1.54e-04)max mem: 15.00347 GB 
+[06/13 05:27:18][INFO] visual_prompt:  467: Inference (val):avg data time: 1.55e-04, avg batch time: 5.1729, average loss: 59.5307
+[06/13 05:27:18][INFO] visual_prompt:  484: Saved invariances for val_imagenet at output_ce_10/imagenet/sup_vitb16_imagenet21k/lr0.5_wd0.001/run1/val_imagenet_invariances.json
+[06/13 05:27:18][INFO] visual_prompt:  248: Training 11 / 100 epoch, with learning rate 0.5
+[06/13 05:29:18][INFO] visual_prompt:  297: 	Training 100/5004. train loss: 5.9488,	0.8719 s / batch. (data: 3.38e-04). ETA=4 days, 13:02:49, max mem: 15.0 GB 
+[06/13 05:30:45][INFO] visual_prompt:  297: 	Training 200/5004. train loss: 5.9854,	0.8763 s / batch. (data: 2.93e-04). ETA=4 days, 13:34:43, max mem: 15.0 GB 
+[06/13 05:32:13][INFO] visual_prompt:  297: 	Training 300/5004. train loss: 5.8839,	0.8757 s / batch. (data: 3.16e-04). ETA=4 days, 13:28:48, max mem: 15.0 GB 
+[06/13 05:33:40][INFO] visual_prompt:  297: 	Training 400/5004. train loss: 6.0793,	0.8788 s / batch. (data: 2.57e-04). ETA=4 days, 13:50:32, max mem: 15.0 GB 
+[06/13 05:35:08][INFO] visual_prompt:  297: 	Training 500/5004. train loss: 5.9213,	0.8753 s / batch. (data: 3.32e-04). ETA=4 days, 13:22:58, max mem: 15.0 GB 
+[06/13 05:36:36][INFO] visual_prompt:  297: 	Training 600/5004. train loss: 5.8825,	0.8784 s / batch. (data: 3.46e-04). ETA=4 days, 13:44:15, max mem: 15.0 GB 
+[06/13 05:38:03][INFO] visual_prompt:  297: 	Training 700/5004. train loss: 5.9642,	0.8789 s / batch. (data: 3.87e-04). ETA=4 days, 13:46:29, max mem: 15.0 GB 
+[06/13 05:39:31][INFO] visual_prompt:  297: 	Training 800/5004. train loss: 5.8730,	0.8713 s / batch. (data: 3.20e-04). ETA=4 days, 12:48:16, max mem: 15.0 GB 
+[06/13 05:40:59][INFO] visual_prompt:  297: 	Training 900/5004. train loss: 5.9644,	0.8767 s / batch. (data: 3.45e-04). ETA=4 days, 13:27:21, max mem: 15.0 GB 
+[06/13 05:42:26][INFO] visual_prompt:  297: 	Training 1000/5004. train loss: 5.8725,	0.8744 s / batch. (data: 4.10e-04). ETA=4 days, 13:08:43, max mem: 15.0 GB 
+[06/13 05:43:54][INFO] visual_prompt:  297: 	Training 1100/5004. train loss: 5.9485,	0.8768 s / batch. (data: 4.84e-04). ETA=4 days, 13:24:57, max mem: 15.0 GB 
+[06/13 05:45:21][INFO] visual_prompt:  297: 	Training 1200/5004. train loss: 5.9083,	0.8737 s / batch. (data: 3.36e-04). ETA=4 days, 13:00:14, max mem: 15.0 GB 
+[06/13 05:46:49][INFO] visual_prompt:  297: 	Training 1300/5004. train loss: 5.7200,	0.8768 s / batch. (data: 3.48e-04). ETA=4 days, 13:22:12, max mem: 15.0 GB 
+[06/13 05:48:17][INFO] visual_prompt:  297: 	Training 1400/5004. train loss: 5.7701,	0.8794 s / batch. (data: 2.98e-04). ETA=4 days, 13:40:08, max mem: 15.0 GB 
+[06/13 05:49:44][INFO] visual_prompt:  297: 	Training 1500/5004. train loss: 5.8366,	0.8732 s / batch. (data: 3.27e-04). ETA=4 days, 12:52:21, max mem: 15.0 GB 
+[06/13 05:51:12][INFO] visual_prompt:  297: 	Training 1600/5004. train loss: 5.8734,	0.8784 s / batch. (data: 3.44e-04). ETA=4 days, 13:29:59, max mem: 15.0 GB 
+[06/13 05:52:40][INFO] visual_prompt:  297: 	Training 1700/5004. train loss: 5.9138,	0.8769 s / batch. (data: 3.00e-04). ETA=4 days, 13:17:13, max mem: 15.0 GB 
+[06/13 05:54:07][INFO] visual_prompt:  297: 	Training 1800/5004. train loss: 5.8725,	0.8760 s / batch. (data: 2.62e-04). ETA=4 days, 13:09:11, max mem: 15.0 GB 
+[06/13 05:55:35][INFO] visual_prompt:  297: 	Training 1900/5004. train loss: 5.9261,	0.8768 s / batch. (data: 3.30e-04). ETA=4 days, 13:13:19, max mem: 15.0 GB 
+[06/13 05:57:02][INFO] visual_prompt:  297: 	Training 2000/5004. train loss: 6.0109,	0.8804 s / batch. (data: 3.69e-04). ETA=4 days, 13:39:00, max mem: 15.0 GB 
+[06/13 05:58:30][INFO] visual_prompt:  297: 	Training 2100/5004. train loss: 5.9411,	0.8717 s / batch. (data: 3.44e-04). ETA=4 days, 12:32:20, max mem: 15.0 GB 
+[06/13 05:59:57][INFO] visual_prompt:  297: 	Training 2200/5004. train loss: 5.7874,	0.8795 s / batch. (data: 3.01e-04). ETA=4 days, 13:29:32, max mem: 15.0 GB 
+[06/13 06:01:25][INFO] visual_prompt:  297: 	Training 2300/5004. train loss: 5.8553,	0.8758 s / batch. (data: 3.43e-04). ETA=4 days, 13:00:00, max mem: 15.0 GB 
+[06/13 06:02:53][INFO] visual_prompt:  297: 	Training 2400/5004. train loss: 5.8217,	0.8766 s / batch. (data: 3.54e-04). ETA=4 days, 13:04:38, max mem: 15.0 GB 
+[06/13 06:04:20][INFO] visual_prompt:  297: 	Training 2500/5004. train loss: 6.0369,	0.8729 s / batch. (data: 3.48e-04). ETA=4 days, 12:35:47, max mem: 15.0 GB 
+[06/13 06:05:48][INFO] visual_prompt:  297: 	Training 2600/5004. train loss: 5.9672,	0.8783 s / batch. (data: 3.47e-04). ETA=4 days, 13:14:41, max mem: 15.0 GB 
+[06/13 06:07:16][INFO] visual_prompt:  297: 	Training 2700/5004. train loss: 5.9948,	0.8790 s / batch. (data: 3.46e-04). ETA=4 days, 13:18:27, max mem: 15.0 GB 
+[06/13 06:08:43][INFO] visual_prompt:  297: 	Training 2800/5004. train loss: 5.9492,	0.8772 s / batch. (data: 3.58e-04). ETA=4 days, 13:03:36, max mem: 15.0 GB 
+[06/13 06:10:11][INFO] visual_prompt:  297: 	Training 2900/5004. train loss: 5.7874,	0.8766 s / batch. (data: 4.00e-04). ETA=4 days, 12:57:08, max mem: 15.0 GB 
+[06/13 06:11:38][INFO] visual_prompt:  297: 	Training 3000/5004. train loss: 6.0009,	0.8756 s / batch. (data: 3.82e-04). ETA=4 days, 12:48:15, max mem: 15.0 GB 
+[06/13 06:13:06][INFO] visual_prompt:  297: 	Training 3100/5004. train loss: 5.9851,	0.8762 s / batch. (data: 3.20e-04). ETA=4 days, 12:51:11, max mem: 15.0 GB 
+[06/13 06:14:33][INFO] visual_prompt:  297: 	Training 3200/5004. train loss: 5.9661,	0.8733 s / batch. (data: 3.49e-04). ETA=4 days, 12:28:26, max mem: 15.0 GB 
+[06/13 06:16:01][INFO] visual_prompt:  297: 	Training 3300/5004. train loss: 5.9843,	0.8764 s / batch. (data: 4.23e-04). ETA=4 days, 12:50:05, max mem: 15.0 GB 
+[06/13 06:17:28][INFO] visual_prompt:  297: 	Training 3400/5004. train loss: 5.8053,	0.8749 s / batch. (data: 3.26e-04). ETA=4 days, 12:37:12, max mem: 15.0 GB 
+[06/13 06:18:56][INFO] visual_prompt:  297: 	Training 3500/5004. train loss: 5.8419,	0.8729 s / batch. (data: 3.11e-04). ETA=4 days, 12:21:15, max mem: 15.0 GB 
+[06/13 06:20:24][INFO] visual_prompt:  297: 	Training 3600/5004. train loss: 5.8309,	0.8753 s / batch. (data: 3.38e-04). ETA=4 days, 12:37:09, max mem: 15.0 GB 
+[06/13 06:21:51][INFO] visual_prompt:  297: 	Training 3700/5004. train loss: 5.9651,	0.8751 s / batch. (data: 2.92e-04). ETA=4 days, 12:34:17, max mem: 15.0 GB 
+[06/13 06:23:19][INFO] visual_prompt:  297: 	Training 3800/5004. train loss: 6.0676,	0.8725 s / batch. (data: 2.97e-04). ETA=4 days, 12:13:44, max mem: 15.0 GB 
+[06/13 06:24:47][INFO] visual_prompt:  297: 	Training 3900/5004. train loss: 5.9419,	0.8788 s / batch. (data: 3.60e-04). ETA=4 days, 12:59:24, max mem: 15.0 GB 
+[06/13 06:26:14][INFO] visual_prompt:  297: 	Training 4000/5004. train loss: 5.8515,	0.8739 s / batch. (data: 3.40e-04). ETA=4 days, 12:21:08, max mem: 15.0 GB 
+[06/13 06:27:42][INFO] visual_prompt:  297: 	Training 4100/5004. train loss: 5.9439,	0.8748 s / batch. (data: 3.11e-04). ETA=4 days, 12:26:46, max mem: 15.0 GB 
+[06/13 06:29:09][INFO] visual_prompt:  297: 	Training 4200/5004. train loss: 5.9342,	0.8731 s / batch. (data: 2.57e-04). ETA=4 days, 12:12:12, max mem: 15.0 GB 
+[06/13 06:30:37][INFO] visual_prompt:  297: 	Training 4300/5004. train loss: 5.9410,	0.8830 s / batch. (data: 2.73e-04). ETA=4 days, 13:24:36, max mem: 15.0 GB 
+[06/13 06:32:05][INFO] visual_prompt:  297: 	Training 4400/5004. train loss: 5.9057,	0.8761 s / batch. (data: 3.63e-04). ETA=4 days, 12:31:38, max mem: 15.0 GB 
+[06/13 06:33:32][INFO] visual_prompt:  297: 	Training 4500/5004. train loss: 5.9260,	0.8731 s / batch. (data: 2.81e-04). ETA=4 days, 12:07:46, max mem: 15.0 GB 
+[06/13 06:35:00][INFO] visual_prompt:  297: 	Training 4600/5004. train loss: 5.9288,	0.8788 s / batch. (data: 3.04e-04). ETA=4 days, 12:48:45, max mem: 15.0 GB 
+[06/13 06:36:27][INFO] visual_prompt:  297: 	Training 4700/5004. train loss: 5.8512,	0.8757 s / batch. (data: 3.11e-04). ETA=4 days, 12:24:45, max mem: 15.0 GB 
+[06/13 06:37:55][INFO] visual_prompt:  297: 	Training 4800/5004. train loss: 5.9945,	0.8735 s / batch. (data: 3.13e-04). ETA=4 days, 12:06:41, max mem: 15.0 GB 
+[06/13 06:39:22][INFO] visual_prompt:  297: 	Training 4900/5004. train loss: 5.8260,	0.8717 s / batch. (data: 2.84e-04). ETA=4 days, 11:51:55, max mem: 15.0 GB 
+[06/13 06:40:50][INFO] visual_prompt:  297: 	Training 5000/5004. train loss: 5.8000,	0.8728 s / batch. (data: 1.04e-04). ETA=4 days, 11:58:47, max mem: 15.0 GB 
+[06/13 06:40:54][INFO] visual_prompt:  310: Epoch 11 / 100: avg data time: 4.11e-03, avg batch time: 0.8824, average train loss: 5.9228
+[06/13 06:49:48][INFO] visual_prompt:  430: 	Test 100/196. loss: 59.096, 5.1843 s / batch. (data: 2.40e-04)max mem: 15.00347 GB 
+[06/13 06:58:05][INFO] visual_prompt:  467: Inference (val):avg data time: 1.36e-04, avg batch time: 5.1711, average loss: 59.6503
+[06/13 06:58:05][INFO] visual_prompt:  484: Saved invariances for val_imagenet at output_ce_10/imagenet/sup_vitb16_imagenet21k/lr0.5_wd0.001/run1/val_imagenet_invariances.json
+[06/13 06:58:05][INFO] visual_prompt:  248: Training 12 / 100 epoch, with learning rate 0.49984770675477397
+[06/13 07:00:06][INFO] visual_prompt:  297: 	Training 100/5004. train loss: 5.9182,	0.8726 s / batch. (data: 3.28e-04). ETA=4 days, 11:55:39, max mem: 15.0 GB 
+[06/13 07:01:33][INFO] visual_prompt:  297: 	Training 200/5004. train loss: 6.0091,	0.8740 s / batch. (data: 2.93e-04). ETA=4 days, 12:04:47, max mem: 15.0 GB 
+[06/13 07:03:01][INFO] visual_prompt:  297: 	Training 300/5004. train loss: 5.9338,	0.8728 s / batch. (data: 3.22e-04). ETA=4 days, 11:53:48, max mem: 15.0 GB 
+[06/13 07:04:28][INFO] visual_prompt:  297: 	Training 400/5004. train loss: 5.9609,	0.8772 s / batch. (data: 3.29e-04). ETA=4 days, 12:25:26, max mem: 15.0 GB 
+[06/13 07:05:56][INFO] visual_prompt:  297: 	Training 500/5004. train loss: 5.9474,	0.8734 s / batch. (data: 3.05e-04). ETA=4 days, 11:55:20, max mem: 15.0 GB 
+[06/13 07:07:23][INFO] visual_prompt:  297: 	Training 600/5004. train loss: 5.9469,	0.8765 s / batch. (data: 3.29e-04). ETA=4 days, 12:17:13, max mem: 15.0 GB 
+[06/13 07:08:51][INFO] visual_prompt:  297: 	Training 700/5004. train loss: 5.9140,	0.8803 s / batch. (data: 2.92e-04). ETA=4 days, 12:43:43, max mem: 15.0 GB 
+[06/13 07:10:19][INFO] visual_prompt:  297: 	Training 800/5004. train loss: 5.9585,	0.8752 s / batch. (data: 2.73e-04). ETA=4 days, 12:04:40, max mem: 15.0 GB 
+[06/13 07:11:46][INFO] visual_prompt:  297: 	Training 900/5004. train loss: 6.0056,	0.8775 s / batch. (data: 3.06e-04). ETA=4 days, 12:20:25, max mem: 15.0 GB 
+[06/13 07:13:14][INFO] visual_prompt:  297: 	Training 1000/5004. train loss: 5.9141,	0.8750 s / batch. (data: 2.95e-04). ETA=4 days, 12:00:29, max mem: 15.0 GB 
+[06/13 07:14:41][INFO] visual_prompt:  297: 	Training 1100/5004. train loss: 5.8525,	0.8780 s / batch. (data: 3.47e-04). ETA=4 days, 12:20:44, max mem: 15.0 GB 
+[06/13 07:16:09][INFO] visual_prompt:  297: 	Training 1200/5004. train loss: 5.7978,	0.8758 s / batch. (data: 3.19e-04). ETA=4 days, 12:02:58, max mem: 15.0 GB 
+[06/13 07:17:37][INFO] visual_prompt:  297: 	Training 1300/5004. train loss: 5.9575,	0.8745 s / batch. (data: 2.66e-04). ETA=4 days, 11:52:28, max mem: 15.0 GB 
+[06/13 07:19:04][INFO] visual_prompt:  297: 	Training 1400/5004. train loss: 5.9753,	0.8760 s / batch. (data: 2.12e-04). ETA=4 days, 12:02:07, max mem: 15.0 GB 
+[06/13 07:20:32][INFO] visual_prompt:  297: 	Training 1500/5004. train loss: 5.8964,	0.8768 s / batch. (data: 3.43e-04). ETA=4 days, 12:06:24, max mem: 15.0 GB 
+[06/13 07:22:00][INFO] visual_prompt:  297: 	Training 1600/5004. train loss: 5.9673,	0.8759 s / batch. (data: 2.97e-04). ETA=4 days, 11:58:05, max mem: 15.0 GB 
+[06/13 07:23:27][INFO] visual_prompt:  297: 	Training 1700/5004. train loss: 5.9193,	0.8767 s / batch. (data: 3.29e-04). ETA=4 days, 12:02:33, max mem: 15.0 GB 
+[06/13 07:24:55][INFO] visual_prompt:  297: 	Training 1800/5004. train loss: 5.8411,	0.8757 s / batch. (data: 3.48e-04). ETA=4 days, 11:53:43, max mem: 15.0 GB 
+[06/13 07:26:22][INFO] visual_prompt:  297: 	Training 1900/5004. train loss: 5.8526,	0.8735 s / batch. (data: 2.96e-04). ETA=4 days, 11:36:12, max mem: 15.0 GB 
+[06/13 07:27:50][INFO] visual_prompt:  297: 	Training 2000/5004. train loss: 5.9636,	0.8802 s / batch. (data: 3.22e-04). ETA=4 days, 12:23:57, max mem: 15.0 GB 
+[06/13 07:29:18][INFO] visual_prompt:  297: 	Training 2100/5004. train loss: 6.0182,	0.8740 s / batch. (data: 2.73e-04). ETA=4 days, 11:37:05, max mem: 15.0 GB 
+[06/13 07:30:45][INFO] visual_prompt:  297: 	Training 2200/5004. train loss: 5.8106,	0.8747 s / batch. (data: 3.24e-04). ETA=4 days, 11:40:36, max mem: 15.0 GB 
+[06/13 07:32:13][INFO] visual_prompt:  297: 	Training 2300/5004. train loss: 5.8712,	0.8734 s / batch. (data: 3.69e-04). ETA=4 days, 11:29:12, max mem: 15.0 GB 
+[06/13 07:33:40][INFO] visual_prompt:  297: 	Training 2400/5004. train loss: 5.9731,	0.8738 s / batch. (data: 3.03e-04). ETA=4 days, 11:30:46, max mem: 15.0 GB 
+[06/13 07:35:08][INFO] visual_prompt:  297: 	Training 2500/5004. train loss: 5.8653,	0.8756 s / batch. (data: 3.70e-04). ETA=4 days, 11:42:25, max mem: 15.0 GB 
+[06/13 07:36:35][INFO] visual_prompt:  297: 	Training 2600/5004. train loss: 5.9845,	0.8783 s / batch. (data: 3.16e-04). ETA=4 days, 12:00:51, max mem: 15.0 GB 
+[06/13 07:38:03][INFO] visual_prompt:  297: 	Training 2700/5004. train loss: 5.9361,	0.8775 s / batch. (data: 2.75e-04). ETA=4 days, 11:53:51, max mem: 15.0 GB 
+[06/13 07:39:31][INFO] visual_prompt:  297: 	Training 2800/5004. train loss: 5.9052,	0.8748 s / batch. (data: 2.98e-04). ETA=4 days, 11:32:40, max mem: 15.0 GB 
+[06/13 07:40:58][INFO] visual_prompt:  297: 	Training 2900/5004. train loss: 5.7843,	0.8807 s / batch. (data: 2.80e-04). ETA=4 days, 12:14:36, max mem: 15.0 GB 
+[06/13 07:42:26][INFO] visual_prompt:  297: 	Training 3000/5004. train loss: 5.9712,	0.8764 s / batch. (data: 3.25e-04). ETA=4 days, 11:41:14, max mem: 15.0 GB 
+[06/13 07:43:53][INFO] visual_prompt:  297: 	Training 3100/5004. train loss: 5.9810,	0.8845 s / batch. (data: 3.18e-04). ETA=4 days, 12:39:35, max mem: 15.0 GB 
+[06/13 07:45:21][INFO] visual_prompt:  297: 	Training 3200/5004. train loss: 5.9485,	0.8777 s / batch. (data: 3.61e-04). ETA=4 days, 11:47:58, max mem: 15.0 GB 
+[06/13 07:46:49][INFO] visual_prompt:  297: 	Training 3300/5004. train loss: 6.0300,	0.8763 s / batch. (data: 2.93e-04). ETA=4 days, 11:36:29, max mem: 15.0 GB 
+[06/13 07:48:16][INFO] visual_prompt:  297: 	Training 3400/5004. train loss: 5.8308,	0.8750 s / batch. (data: 3.71e-04). ETA=4 days, 11:25:22, max mem: 15.0 GB 
+[06/13 07:49:44][INFO] visual_prompt:  297: 	Training 3500/5004. train loss: 5.8807,	0.8765 s / batch. (data: 3.11e-04). ETA=4 days, 11:34:40, max mem: 15.0 GB 
+[06/13 07:51:12][INFO] visual_prompt:  297: 	Training 3600/5004. train loss: 5.9086,	0.8734 s / batch. (data: 2.85e-04). ETA=4 days, 11:10:37, max mem: 15.0 GB 
+[06/13 07:52:39][INFO] visual_prompt:  297: 	Training 3700/5004. train loss: 6.0260,	0.8791 s / batch. (data: 3.08e-04). ETA=4 days, 11:51:16, max mem: 15.0 GB 
+[06/13 07:54:07][INFO] visual_prompt:  297: 	Training 3800/5004. train loss: 5.9954,	0.8732 s / batch. (data: 2.64e-04). ETA=4 days, 11:06:24, max mem: 15.0 GB 
+[06/13 07:55:34][INFO] visual_prompt:  297: 	Training 3900/5004. train loss: 5.8972,	0.8777 s / batch. (data: 3.40e-04). ETA=4 days, 11:37:32, max mem: 15.0 GB 
+[06/13 07:57:02][INFO] visual_prompt:  297: 	Training 4000/5004. train loss: 5.9202,	0.8798 s / batch. (data: 3.90e-04). ETA=4 days, 11:51:39, max mem: 15.0 GB 
+[06/13 07:58:30][INFO] visual_prompt:  297: 	Training 4100/5004. train loss: 5.9921,	0.8792 s / batch. (data: 3.57e-04). ETA=4 days, 11:45:45, max mem: 15.0 GB 
+[06/13 07:59:57][INFO] visual_prompt:  297: 	Training 4200/5004. train loss: 5.9299,	0.8722 s / batch. (data: 3.46e-04). ETA=4 days, 10:53:16, max mem: 15.0 GB 
+[06/13 08:01:25][INFO] visual_prompt:  297: 	Training 4300/5004. train loss: 5.8573,	0.8807 s / batch. (data: 3.62e-04). ETA=4 days, 11:54:02, max mem: 15.0 GB 
+[06/13 08:02:53][INFO] visual_prompt:  297: 	Training 4400/5004. train loss: 5.8378,	0.8737 s / batch. (data: 3.67e-04). ETA=4 days, 11:01:22, max mem: 15.0 GB 
+[06/13 08:04:20][INFO] visual_prompt:  297: 	Training 4500/5004. train loss: 5.9314,	0.8877 s / batch. (data: 3.07e-04). ETA=4 days, 12:42:27, max mem: 15.0 GB 
+[06/13 08:05:49][INFO] visual_prompt:  297: 	Training 4600/5004. train loss: 5.9112,	0.8812 s / batch. (data: 4.52e-04). ETA=4 days, 11:53:19, max mem: 15.0 GB 
+[06/13 08:07:16][INFO] visual_prompt:  297: 	Training 4700/5004. train loss: 5.8255,	0.8770 s / batch. (data: 3.70e-04). ETA=4 days, 11:20:55, max mem: 15.0 GB 
+[06/13 08:08:44][INFO] visual_prompt:  297: 	Training 4800/5004. train loss: 5.9803,	0.8824 s / batch. (data: 3.38e-04). ETA=4 days, 11:58:50, max mem: 15.0 GB 
+[06/13 08:10:12][INFO] visual_prompt:  297: 	Training 4900/5004. train loss: 5.8629,	0.8817 s / batch. (data: 3.46e-04). ETA=4 days, 11:52:36, max mem: 15.0 GB 
+[06/13 08:11:39][INFO] visual_prompt:  297: 	Training 5000/5004. train loss: 5.8857,	0.8755 s / batch. (data: 1.11e-04). ETA=4 days, 11:05:29, max mem: 15.0 GB 
+[06/13 08:11:44][INFO] visual_prompt:  310: Epoch 12 / 100: avg data time: 4.20e-03, avg batch time: 0.8829, average train loss: 5.9247
+[06/13 08:20:39][INFO] visual_prompt:  430: 	Test 100/196. loss: 59.122, 5.2114 s / batch. (data: 1.39e-04)max mem: 15.00347 GB 
+[06/13 08:28:59][INFO] visual_prompt:  467: Inference (val):avg data time: 1.56e-04, avg batch time: 5.1923, average loss: 59.6386
+[06/13 08:28:59][INFO] visual_prompt:  484: Saved invariances for val_imagenet at output_ce_10/imagenet/sup_vitb16_imagenet21k/lr0.5_wd0.001/run1/val_imagenet_invariances.json
+[06/13 08:28:59][INFO] visual_prompt:  248: Training 13 / 100 epoch, with learning rate 0.49939101256495605
+[06/13 08:30:55][INFO] visual_prompt:  297: 	Training 100/5004. train loss: 5.9786,	0.8760 s / batch. (data: 3.52e-04). ETA=4 days, 11:07:19, max mem: 15.0 GB 
+[06/13 08:32:23][INFO] visual_prompt:  297: 	Training 200/5004. train loss: 6.0216,	0.8757 s / batch. (data: 3.91e-04). ETA=4 days, 11:04:15, max mem: 15.0 GB 
+[06/13 08:33:51][INFO] visual_prompt:  297: 	Training 300/5004. train loss: 5.9355,	0.8778 s / batch. (data: 3.21e-04). ETA=4 days, 11:17:52, max mem: 15.0 GB 
+[06/13 08:35:18][INFO] visual_prompt:  297: 	Training 400/5004. train loss: 6.0281,	0.8741 s / batch. (data: 3.26e-04). ETA=4 days, 10:49:23, max mem: 15.0 GB 
+[06/13 08:36:45][INFO] visual_prompt:  297: 	Training 500/5004. train loss: 6.0338,	0.8732 s / batch. (data: 3.29e-04). ETA=4 days, 10:41:05, max mem: 15.0 GB 
+[06/13 08:38:13][INFO] visual_prompt:  297: 	Training 600/5004. train loss: 5.9220,	0.8786 s / batch. (data: 3.30e-04). ETA=4 days, 11:19:36, max mem: 15.0 GB 
+[06/13 08:39:40][INFO] visual_prompt:  297: 	Training 700/5004. train loss: 5.9005,	0.8747 s / batch. (data: 3.77e-04). ETA=4 days, 10:49:38, max mem: 15.0 GB 
+[06/13 08:41:08][INFO] visual_prompt:  297: 	Training 800/5004. train loss: 5.8565,	0.8740 s / batch. (data: 2.81e-04). ETA=4 days, 10:42:32, max mem: 15.0 GB 
+[06/13 08:42:35][INFO] visual_prompt:  297: 	Training 900/5004. train loss: 6.0687,	0.8764 s / batch. (data: 3.00e-04). ETA=4 days, 10:58:35, max mem: 15.0 GB 
+[06/13 08:44:03][INFO] visual_prompt:  297: 	Training 1000/5004. train loss: 5.9608,	0.8751 s / batch. (data: 3.32e-04). ETA=4 days, 10:48:07, max mem: 15.0 GB 
+[06/13 08:45:30][INFO] visual_prompt:  297: 	Training 1100/5004. train loss: 5.9852,	0.8753 s / batch. (data: 3.17e-04). ETA=4 days, 10:47:57, max mem: 15.0 GB 
+[06/13 08:46:58][INFO] visual_prompt:  297: 	Training 1200/5004. train loss: 5.8038,	0.8718 s / batch. (data: 3.04e-04). ETA=4 days, 10:20:52, max mem: 15.0 GB 
+[06/13 08:48:26][INFO] visual_prompt:  297: 	Training 1300/5004. train loss: 5.8199,	0.8775 s / batch. (data: 2.78e-04). ETA=4 days, 11:00:55, max mem: 15.0 GB 
+[06/13 08:49:53][INFO] visual_prompt:  297: 	Training 1400/5004. train loss: 5.8584,	0.8725 s / batch. (data: 3.36e-04). ETA=4 days, 10:23:20, max mem: 15.0 GB 
+[06/13 08:51:21][INFO] visual_prompt:  297: 	Training 1500/5004. train loss: 6.0064,	0.8702 s / batch. (data: 3.25e-04). ETA=4 days, 10:04:40, max mem: 15.0 GB 
+[06/13 08:52:48][INFO] visual_prompt:  297: 	Training 1600/5004. train loss: 5.8780,	0.8721 s / batch. (data: 3.12e-04). ETA=4 days, 10:17:27, max mem: 15.0 GB 
+[06/13 08:54:16][INFO] visual_prompt:  297: 	Training 1700/5004. train loss: 6.0116,	0.8747 s / batch. (data: 3.53e-04). ETA=4 days, 10:34:44, max mem: 15.0 GB 
+[06/13 08:55:44][INFO] visual_prompt:  297: 	Training 1800/5004. train loss: 5.8583,	0.8763 s / batch. (data: 3.13e-04). ETA=4 days, 10:45:12, max mem: 15.0 GB 
+[06/13 08:57:11][INFO] visual_prompt:  297: 	Training 1900/5004. train loss: 5.7851,	0.8700 s / batch. (data: 3.52e-04). ETA=4 days, 9:57:13, max mem: 15.0 GB 
+[06/13 08:58:39][INFO] visual_prompt:  297: 	Training 2000/5004. train loss: 5.9712,	0.8867 s / batch. (data: 3.40e-04). ETA=4 days, 11:57:46, max mem: 15.0 GB 
+[06/13 09:00:06][INFO] visual_prompt:  297: 	Training 2100/5004. train loss: 5.9956,	0.8751 s / batch. (data: 2.62e-04). ETA=4 days, 10:32:01, max mem: 15.0 GB 
+[06/13 09:01:34][INFO] visual_prompt:  297: 	Training 2200/5004. train loss: 5.8721,	0.8758 s / batch. (data: 3.03e-04). ETA=4 days, 10:35:45, max mem: 15.0 GB 
+[06/13 09:03:02][INFO] visual_prompt:  297: 	Training 2300/5004. train loss: 5.8701,	0.8746 s / batch. (data: 3.13e-04). ETA=4 days, 10:25:38, max mem: 15.0 GB 
+[06/13 09:04:29][INFO] visual_prompt:  297: 	Training 2400/5004. train loss: 5.8627,	0.8782 s / batch. (data: 3.17e-04). ETA=4 days, 10:49:50, max mem: 15.0 GB 
+[06/13 09:05:57][INFO] visual_prompt:  297: 	Training 2500/5004. train loss: 6.0145,	0.8743 s / batch. (data: 3.17e-04). ETA=4 days, 10:20:10, max mem: 15.0 GB 
+[06/13 09:07:24][INFO] visual_prompt:  297: 	Training 2600/5004. train loss: 5.9021,	0.8773 s / batch. (data: 3.30e-04). ETA=4 days, 10:40:24, max mem: 15.0 GB 
+[06/13 09:08:52][INFO] visual_prompt:  297: 	Training 2700/5004. train loss: 6.0214,	0.8712 s / batch. (data: 3.16e-04). ETA=4 days, 9:55:02, max mem: 15.0 GB 
+[06/13 09:10:19][INFO] visual_prompt:  297: 	Training 2800/5004. train loss: 5.9869,	0.8730 s / batch. (data: 3.24e-04). ETA=4 days, 10:06:43, max mem: 15.0 GB 
+[06/13 09:11:47][INFO] visual_prompt:  297: 	Training 2900/5004. train loss: 5.8148,	0.8793 s / batch. (data: 3.09e-04). ETA=4 days, 10:50:38, max mem: 15.0 GB 
+[06/13 09:13:14][INFO] visual_prompt:  297: 	Training 3000/5004. train loss: 5.9775,	0.8759 s / batch. (data: 3.24e-04). ETA=4 days, 10:24:26, max mem: 15.0 GB 
+[06/13 09:14:42][INFO] visual_prompt:  297: 	Training 3100/5004. train loss: 6.0123,	0.8745 s / batch. (data: 3.09e-04). ETA=4 days, 10:13:03, max mem: 15.0 GB 
+[06/13 09:16:10][INFO] visual_prompt:  297: 	Training 3200/5004. train loss: 5.9337,	0.8731 s / batch. (data: 3.64e-04). ETA=4 days, 10:01:26, max mem: 15.0 GB 
+[06/13 09:17:37][INFO] visual_prompt:  297: 	Training 3300/5004. train loss: 5.9685,	0.8713 s / batch. (data: 2.94e-04). ETA=4 days, 9:47:00, max mem: 15.0 GB 
+[06/13 09:19:05][INFO] visual_prompt:  297: 	Training 3400/5004. train loss: 5.9620,	0.8765 s / batch. (data: 3.15e-04). ETA=4 days, 10:22:54, max mem: 15.0 GB 
+[06/13 09:20:32][INFO] visual_prompt:  297: 	Training 3500/5004. train loss: 5.8209,	0.8738 s / batch. (data: 3.07e-04). ETA=4 days, 10:02:12, max mem: 15.0 GB 
+[06/13 09:22:00][INFO] visual_prompt:  297: 	Training 3600/5004. train loss: 5.9115,	0.8747 s / batch. (data: 3.48e-04). ETA=4 days, 10:06:51, max mem: 15.0 GB 
+[06/13 09:23:27][INFO] visual_prompt:  297: 	Training 3700/5004. train loss: 5.9417,	0.8723 s / batch. (data: 3.08e-04). ETA=4 days, 9:48:15, max mem: 15.0 GB 
+[06/13 09:24:55][INFO] visual_prompt:  297: 	Training 3800/5004. train loss: 5.9832,	0.8770 s / batch. (data: 3.12e-04). ETA=4 days, 10:20:58, max mem: 15.0 GB 
+[06/13 09:26:22][INFO] visual_prompt:  297: 	Training 3900/5004. train loss: 5.9295,	0.8751 s / batch. (data: 3.85e-04). ETA=4 days, 10:05:42, max mem: 15.0 GB 
+[06/13 09:27:50][INFO] visual_prompt:  297: 	Training 4000/5004. train loss: 5.8710,	0.8748 s / batch. (data: 3.94e-04). ETA=4 days, 10:02:00, max mem: 15.0 GB 
+[06/13 09:29:17][INFO] visual_prompt:  297: 	Training 4100/5004. train loss: 5.8816,	0.8770 s / batch. (data: 4.35e-04). ETA=4 days, 10:16:34, max mem: 15.0 GB 
+[06/13 09:30:45][INFO] visual_prompt:  297: 	Training 4200/5004. train loss: 5.9943,	0.8770 s / batch. (data: 3.41e-04). ETA=4 days, 10:15:19, max mem: 15.0 GB 
+[06/13 09:32:12][INFO] visual_prompt:  297: 	Training 4300/5004. train loss: 5.9971,	0.8777 s / batch. (data: 3.05e-04). ETA=4 days, 10:18:44, max mem: 15.0 GB 
+[06/13 09:33:40][INFO] visual_prompt:  297: 	Training 4400/5004. train loss: 5.8607,	0.8737 s / batch. (data: 2.81e-04). ETA=4 days, 9:48:20, max mem: 15.0 GB 
+[06/13 09:35:07][INFO] visual_prompt:  297: 	Training 4500/5004. train loss: 6.0324,	0.8742 s / batch. (data: 2.74e-04). ETA=4 days, 9:50:20, max mem: 15.0 GB 
+[06/13 09:36:35][INFO] visual_prompt:  297: 	Training 4600/5004. train loss: 5.9553,	0.8762 s / batch. (data: 3.58e-04). ETA=4 days, 10:03:31, max mem: 15.0 GB 
+[06/13 09:38:02][INFO] visual_prompt:  297: 	Training 4700/5004. train loss: 5.8522,	0.8737 s / batch. (data: 3.45e-04). ETA=4 days, 9:43:34, max mem: 15.0 GB 
+[06/13 09:39:29][INFO] visual_prompt:  297: 	Training 4800/5004. train loss: 5.9323,	0.8763 s / batch. (data: 3.76e-04). ETA=4 days, 10:01:22, max mem: 15.0 GB 
+[06/13 09:40:57][INFO] visual_prompt:  297: 	Training 4900/5004. train loss: 5.8587,	0.8783 s / batch. (data: 2.83e-04). ETA=4 days, 10:14:21, max mem: 15.0 GB 
+[06/13 09:42:24][INFO] visual_prompt:  297: 	Training 5000/5004. train loss: 5.8748,	0.8720 s / batch. (data: 1.47e-04). ETA=4 days, 9:27:27, max mem: 15.0 GB 
+[06/13 09:42:29][INFO] visual_prompt:  310: Epoch 13 / 100: avg data time: 4.21e-03, avg batch time: 0.8811, average train loss: 5.9232
+[06/13 09:51:27][INFO] visual_prompt:  430: 	Test 100/196. loss: 59.042, 5.1892 s / batch. (data: 1.25e-04)max mem: 15.00347 GB 
+[06/13 09:59:44][INFO] visual_prompt:  467: Inference (val):avg data time: 1.53e-04, avg batch time: 5.1955, average loss: 59.5938
+[06/13 09:59:44][INFO] visual_prompt:  484: Saved invariances for val_imagenet at output_ce_10/imagenet/sup_vitb16_imagenet21k/lr0.5_wd0.001/run1/val_imagenet_invariances.json
+[06/13 09:59:44][INFO] visual_prompt:  248: Training 14 / 100 epoch, with learning rate 0.4986304738420683
+[06/13 10:01:41][INFO] visual_prompt:  297: 	Training 100/5004. train loss: 5.9899,	0.8767 s / batch. (data: 2.96e-04). ETA=4 days, 10:00:01, max mem: 15.0 GB 
+[06/13 10:03:09][INFO] visual_prompt:  297: 	Training 200/5004. train loss: 5.9457,	0.8716 s / batch. (data: 3.04e-04). ETA=4 days, 9:20:56, max mem: 15.0 GB 
+[06/13 10:04:36][INFO] visual_prompt:  297: 	Training 300/5004. train loss: 5.9112,	0.8741 s / batch. (data: 3.31e-04). ETA=4 days, 9:37:50, max mem: 15.0 GB 
+[06/13 10:06:04][INFO] visual_prompt:  297: 	Training 400/5004. train loss: 5.9994,	0.8702 s / batch. (data: 3.08e-04). ETA=4 days, 9:08:05, max mem: 15.0 GB 
+[06/13 10:07:31][INFO] visual_prompt:  297: 	Training 500/5004. train loss: 5.9936,	0.8753 s / batch. (data: 2.87e-04). ETA=4 days, 9:43:59, max mem: 15.0 GB 
+[06/13 10:08:59][INFO] visual_prompt:  297: 	Training 600/5004. train loss: 5.9120,	0.8730 s / batch. (data: 3.01e-04). ETA=4 days, 9:25:42, max mem: 15.0 GB 
+[06/13 10:10:26][INFO] visual_prompt:  297: 	Training 700/5004. train loss: 5.9774,	0.8754 s / batch. (data: 3.21e-04). ETA=4 days, 9:41:33, max mem: 15.0 GB 
+[06/13 10:11:54][INFO] visual_prompt:  297: 	Training 800/5004. train loss: 5.8992,	0.8753 s / batch. (data: 3.03e-04). ETA=4 days, 9:39:24, max mem: 15.0 GB 
+[06/13 10:13:21][INFO] visual_prompt:  297: 	Training 900/5004. train loss: 6.0394,	0.8767 s / batch. (data: 2.96e-04). ETA=4 days, 9:47:55, max mem: 15.0 GB 
+[06/13 10:14:49][INFO] visual_prompt:  297: 	Training 1000/5004. train loss: 5.8803,	0.8728 s / batch. (data: 3.24e-04). ETA=4 days, 9:18:37, max mem: 15.0 GB 
+[06/13 10:16:16][INFO] visual_prompt:  297: 	Training 1100/5004. train loss: 5.9801,	0.8742 s / batch. (data: 3.09e-04). ETA=4 days, 9:27:15, max mem: 15.0 GB 
+[06/13 10:17:44][INFO] visual_prompt:  297: 	Training 1200/5004. train loss: 5.8194,	0.8745 s / batch. (data: 3.23e-04). ETA=4 days, 9:27:32, max mem: 15.0 GB 
+[06/13 10:19:11][INFO] visual_prompt:  297: 	Training 1300/5004. train loss: 5.8538,	0.8756 s / batch. (data: 3.00e-04). ETA=4 days, 9:33:58, max mem: 15.0 GB 
+[06/13 10:20:39][INFO] visual_prompt:  297: 	Training 1400/5004. train loss: 5.8135,	0.8795 s / batch. (data: 3.21e-04). ETA=4 days, 10:00:42, max mem: 15.0 GB 
+[06/13 10:22:06][INFO] visual_prompt:  297: 	Training 1500/5004. train loss: 6.0035,	0.8773 s / batch. (data: 3.01e-04). ETA=4 days, 9:43:21, max mem: 15.0 GB 
+[06/13 10:23:34][INFO] visual_prompt:  297: 	Training 1600/5004. train loss: 5.8224,	0.8796 s / batch. (data: 2.46e-04). ETA=4 days, 9:58:32, max mem: 15.0 GB 
+[06/13 10:25:02][INFO] visual_prompt:  297: 	Training 1700/5004. train loss: 5.9554,	0.8751 s / batch. (data: 3.03e-04). ETA=4 days, 9:24:25, max mem: 15.0 GB 
+[06/13 10:26:29][INFO] visual_prompt:  297: 	Training 1800/5004. train loss: 5.8861,	0.8753 s / batch. (data: 2.04e-04). ETA=4 days, 9:24:48, max mem: 15.0 GB 
+[06/13 10:27:57][INFO] visual_prompt:  297: 	Training 1900/5004. train loss: 5.8873,	0.8761 s / batch. (data: 3.62e-04). ETA=4 days, 9:29:04, max mem: 15.0 GB 
+[06/13 10:29:24][INFO] visual_prompt:  297: 	Training 2000/5004. train loss: 5.9938,	0.8711 s / batch. (data: 2.51e-04). ETA=4 days, 8:51:20, max mem: 15.0 GB 
+[06/13 10:30:52][INFO] visual_prompt:  297: 	Training 2100/5004. train loss: 5.9498,	0.8762 s / batch. (data: 3.77e-04). ETA=4 days, 9:27:02, max mem: 15.0 GB 
+[06/13 10:32:19][INFO] visual_prompt:  297: 	Training 2200/5004. train loss: 5.8525,	0.8752 s / batch. (data: 3.43e-04). ETA=4 days, 9:18:16, max mem: 15.0 GB 
+[06/13 10:33:47][INFO] visual_prompt:  297: 	Training 2300/5004. train loss: 5.8517,	0.8800 s / batch. (data: 3.23e-04). ETA=4 days, 9:51:17, max mem: 15.0 GB 
+[06/13 10:35:14][INFO] visual_prompt:  297: 	Training 2400/5004. train loss: 6.0125,	0.8770 s / batch. (data: 2.77e-04). ETA=4 days, 9:28:34, max mem: 15.0 GB 
+[06/13 10:36:42][INFO] visual_prompt:  297: 	Training 2500/5004. train loss: 5.9580,	0.8742 s / batch. (data: 2.79e-04). ETA=4 days, 9:06:26, max mem: 15.0 GB 
+[06/13 10:38:09][INFO] visual_prompt:  297: 	Training 2600/5004. train loss: 6.0135,	0.8748 s / batch. (data: 3.00e-04). ETA=4 days, 9:09:32, max mem: 15.0 GB 
+[06/13 10:39:37][INFO] visual_prompt:  297: 	Training 2700/5004. train loss: 5.9347,	0.8738 s / batch. (data: 3.30e-04). ETA=4 days, 9:01:08, max mem: 15.0 GB 
+[06/13 10:41:04][INFO] visual_prompt:  297: 	Training 2800/5004. train loss: 5.9360,	0.8748 s / batch. (data: 2.60e-04). ETA=4 days, 9:06:32, max mem: 15.0 GB 
+[06/13 10:42:32][INFO] visual_prompt:  297: 	Training 2900/5004. train loss: 5.8278,	0.8736 s / batch. (data: 4.06e-04). ETA=4 days, 8:56:20, max mem: 15.0 GB 
+[06/13 10:43:59][INFO] visual_prompt:  297: 	Training 3000/5004. train loss: 5.9571,	0.8721 s / batch. (data: 3.53e-04). ETA=4 days, 8:44:04, max mem: 15.0 GB 
+[06/13 10:45:27][INFO] visual_prompt:  297: 	Training 3100/5004. train loss: 6.0464,	0.8737 s / batch. (data: 3.64e-04). ETA=4 days, 8:54:03, max mem: 15.0 GB 
+[06/13 10:46:54][INFO] visual_prompt:  297: 	Training 3200/5004. train loss: 5.8255,	0.8797 s / batch. (data: 3.62e-04). ETA=4 days, 9:36:01, max mem: 15.0 GB 
+[06/13 10:48:22][INFO] visual_prompt:  297: 	Training 3300/5004. train loss: 5.9733,	0.8738 s / batch. (data: 2.93e-04). ETA=4 days, 8:52:00, max mem: 15.0 GB 
+[06/13 10:49:49][INFO] visual_prompt:  297: 	Training 3400/5004. train loss: 5.9877,	0.8731 s / batch. (data: 3.35e-04). ETA=4 days, 8:45:44, max mem: 15.0 GB 
+[06/13 10:51:17][INFO] visual_prompt:  297: 	Training 3500/5004. train loss: 5.8174,	0.8790 s / batch. (data: 3.55e-04). ETA=4 days, 9:26:30, max mem: 15.0 GB 
+[06/13 10:52:44][INFO] visual_prompt:  297: 	Training 3600/5004. train loss: 5.9026,	0.8775 s / batch. (data: 3.31e-04). ETA=4 days, 9:14:21, max mem: 15.0 GB 
+[06/13 10:54:12][INFO] visual_prompt:  297: 	Training 3700/5004. train loss: 5.7361,	0.8785 s / batch. (data: 3.56e-04). ETA=4 days, 9:20:20, max mem: 15.0 GB 
+[06/13 10:55:40][INFO] visual_prompt:  297: 	Training 3800/5004. train loss: 5.9657,	0.8723 s / batch. (data: 3.55e-04). ETA=4 days, 8:34:12, max mem: 15.0 GB 
+[06/13 10:57:07][INFO] visual_prompt:  297: 	Training 3900/5004. train loss: 6.0118,	0.8718 s / batch. (data: 2.95e-04). ETA=4 days, 8:29:01, max mem: 15.0 GB 
+[06/13 10:58:35][INFO] visual_prompt:  297: 	Training 4000/5004. train loss: 5.8834,	0.8715 s / batch. (data: 3.24e-04). ETA=4 days, 8:25:18, max mem: 15.0 GB 
+[06/13 11:00:02][INFO] visual_prompt:  297: 	Training 4100/5004. train loss: 5.9301,	0.8764 s / batch. (data: 3.14e-04). ETA=4 days, 8:59:19, max mem: 15.0 GB 
+[06/13 11:01:30][INFO] visual_prompt:  297: 	Training 4200/5004. train loss: 5.9122,	0.8753 s / batch. (data: 3.28e-04). ETA=4 days, 8:49:47, max mem: 15.0 GB 
+[06/13 11:02:57][INFO] visual_prompt:  297: 	Training 4300/5004. train loss: 6.0517,	0.8769 s / batch. (data: 2.83e-04). ETA=4 days, 8:59:45, max mem: 15.0 GB 
+[06/13 11:04:25][INFO] visual_prompt:  297: 	Training 4400/5004. train loss: 5.8582,	0.8767 s / batch. (data: 3.56e-04). ETA=4 days, 8:57:09, max mem: 15.0 GB 
+[06/13 11:05:52][INFO] visual_prompt:  297: 	Training 4500/5004. train loss: 5.8633,	0.8732 s / batch. (data: 3.08e-04). ETA=4 days, 8:30:33, max mem: 15.0 GB 
+[06/13 11:07:20][INFO] visual_prompt:  297: 	Training 4600/5004. train loss: 5.8448,	0.8739 s / batch. (data: 3.20e-04). ETA=4 days, 8:33:45, max mem: 15.0 GB 
+[06/13 11:08:47][INFO] visual_prompt:  297: 	Training 4700/5004. train loss: 5.8955,	0.8762 s / batch. (data: 3.42e-04). ETA=4 days, 8:49:07, max mem: 15.0 GB 
+[06/13 11:10:15][INFO] visual_prompt:  297: 	Training 4800/5004. train loss: 5.9126,	0.8766 s / batch. (data: 2.90e-04). ETA=4 days, 8:49:58, max mem: 15.0 GB 
+[06/13 11:11:43][INFO] visual_prompt:  297: 	Training 4900/5004. train loss: 5.7519,	0.8764 s / batch. (data: 3.20e-04). ETA=4 days, 8:47:07, max mem: 15.0 GB 
+[06/13 11:13:10][INFO] visual_prompt:  297: 	Training 5000/5004. train loss: 5.9111,	0.8719 s / batch. (data: 1.09e-04). ETA=4 days, 8:13:47, max mem: 15.0 GB 
+[06/13 11:13:14][INFO] visual_prompt:  310: Epoch 14 / 100: avg data time: 4.25e-03, avg batch time: 0.8811, average train loss: 5.9258
+[06/13 11:22:10][INFO] visual_prompt:  430: 	Test 100/196. loss: 59.081, 5.2008 s / batch. (data: 6.27e-05)max mem: 15.00347 GB 
+[06/13 11:30:28][INFO] visual_prompt:  467: Inference (val):avg data time: 1.60e-04, avg batch time: 5.1825, average loss: 59.6222
+[06/13 11:30:28][INFO] visual_prompt:  484: Saved invariances for val_imagenet at output_ce_10/imagenet/sup_vitb16_imagenet21k/lr0.5_wd0.001/run1/val_imagenet_invariances.json
+[06/13 11:30:28][INFO] visual_prompt:  248: Training 15 / 100 epoch, with learning rate 0.4975670171853926
+[06/13 11:32:24][INFO] visual_prompt:  297: 	Training 100/5004. train loss: 5.9396,	0.8733 s / batch. (data: 3.37e-04). ETA=4 days, 8:22:12, max mem: 15.0 GB 
+[06/13 11:33:52][INFO] visual_prompt:  297: 	Training 200/5004. train loss: 5.9606,	0.8736 s / batch. (data: 3.13e-04). ETA=4 days, 8:23:02, max mem: 15.0 GB 
+[06/13 11:35:19][INFO] visual_prompt:  297: 	Training 300/5004. train loss: 5.9178,	0.8751 s / batch. (data: 3.73e-04). ETA=4 days, 8:32:04, max mem: 15.0 GB 
+[06/13 11:36:47][INFO] visual_prompt:  297: 	Training 400/5004. train loss: 6.0617,	0.8750 s / batch. (data: 3.08e-04). ETA=4 days, 8:30:03, max mem: 15.0 GB 
+[06/13 11:38:14][INFO] visual_prompt:  297: 	Training 500/5004. train loss: 5.8785,	0.8709 s / batch. (data: 4.11e-04). ETA=4 days, 7:59:10, max mem: 15.0 GB 
+[06/13 11:39:41][INFO] visual_prompt:  297: 	Training 600/5004. train loss: 5.9958,	0.8726 s / batch. (data: 3.35e-04). ETA=4 days, 8:09:42, max mem: 15.0 GB 
+[06/13 11:41:09][INFO] visual_prompt:  297: 	Training 700/5004. train loss: 5.9443,	0.8709 s / batch. (data: 3.48e-04). ETA=4 days, 7:56:07, max mem: 15.0 GB 
+[06/13 11:42:36][INFO] visual_prompt:  297: 	Training 800/5004. train loss: 5.8507,	0.8758 s / batch. (data: 2.86e-04). ETA=4 days, 8:29:56, max mem: 15.0 GB 
+[06/13 11:44:03][INFO] visual_prompt:  297: 	Training 900/5004. train loss: 5.9293,	0.8745 s / batch. (data: 3.21e-04). ETA=4 days, 8:18:48, max mem: 15.0 GB 
+[06/13 11:45:31][INFO] visual_prompt:  297: 	Training 1000/5004. train loss: 5.7384,	0.8733 s / batch. (data: 3.28e-04). ETA=4 days, 8:09:10, max mem: 15.0 GB 
+[06/13 11:46:58][INFO] visual_prompt:  297: 	Training 1100/5004. train loss: 5.8902,	0.8713 s / batch. (data: 3.35e-04). ETA=4 days, 7:53:13, max mem: 15.0 GB 
+[06/13 11:48:26][INFO] visual_prompt:  297: 	Training 1200/5004. train loss: 5.9122,	0.8748 s / batch. (data: 3.38e-04). ETA=4 days, 8:17:11, max mem: 15.0 GB 
+[06/13 11:49:53][INFO] visual_prompt:  297: 	Training 1300/5004. train loss: 5.9003,	0.8783 s / batch. (data: 3.23e-04). ETA=4 days, 8:40:42, max mem: 15.0 GB 
+[06/13 11:51:21][INFO] visual_prompt:  297: 	Training 1400/5004. train loss: 5.8649,	0.8770 s / batch. (data: 3.67e-04). ETA=4 days, 8:29:54, max mem: 15.0 GB 
+[06/13 11:52:48][INFO] visual_prompt:  297: 	Training 1500/5004. train loss: 6.0082,	0.8726 s / batch. (data: 2.99e-04). ETA=4 days, 7:57:06, max mem: 15.0 GB 
+[06/13 11:54:16][INFO] visual_prompt:  297: 	Training 1600/5004. train loss: 5.8341,	0.8746 s / batch. (data: 3.02e-04). ETA=4 days, 8:09:21, max mem: 15.0 GB 
+[06/13 11:55:43][INFO] visual_prompt:  297: 	Training 1700/5004. train loss: 5.9326,	0.8740 s / batch. (data: 2.87e-04). ETA=4 days, 8:03:37, max mem: 15.0 GB 
+[06/13 11:57:11][INFO] visual_prompt:  297: 	Training 1800/5004. train loss: 5.9112,	0.8776 s / batch. (data: 3.34e-04). ETA=4 days, 8:27:53, max mem: 15.0 GB 
+[06/13 11:58:38][INFO] visual_prompt:  297: 	Training 1900/5004. train loss: 5.9207,	0.8710 s / batch. (data: 3.29e-04). ETA=4 days, 7:39:35, max mem: 15.0 GB 
+[06/13 12:00:06][INFO] visual_prompt:  297: 	Training 2000/5004. train loss: 6.0004,	0.8744 s / batch. (data: 4.54e-04). ETA=4 days, 8:02:07, max mem: 15.0 GB 
+[06/13 12:01:33][INFO] visual_prompt:  297: 	Training 2100/5004. train loss: 5.8991,	0.8736 s / batch. (data: 3.21e-04). ETA=4 days, 7:55:32, max mem: 15.0 GB 
+[06/13 12:03:00][INFO] visual_prompt:  297: 	Training 2200/5004. train loss: 5.9828,	0.8753 s / batch. (data: 2.71e-04). ETA=4 days, 8:05:51, max mem: 15.0 GB 
+[06/13 12:04:28][INFO] visual_prompt:  297: 	Training 2300/5004. train loss: 5.8655,	0.8730 s / batch. (data: 3.39e-04). ETA=4 days, 7:48:19, max mem: 15.0 GB 
+[06/13 12:05:55][INFO] visual_prompt:  297: 	Training 2400/5004. train loss: 5.7998,	0.8738 s / batch. (data: 3.37e-04). ETA=4 days, 7:52:30, max mem: 15.0 GB 
+[06/13 12:07:23][INFO] visual_prompt:  297: 	Training 2500/5004. train loss: 5.8968,	0.8781 s / batch. (data: 3.37e-04). ETA=4 days, 8:21:15, max mem: 15.0 GB 
+[06/13 12:08:50][INFO] visual_prompt:  297: 	Training 2600/5004. train loss: 5.9966,	0.8763 s / batch. (data: 3.05e-04). ETA=4 days, 8:07:20, max mem: 15.0 GB 
+[06/13 12:10:18][INFO] visual_prompt:  297: 	Training 2700/5004. train loss: 5.9012,	0.8762 s / batch. (data: 3.17e-04). ETA=4 days, 8:05:08, max mem: 15.0 GB 
+[06/13 12:11:46][INFO] visual_prompt:  297: 	Training 2800/5004. train loss: 5.8940,	0.8726 s / batch. (data: 3.66e-04). ETA=4 days, 7:37:37, max mem: 15.0 GB 
+[06/13 12:13:13][INFO] visual_prompt:  297: 	Training 2900/5004. train loss: 5.8310,	0.8780 s / batch. (data: 2.90e-04). ETA=4 days, 8:14:45, max mem: 15.0 GB 
+[06/13 12:14:41][INFO] visual_prompt:  297: 	Training 3000/5004. train loss: 6.0631,	0.8780 s / batch. (data: 2.88e-04). ETA=4 days, 8:13:21, max mem: 15.0 GB 
+[06/13 12:16:08][INFO] visual_prompt:  297: 	Training 3100/5004. train loss: 6.0135,	0.8778 s / batch. (data: 3.59e-04). ETA=4 days, 8:10:54, max mem: 15.0 GB 
+[06/13 12:17:36][INFO] visual_prompt:  297: 	Training 3200/5004. train loss: 5.7965,	0.8752 s / batch. (data: 2.99e-04). ETA=4 days, 7:50:54, max mem: 15.0 GB 
+[06/13 12:19:03][INFO] visual_prompt:  297: 	Training 3300/5004. train loss: 6.0366,	0.8709 s / batch. (data: 3.24e-04). ETA=4 days, 7:18:21, max mem: 15.0 GB 
+[06/13 12:20:31][INFO] visual_prompt:  297: 	Training 3400/5004. train loss: 5.8435,	0.8769 s / batch. (data: 3.52e-04). ETA=4 days, 7:59:56, max mem: 15.0 GB 
+[06/13 12:21:58][INFO] visual_prompt:  297: 	Training 3500/5004. train loss: 5.8593,	0.8730 s / batch. (data: 3.22e-04). ETA=4 days, 7:30:19, max mem: 15.0 GB 
+[06/13 12:23:26][INFO] visual_prompt:  297: 	Training 3600/5004. train loss: 5.8611,	0.8763 s / batch. (data: 3.59e-04). ETA=4 days, 7:52:36, max mem: 15.0 GB 
+[06/13 12:24:53][INFO] visual_prompt:  297: 	Training 3700/5004. train loss: 5.9017,	0.8767 s / batch. (data: 2.62e-04). ETA=4 days, 7:54:06, max mem: 15.0 GB 
+[06/13 12:26:21][INFO] visual_prompt:  297: 	Training 3800/5004. train loss: 5.8977,	0.8778 s / batch. (data: 3.19e-04). ETA=4 days, 8:00:15, max mem: 15.0 GB 
+[06/13 12:27:48][INFO] visual_prompt:  297: 	Training 3900/5004. train loss: 6.0136,	0.8769 s / batch. (data: 3.59e-04). ETA=4 days, 7:52:48, max mem: 15.0 GB 
+[06/13 12:29:16][INFO] visual_prompt:  297: 	Training 4000/5004. train loss: 5.8928,	0.8769 s / batch. (data: 3.25e-04). ETA=4 days, 7:51:11, max mem: 15.0 GB 
+[06/13 12:30:43][INFO] visual_prompt:  297: 	Training 4100/5004. train loss: 5.8331,	0.8813 s / batch. (data: 3.31e-04). ETA=4 days, 8:21:04, max mem: 15.0 GB 
+[06/13 12:32:11][INFO] visual_prompt:  297: 	Training 4200/5004. train loss: 5.9979,	0.8750 s / batch. (data: 3.40e-04). ETA=4 days, 7:34:36, max mem: 15.0 GB 
+[06/13 12:33:39][INFO] visual_prompt:  297: 	Training 4300/5004. train loss: 5.9502,	0.8732 s / batch. (data: 3.40e-04). ETA=4 days, 7:20:25, max mem: 15.0 GB 
+[06/13 12:35:06][INFO] visual_prompt:  297: 	Training 4400/5004. train loss: 5.8891,	0.8726 s / batch. (data: 3.59e-04). ETA=4 days, 7:14:55, max mem: 15.0 GB 
+[06/13 12:36:34][INFO] visual_prompt:  297: 	Training 4500/5004. train loss: 5.9187,	0.8720 s / batch. (data: 3.63e-04). ETA=4 days, 7:09:10, max mem: 15.0 GB 
+[06/13 12:38:01][INFO] visual_prompt:  297: 	Training 4600/5004. train loss: 5.7843,	0.8766 s / batch. (data: 2.68e-04). ETA=4 days, 7:40:00, max mem: 15.0 GB 
+[06/13 12:39:29][INFO] visual_prompt:  297: 	Training 4700/5004. train loss: 5.9117,	0.8760 s / batch. (data: 2.87e-04). ETA=4 days, 7:34:40, max mem: 15.0 GB 
+[06/13 12:40:56][INFO] visual_prompt:  297: 	Training 4800/5004. train loss: 5.8655,	0.8739 s / batch. (data: 3.69e-04). ETA=4 days, 7:18:09, max mem: 15.0 GB 
+[06/13 12:42:23][INFO] visual_prompt:  297: 	Training 4900/5004. train loss: 5.9285,	0.8689 s / batch. (data: 3.42e-04). ETA=4 days, 6:41:16, max mem: 15.0 GB 
+[06/13 12:43:51][INFO] visual_prompt:  297: 	Training 5000/5004. train loss: 5.7741,	0.8701 s / batch. (data: 1.13e-04). ETA=4 days, 6:48:04, max mem: 15.0 GB 
+[06/13 12:43:55][INFO] visual_prompt:  310: Epoch 15 / 100: avg data time: 4.29e-03, avg batch time: 0.8806, average train loss: 5.9240

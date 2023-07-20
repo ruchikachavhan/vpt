@@ -86,6 +86,10 @@ def build_mocov3_model(
         # delete renamed or unused k
         del state_dict[k]
 
+    if prompt_cfg is not None:
+        #  Repeat CLS tokens 10 times
+        state_dict["cls_token"] = state_dict["cls_token"].repeat(prompt_cfg.NUM_INVAR_TYPES, 1, 1)
+
     model.load_state_dict(state_dict, strict=False)
     model.head = torch.nn.Identity()
     return model, out_dim
@@ -385,6 +389,7 @@ def build_vit_sup_models(
         "sup_vitl32_imagenet21k": 1024,
         "sup_vith14_imagenet21k": 1280,
     }
+
     if prompt_cfg is not None:
         model = PromptedVisionTransformer(
             prompt_cfg, model_type,
@@ -398,6 +403,7 @@ def build_vit_sup_models(
             model_type, crop_size, num_classes=-1, vis=vis)
     
     if load_pretrain:
+        print("Loading pretrain model from: ", os.path.join(model_root, MODEL_ZOO[model_type]))
         model.load_from(np.load(os.path.join(model_root, MODEL_ZOO[model_type])))
 
     return model, m2featdim[model_type]

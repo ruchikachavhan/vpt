@@ -8,12 +8,25 @@ import torch.utils.data
 import torchvision as tv
 import numpy as np
 from collections import Counter
-
 from ..transforms import get_transforms
 from ...utils import logging
 from ...utils.io_utils import read_json
 logger = logging.get_logger("visual_prompt")
 
+import torchvision.transforms as transforms
+import torchvision
+import torch.nn as nn
+import cv2 
+
+class rotation(nn.Module):
+    def __init__(self, theta=90.0):
+        super(rotation, self).__init__()
+        self.theta = theta
+
+    def forward(self, image):
+        angle = np.random.uniform(low = -self.theta, high = self.theta, size = (1))
+        img = torchvision.transforms.functional.rotate(image, angle[0])
+        return img
 
 class JSONDataset(torch.utils.data.Dataset):
     def __init__(self, cfg, split):
@@ -33,6 +46,23 @@ class JSONDataset(torch.utils.data.Dataset):
         self.data_percentage = cfg.DATA.PERCENTAGE
         self._construct_imdb(cfg)
         self.transform = get_transforms(split, cfg.DATA.CROPSIZE)
+        self.base_transform = get_transforms('val', cfg.DATA.CROPSIZE)
+
+        # Create a list of transforms
+        self.transform_dict = {
+            'h_flip': transforms.RandomHorizontalFlip(p=1.0),
+            'rotation': rotation(),
+            'grayscale': transforms.Grayscale(num_output_channels=3),
+            # Strong color jitter
+            'color_jitter': transforms.ColorJitter(brightness=0.8, contrast=0.8, saturation=0.8, hue=0.2),
+            'blur': transforms.GaussianBlur(kernel_size=5, sigma=(0.1, 2.0)),
+        }
+        self.augmented = cfg.DATA.AUGMENTED
+
+        # Task is to predict rotation angle
+        self.predict_rotation = cfg.DATA.PREDICT_ROTATION
+        if self.predict_rotation:
+            self.angles = [30.0, 60.0, 90.0, 120.0, 180.0, 210.0, 240.0, 270.0]
 
     def get_anno(self):
         anno_path = os.path.join(self.data_dir, "{}.json".format(self._split))
@@ -106,17 +136,36 @@ class JSONDataset(torch.utils.data.Dataset):
     def __getitem__(self, index):
         # Load the image
         im = tv.datasets.folder.default_loader(self._imdb[index]["im_path"])
-        label = self._imdb[index]["class"]
-        im = self.transform(im)
+        if self.predict_rotation:
+            # choose angle randomly
+            index = np.random.choice(len(self.angles), size=(1))[0]
+            im = torchvision.transforms.functional.rotate(im, self.angles[index])
+            im = self.base_transform(im)
+            label = index
+        else:  
+            label = self._imdb[index]["class"]
+            im = self.transform(im)
         if self._split == "train":
             index = index
         else:
             index = f"{self._split}{index}"
-        sample = {
-            "image": im,
-            "label": label,
-            # "id": index
-        }
+        
+        if self.augmented:
+            aug_images = []
+            for k in self.transform_dict.keys():
+                aug_images.append(self.transform_dict[k](im))
+            aug_images = torch.stack(aug_images)
+            sample = {
+                "image": im,
+                "label": label,
+                "augmented": aug_images 
+            }
+        else:
+            sample = {
+                "image": im,
+                "label": label,
+                # "id": index
+            }
         return sample
 
     def __len__(self):
@@ -130,7 +179,10 @@ class CUB200Dataset(JSONDataset):
         super(CUB200Dataset, self).__init__(cfg, split)
 
     def get_imagedir(self):
-        return os.path.join(self.data_dir, "images")
+        if self._split == "val":
+            return os.path.join(self.data_dir, "train")
+        return os.path.join(self.data_dir, self._split)
+    
 
 
 class CarsDataset(JSONDataset):
@@ -140,7 +192,30 @@ class CarsDataset(JSONDataset):
         super(CarsDataset, self).__init__(cfg, split)
 
     def get_imagedir(self):
-        return self.data_dir
+        if self._split == "val":
+            return os.path.join(self.data_dir, "train")
+        return os.path.join(self.data_dir, self._split)
+    
+    def _construct_imdb(self, cfg):
+        """Constructs the imdb."""
+
+        img_dir = self.get_imagedir()
+        assert os.path.exists(img_dir), "{} dir not found".format(img_dir)
+
+        anno = self.get_anno()
+        # Map class ids to contiguous ids
+        self._class_ids = sorted(list(set(anno.values())))
+        self._class_id_cont_id = {v: i for i, v in enumerate(self._class_ids)}
+
+        # Construct the image db
+        self._imdb = []
+        for img_name, cls_id in anno.items():
+            cont_id = self._class_id_cont_id[cls_id]
+            im_path = os.path.join(img_dir, str(cls_id), img_name)
+            self._imdb.append({"im_path": im_path, "class": cont_id})
+
+        logger.info("Number of images: {}".format(len(self._imdb)))
+        logger.info("Number of classes: {}".format(len(self._class_ids)))
 
 
 class DogsDataset(JSONDataset):
@@ -171,4 +246,35 @@ class NabirdsDataset(JSONDataset):
 
     def get_imagedir(self):
         return os.path.join(self.data_dir, "images")
+
+class AnimalPoseDataset(JSONDataset):
+    "Animal Pose estimation dataset"
+    def __init__(self, cfg, split):
+        super(AnimalPoseDataset, self).__init__(cfg, split)
+    
+    def get_imagedir(self):
+        return os.path.join(self.data_dir, "images")
+    
+    def _construct_imdb(self, cfg):
+        """Constructs the imdb."""
+
+        img_dir = self.get_imagedir()
+        assert os.path.exists(img_dir), "{} dir not found".format(img_dir)
+
+        anno = self.get_anno()
+        # Construct the image db
+        self._imdb = []
+        for img_name, keypt in anno.items():
+            #  Convert keypoints from 0 to 1 by diving by image size
+            keypt = np.array(keypt)[:,:2].astype(np.float32)
+            image_read = cv2.imread(os.path.join(img_dir, img_name))
+            keypt[:,0] = keypt[:, 0]/image_read.shape[1]
+            keypt[:,1] = keypt[:, 1]/image_read.shape[0]
+            # Flatten the keypoint array
+            keypt = keypt.flatten()
+            im_path = os.path.join(img_dir, img_name)
+            self._imdb.append({"im_path": im_path, "class": keypt})
+
+        logger.info("Number of images: {}".format(len(self._imdb)))
+    
 

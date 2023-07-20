@@ -2,9 +2,10 @@ _BASE_: "../base-prompt.yaml"
 RUN_N_TIMES: 1
 DATA:
   NAME: "OxfordFlowers"
-  DATAPATH: ""  #TODO: need to specify here
+  DATAPATH: "../TestDatasets/flowers/flowers-102/"  #TODO: need to specify here
   NUMBER_CLASSES: 102
   MULTILABEL: False
+  AUGMENTED: True
 MODEL:
   TYPE: "vit"
 SOLVER:

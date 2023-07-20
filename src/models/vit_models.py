@@ -118,7 +118,7 @@ class ViT(nn.Module):
             for k, p in self.enc.named_parameters():
                 if "cls_token" not in k:
                     p.requires_grad = False
-
+        
         elif transfer_type == "cls-reinit":
             nn.init.normal_(
                 self.enc.transformer.embeddings.cls_token,
@@ -135,10 +135,17 @@ class ViT(nn.Module):
                     p.requires_grad = False
 
         elif transfer_type == "cls-reinit+prompt":
-            nn.init.normal_(
-                self.enc.transformer.embeddings.cls_token,
-                std=1e-6
-            )
+            if prompt_cfg.NUM_INVAR_TYPES == 1:
+                nn.init.normal_(
+                    self.enc.transformer.embeddings.cls_token,
+                    std=1e-6
+                )
+            else:
+                for i in range(prompt_cfg.NUM_INVAR_TYPES):
+                    nn.init.normal_(
+                        self.enc.transformer.embeddings.cls_token[i],
+                        std=1e-6
+                    )
             for k, p in self.enc.named_parameters():
                 if "prompt" not in k and "cls_token" not in k:
                     p.requires_grad = False
@@ -151,20 +158,45 @@ class ViT(nn.Module):
 
         elif transfer_type == "end2end":
             logger.info("Enable all parameters update during training")
+        
+        elif transfer_type == "measure_invariance":
+            # Freeze prompts, only learn the head, cls token, fusion weights
+            for k, p in self.enc.named_parameters():
+                p.requires_grad = False            
 
         else:
             raise ValueError("transfer type {} is not supported".format(
                 transfer_type))
 
     def setup_head(self, cfg):
-        self.head = MLP(
-            input_dim=self.feat_dim,
-            mlp_dims=[self.feat_dim] * self.cfg.MODEL.MLP_NUM + \
-                [cfg.DATA.NUMBER_CLASSES], # noqa
-            special_bias=True
-        )
+        if cfg.MODEL.MULTIPLE_HEAD:
+            # Number of heads = number of invariance combinations
+            self.head = nn.ModuleList()
+            for i in range(cfg.MODEL.PROMPT.NUM_INVAR_TYPES):
+                self.head.append(MLP(
+                    input_dim=self.feat_dim,
+                    mlp_dims=[self.feat_dim] * self.cfg.MODEL.MLP_NUM + \
+                        [cfg.DATA.NUMBER_CLASSES], # noqa
+                    special_bias=True
+                ))
+        else:
+            self.head = MLP(
+                input_dim=self.feat_dim,
+                mlp_dims=[self.feat_dim] * self.cfg.MODEL.MLP_NUM + \
+                    [cfg.DATA.NUMBER_CLASSES], # noqa
+                special_bias=True
+            )
 
-    def forward(self, x, return_feature=False):
+    def load_prompt(self, prompt_path, cfg):
+        logger.info("Loading prompt from {}".format(prompt_path))
+        checkpoint = torch.load(prompt_path, map_location="cpu")
+        # initialise prompts of the transformer 
+        self.enc.transformer.prompt_embeddings = nn.Parameter(
+            checkpoint["shallow_prompt"]
+        )
+        return self
+
+    def forward(self, x, indices = None, return_feature=False, vis=False, get_logits=False):
         if self.side is not None:
             side_output = self.side(x)
             side_output = side_output.view(side_output.size(0), -1)
@@ -172,15 +204,39 @@ class ViT(nn.Module):
 
         if self.froze_enc and self.enc.training:
             self.enc.eval()
-        x = self.enc(x)  # batch_size x self.feat_dim
+    
+        x = self.enc(x, vis=vis, indices=indices)  # batch_size x self.feat_dim
 
         if self.side is not None:
             alpha_squashed = torch.sigmoid(self.side_alpha)
             x = alpha_squashed * x + (1 - alpha_squashed) * side_output
 
-        if return_feature:
-            return x, x
-        x = self.head(x)
+        if return_feature and get_logits:
+            # Changed Prompted transformer to retuen logits, attn_weights, cls_token and image_feats
+            if self.cfg.MODEL.MULTIPLE_HEAD:
+                logits = []
+                if len(x[2].size()) == 2:
+                    for i in range(indices.shape[0]):
+                        logits.append(self.head[indices[i]](x[2][i]))
+                    logits = torch.stack(logits, dim=0)
+                else:
+                    for i in range(self.cfg.MODEL.PROMPT.NUM_INVAR_TYPES):
+                        logits.append(self.head[i](x[2][:, i, :]))
+                    logits = torch.stack(logits, dim=0).transpose(0, 1)
+            else:
+                logits = self.head(x[2])
+            return x, logits
+        elif return_feature:
+            return x
+        
+        # if indices is not None:
+        #     #  pass through each head for each sample in batch
+        #     logits = []
+        #     for i in range(x.shape[0]):
+        #         logits.append(self.head[indices[i]](x[i]))
+        #     x = torch.stack(logits, dim=0)
+        # else:
+        #     x = self.head(x)
 
         return x
     

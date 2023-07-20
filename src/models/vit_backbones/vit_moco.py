@@ -66,6 +66,18 @@ class VisionTransformerMoCo(VisionTransformer):
         pe_token = torch.zeros([1, 1, self.embed_dim], dtype=torch.float32)
         self.pos_embed = nn.Parameter(torch.cat([pe_token, pos_emb], dim=1))
         self.pos_embed.requires_grad = False
+    
+
+    def forward(self, x, vis=False, indices=None, return_feats=False, get_logits=False):
+        feats = self.forward_features(x)
+        print("F", feats.shape)
+        logits = self.head(feats[:, 0])
+        if not vis:
+            return logits
+        image_feats = feats[:, 1:, :].mean(dim=1)
+        cls_feats = feats[:, 0]
+        attn_weights = None
+        return logits, attn_weights, cls_feats, image_feats # attn_weights: num_layers, B, num_head, num_patches, num_patches
 
 
 class ConvStem(nn.Module):

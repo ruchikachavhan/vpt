@@ -140,7 +140,7 @@ class Mlp(nn.Module):
 class Embeddings(nn.Module):
     """Construct the embeddings from patch, position embeddings.
     """
-    def __init__(self, config, img_size, in_channels=3):
+    def __init__(self, config, img_size, num_cls_embeds, in_channels=3):
         super(Embeddings, self).__init__()
         self.hybrid = None
         img_size = _pair(img_size)
@@ -164,14 +164,20 @@ class Embeddings(nn.Module):
                                        kernel_size=patch_size,
                                        stride=patch_size)
         self.position_embeddings = nn.Parameter(torch.zeros(1, n_patches+1, config.hidden_size))
-        self.cls_token = nn.Parameter(torch.zeros(1, 1, config.hidden_size))
+        self.cls_token = nn.Parameter(torch.zeros(num_cls_embeds, 1, config.hidden_size))
 
         self.dropout = Dropout(config.transformer["dropout_rate"])
 
-    def forward(self, x):
+    def forward(self, x, indices=None):
         B = x.shape[0]
-        cls_tokens = self.cls_token.expand(B, -1, -1)
-
+        if indices is not None:
+            cls_tokens = self.cls_token[indices, :, :]
+            
+            if len(cls_tokens.size()) == 4:
+                cls_tokens = cls_tokens.squeeze(1)
+            # cls_tokens = self.cls_token.expand(B, -1, -1)
+        else:
+            cls_tokens = self.cls_token.expand(B, -1, -1)
         if self.hybrid:
             x = self.hybrid_model(x)
         x = self.patch_embeddings(x)
@@ -281,11 +287,10 @@ class Encoder(nn.Module):
         return cls_embeds
 
 
-
 class Transformer(nn.Module):
-    def __init__(self, config, img_size, vis):
+    def __init__(self, config, img_size, vis, num_cls_embeds=1):
         super(Transformer, self).__init__()
-        self.embeddings = Embeddings(config, img_size=img_size)
+        self.embeddings = Embeddings(config, img_size=img_size, num_cls_embeds = num_cls_embeds)
         self.encoder = Encoder(config, vis)
 
     def forward(self, input_ids):
@@ -314,13 +319,15 @@ class VisionTransformer(nn.Module):
         self.transformer = Transformer(config, img_size, vis)
         self.head = Linear(config.hidden_size, num_classes) if num_classes > 0 else nn.Identity()
 
-    def forward(self, x, vis=False):
+    def forward(self, x, vis=False, indices=None, return_feats=False, get_logits=False):
         x, attn_weights = self.transformer(x)
         logits = self.head(x[:, 0])
 
         if not vis:
             return logits
-        return logits, attn_weights # attn_weights: num_layers, B, num_head, num_patches, num_patches
+        image_feats = x[:, 1:, :].mean(dim=1)
+        x = x[:, 0]
+        return logits, attn_weights, x, image_feats # attn_weights: num_layers, B, num_head, num_patches, num_patches
     
     def forward_cls_layerwise(self, x):
         cls_embeds = self.transformer.forward_cls_layerwise(x)

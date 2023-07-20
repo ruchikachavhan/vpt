@@ -1,0 +1,359 @@
+[06/14 09:30:33][INFO] visual_prompt:   95: Rank of current process: 0. World size: 4
+[06/14 09:30:33][INFO] visual_prompt:   97: Environment info:
+-------------------  ---------------------------------------------------
+Python               3.8.13 (default, Mar 28 2022, 11:38:47) [GCC 7.5.0]
+ENV_MODULE           <not set>
+PyTorch              1.13.0+cu117
+PyTorch Debug Build  False
+CUDA available       True
+CUDA ID              3,4,5,6
+GPU 0,1,2,3          Tesla V100-SXM2-32GB
+Pillow               9.3.0
+cv2                  4.7.0
+-------------------  ---------------------------------------------------
+PyTorch built with:
+  - GCC 9.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.6.0 (Git Hash 52b5f107dd9cf10910aaa19cb47f3abf9b349815)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.7
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.5
+  - Magma 2.6.1
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.7, CUDNN_VERSION=8.5.0, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -fabi-version=11 -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wunused-local-typedefs -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Werror=cast-function-type -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.13.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+[06/14 09:30:33][INFO] visual_prompt:   99: Command line arguments: None
+[06/14 09:30:33][INFO] visual_prompt:  108: Training with config:
+[06/14 09:30:33][INFO] visual_prompt:  109: {'CUDNN_BENCHMARK': False,
+ 'DATA': {'AUGMENTED': True,
+          'BATCH_SIZE': 256,
+          'CLASS_WEIGHTS_TYPE': 'none',
+          'CROPSIZE': 224,
+          'DATAPATH': '../../imagenet1k',
+          'FEATURE': 'sup_vitb16_imagenet21k',
+          'MODE': 'classification',
+          'MULTILABEL': False,
+          'NAME': 'imagenet',
+          'NO_TEST': True,
+          'NUMBER_CLASSES': 1000,
+          'NUM_WORKERS': 4,
+          'PERCENTAGE': 1.0,
+          'PIN_MEMORY': True,
+          'PREDICT_ROTATION': False,
+          'TRANSFORM': 'rotation'},
+ 'DBG': False,
+ 'DIST_BACKEND': 'nccl',
+ 'DIST_INIT_FILE': '',
+ 'DIST_INIT_PATH': 'tcp://localhost:10001',
+ 'GPU_ID': None,
+ 'MODEL': {'ADAPTER': CfgNode({'REDUCATION_FACTOR': 8, 'STYLE': 'Pfeiffer'}),
+           'LINEAR': CfgNode({'MLP_SIZES': [], 'DROPOUT': 0.1}),
+           'MLP_NUM': 0,
+           'MODEL_ROOT': 'checkpoints',
+           'MULTIPLE_HEAD': True,
+           'PROMPT': {'CLSEMB_FOLDER': '',
+                      'CLSEMB_PATH': '',
+                      'DEEP': True,
+                      'DEEP_SHARED': False,
+                      'DROPOUT': 0.1,
+                      'FORWARD_DEEP_NOEXPAND': False,
+                      'INITIATION': 'random',
+                      'LOCATION': 'prepend',
+                      'NUM_DEEP_LAYERS': None,
+                      'NUM_INVAR_TYPES': 10,
+                      'NUM_TOKENS': 500,
+                      'NUM_TOKENS_PER_TYPE': 50,
+                      'PROJECT': -1,
+                      'PROMPT_PATH': '',
+                      'REVERSE_DEEP': False,
+                      'SAVE_FOR_EACH_EPOCH': True,
+                      'VIT_POOL_TYPE': 'original'},
+           'SAVE_CKPT': False,
+           'TRANSFER_TYPE': 'cls+prompt',
+           'TYPE': 'vit',
+           'WEIGHT_PATH': ''},
+ 'NUM_GPUS': 4,
+ 'NUM_SHARDS': 1,
+ 'OUTPUT_DIR': 'output_deep_10/imagenet/sup_vitb16_imagenet21k/lr0.1_wd0.001/run1',
+ 'RANK': 0,
+ 'RUN_N_TIMES': 1,
+ 'SEED': None,
+ 'SOLVER': {'BASE_LR': 0.1,
+            'BIAS_MULTIPLIER': 1.0,
+            'DBG_TRAINABLE': False,
+            'LOG_EVERY_N': 100,
+            'LOSS': 'cross_entropy',
+            'LOSS_ALPHA': 0.01,
+            'MOMENTUM': 0.9,
+            'OPTIMIZER': 'sgd',
+            'PATIENCE': 300,
+            'SCHEDULER': 'cosine',
+            'TOTAL_EPOCH': 100,
+            'WARMUP_EPOCH': 10,
+            'WEIGHT_DECAY': 0.001,
+            'WEIGHT_DECAY_BIAS': 0},
+ 'WORLD_SIZE': 4}
+[06/14 09:30:36][INFO] visual_prompt:   56: Total Parameters: 98096656	 Gradient Parameters: 12298768
+[06/14 09:30:36][INFO] visual_prompt:   58: tuned percent:12.537
+[06/14 09:30:36][INFO] visual_prompt:   44: Device used for model: 0
+[06/14 09:30:36][INFO] visual_prompt:   72: Loading training data (final training data for vtab)...
+[06/14 09:30:36][INFO] visual_prompt:   71: Constructing imagenet dataset train...
+[06/14 09:30:39][INFO] visual_prompt:  158: Number of images: 1281167
+[06/14 09:30:39][INFO] visual_prompt:  159: Number of classes: 1000
+[06/14 09:30:39][INFO] visual_prompt:   78: Loading validation data...
+[06/14 09:30:39][INFO] visual_prompt:   71: Constructing imagenet dataset val...
+[06/14 09:30:39][INFO] visual_prompt:  158: Number of images: 50000
+[06/14 09:30:39][INFO] visual_prompt:  159: Number of classes: 1000
+[06/14 09:30:39][INFO] visual_prompt:   81: Loading test data...
+[06/14 09:30:39][INFO] visual_prompt:   83: ...no test data is constructed
+[06/14 09:30:39][INFO] visual_prompt:  111: Constructing models...
+[06/14 09:30:39][INFO] visual_prompt:  114: Setting up Evalutator...
+[06/14 09:30:39][INFO] visual_prompt:  116: Setting up Trainer...
+[06/14 09:30:39][INFO] visual_prompt:   47: 	Setting up the optimizer...
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.prompt_embeddings: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.deep_prompt_embeddings: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.embeddings.position_embeddings: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.embeddings.cls_token: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.embeddings.patch_embeddings.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.embeddings.patch_embeddings.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attention_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attention_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.ffn_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.ffn_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.ffn.fc1.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.ffn.fc1.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.ffn.fc2.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.ffn.fc2.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attn.query.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attn.query.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attn.key.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attn.key.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attn.value.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attn.value.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attn.out.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.0.attn.out.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attention_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attention_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.ffn_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.ffn_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.ffn.fc1.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.ffn.fc1.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.ffn.fc2.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.ffn.fc2.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attn.query.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attn.query.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attn.key.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attn.key.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attn.value.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attn.value.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attn.out.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.1.attn.out.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attention_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attention_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.ffn_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.ffn_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.ffn.fc1.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.ffn.fc1.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.ffn.fc2.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.ffn.fc2.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attn.query.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attn.query.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attn.key.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attn.key.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attn.value.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attn.value.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attn.out.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.2.attn.out.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attention_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attention_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.ffn_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.ffn_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.ffn.fc1.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.ffn.fc1.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.ffn.fc2.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.ffn.fc2.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attn.query.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attn.query.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attn.key.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attn.key.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attn.value.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attn.value.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attn.out.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.3.attn.out.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attention_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attention_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.ffn_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.ffn_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.ffn.fc1.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.ffn.fc1.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.ffn.fc2.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.ffn.fc2.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attn.query.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attn.query.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attn.key.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attn.key.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attn.value.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attn.value.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attn.out.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.4.attn.out.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attention_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attention_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.ffn_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.ffn_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.ffn.fc1.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.ffn.fc1.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.ffn.fc2.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.ffn.fc2.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attn.query.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attn.query.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attn.key.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attn.key.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attn.value.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attn.value.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attn.out.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.5.attn.out.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attention_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attention_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.ffn_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.ffn_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.ffn.fc1.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.ffn.fc1.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.ffn.fc2.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.ffn.fc2.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attn.query.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attn.query.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attn.key.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attn.key.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attn.value.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attn.value.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attn.out.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.6.attn.out.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attention_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attention_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.ffn_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.ffn_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.ffn.fc1.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.ffn.fc1.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.ffn.fc2.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.ffn.fc2.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attn.query.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attn.query.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attn.key.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attn.key.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attn.value.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attn.value.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attn.out.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.7.attn.out.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attention_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attention_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.ffn_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.ffn_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.ffn.fc1.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.ffn.fc1.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.ffn.fc2.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.ffn.fc2.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attn.query.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attn.query.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attn.key.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attn.key.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attn.value.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attn.value.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attn.out.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.8.attn.out.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attention_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attention_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.ffn_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.ffn_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.ffn.fc1.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.ffn.fc1.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.ffn.fc2.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.ffn.fc2.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attn.query.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attn.query.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attn.key.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attn.key.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attn.value.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attn.value.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attn.out.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.9.attn.out.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attention_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attention_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.ffn_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.ffn_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.ffn.fc1.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.ffn.fc1.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.ffn.fc2.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.ffn.fc2.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attn.query.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attn.query.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attn.key.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attn.key.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attn.value.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attn.value.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attn.out.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.10.attn.out.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attention_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attention_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.ffn_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.ffn_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.ffn.fc1.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.ffn.fc1.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.ffn.fc2.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.ffn.fc2.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attn.query.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attn.query.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attn.key.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attn.key.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attn.value.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attn.value.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attn.out.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.layer.11.attn.out.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.encoder_norm.weight: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.enc.transformer.encoder.encoder_norm.bias: False
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.0.last_layer.weight: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.0.last_layer.bias: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.1.last_layer.weight: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.1.last_layer.bias: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.2.last_layer.weight: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.2.last_layer.bias: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.3.last_layer.weight: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.3.last_layer.bias: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.4.last_layer.weight: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.4.last_layer.bias: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.5.last_layer.weight: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.5.last_layer.bias: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.6.last_layer.weight: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.6.last_layer.bias: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.7.last_layer.weight: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.7.last_layer.bias: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.8.last_layer.weight: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.8.last_layer.bias: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.9.last_layer.weight: True
+[06/14 09:30:39][INFO] visual_prompt:   59: module.head.9.last_layer.bias: True
+[06/14 09:30:39][INFO] visual_prompt:  233: class weights: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+[06/14 09:30:39][INFO] visual_prompt:  252: Training 1 / 100 epoch, with learning rate 0.0
+[06/14 09:33:22][INFO] visual_prompt:  301: 	Training 100/5004. train loss: 6.8858,	1.4146 s / batch. (data: 2.68e-04). ETA=8 days, 4:35:17, max mem: 15.1 GB 
+[06/14 09:35:44][INFO] visual_prompt:  301: 	Training 200/5004. train loss: 6.9050,	1.4203 s / batch. (data: 3.07e-04). ETA=8 days, 5:20:22, max mem: 15.1 GB 
+[06/14 09:38:06][INFO] visual_prompt:  301: 	Training 300/5004. train loss: 6.9130,	1.4477 s / batch. (data: 3.25e-04). ETA=8 days, 9:06:37, max mem: 15.1 GB 
+[06/14 09:40:28][INFO] visual_prompt:  301: 	Training 400/5004. train loss: 6.9025,	1.4173 s / batch. (data: 3.85e-04). ETA=8 days, 4:50:26, max mem: 15.1 GB 
+[06/14 09:42:53][INFO] visual_prompt:  301: 	Training 500/5004. train loss: 6.9345,	1.4564 s / batch. (data: 3.28e-04). ETA=8 days, 10:14:25, max mem: 15.1 GB 
+[06/14 09:45:16][INFO] visual_prompt:  301: 	Training 600/5004. train loss: 6.9051,	1.4233 s / batch. (data: 3.50e-04). ETA=8 days, 5:36:05, max mem: 15.1 GB 
+[06/14 09:47:38][INFO] visual_prompt:  301: 	Training 700/5004. train loss: 6.8997,	1.4158 s / batch. (data: 3.12e-04). ETA=8 days, 4:31:33, max mem: 15.1 GB 
+[06/14 09:50:00][INFO] visual_prompt:  301: 	Training 800/5004. train loss: 6.9232,	1.4166 s / batch. (data: 2.91e-04). ETA=8 days, 4:35:46, max mem: 15.1 GB 
+[06/14 09:52:22][INFO] visual_prompt:  301: 	Training 900/5004. train loss: 6.9164,	1.4131 s / batch. (data: 3.41e-04). ETA=8 days, 4:03:40, max mem: 15.1 GB 
+[06/14 09:54:43][INFO] visual_prompt:  301: 	Training 1000/5004. train loss: 6.8961,	1.4173 s / batch. (data: 3.49e-04). ETA=8 days, 4:36:55, max mem: 15.1 GB 
+[06/14 09:57:05][INFO] visual_prompt:  301: 	Training 1100/5004. train loss: 6.9117,	1.4181 s / batch. (data: 2.97e-04). ETA=8 days, 4:40:49, max mem: 15.1 GB 
+[06/14 09:59:27][INFO] visual_prompt:  301: 	Training 1200/5004. train loss: 6.8857,	1.4159 s / batch. (data: 3.63e-04). ETA=8 days, 4:19:59, max mem: 15.1 GB 
+[06/14 10:01:51][INFO] visual_prompt:  301: 	Training 1300/5004. train loss: 6.9119,	1.4154 s / batch. (data: 2.98e-04). ETA=8 days, 4:13:23, max mem: 15.1 GB 
+[06/14 10:04:12][INFO] visual_prompt:  301: 	Training 1400/5004. train loss: 6.9070,	1.4106 s / batch. (data: 3.09e-04). ETA=8 days, 3:31:10, max mem: 15.1 GB 
+[06/14 10:06:33][INFO] visual_prompt:  301: 	Training 1500/5004. train loss: 6.9041,	1.4130 s / batch. (data: 3.58e-04). ETA=8 days, 3:49:24, max mem: 15.1 GB 
+[06/14 10:08:57][INFO] visual_prompt:  301: 	Training 1600/5004. train loss: 6.9086,	1.4502 s / batch. (data: 3.48e-04). ETA=8 days, 8:55:36, max mem: 15.1 GB 
+[06/14 10:11:22][INFO] visual_prompt:  301: 	Training 1700/5004. train loss: 6.8824,	1.4487 s / batch. (data: 3.27e-04). ETA=8 days, 8:40:57, max mem: 15.1 GB 
+[06/14 10:13:47][INFO] visual_prompt:  301: 	Training 1800/5004. train loss: 6.9038,	1.4505 s / batch. (data: 3.28e-04). ETA=8 days, 8:53:21, max mem: 15.1 GB 
+[06/14 10:16:09][INFO] visual_prompt:  301: 	Training 1900/5004. train loss: 6.9102,	1.4201 s / batch. (data: 3.11e-04). ETA=8 days, 4:38:33, max mem: 15.1 GB 
+[06/14 10:18:31][INFO] visual_prompt:  301: 	Training 2000/5004. train loss: 6.9004,	1.4122 s / batch. (data: 3.67e-04). ETA=8 days, 3:31:02, max mem: 15.1 GB 
+[06/14 10:20:53][INFO] visual_prompt:  301: 	Training 2100/5004. train loss: 6.9104,	1.4264 s / batch. (data: 3.10e-04). ETA=8 days, 5:26:28, max mem: 15.1 GB 

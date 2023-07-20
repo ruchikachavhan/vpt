@@ -1,0 +1,14 @@
+_BASE_: "../base-prompt.yaml"
+RUN_N_TIMES: 1
+DATA:
+  NAME: "animal_pose"
+  DATAPATH: "../TestDatasets/animal_pose/animalpose_keypoint_new"  #TODO: need to specify here
+  NUMBER_CLASSES: 40
+  MULTILABEL: False
+  MODE: 'pose_estimation'
+MODEL:
+  TYPE: "vit"
+SOLVER:
+  BASE_LR: 0.1
+  WEIGHT_DECAY: 0.01
+  LOSS: 'mse'

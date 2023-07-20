@@ -30,6 +30,9 @@ class PromptedVisionTransformerMoCo(VisionTransformerMoCo):
         self.num_tokens = num_tokens
         self.prompt_dropout = Dropout(self.prompt_config.DROPOUT)
 
+        #  CLS token for different invariance types
+        self.cls_token = nn.Parameter(torch.zeros(self.prompt_config.NUM_INVAR_TYPES, 1, self.embed_dim))
+
         # initiate prompt:
         if self.prompt_config.INITIATION == "random":
             val = math.sqrt(6. / float(3 * reduce(mul, self.patch_embed.patch_size, 1) + self.embed_dim))  # noqa
@@ -50,7 +53,7 @@ class PromptedVisionTransformerMoCo(VisionTransformerMoCo):
         else:
             raise ValueError("Other initiation scheme is not supported")
 
-    def incorporate_prompt(self, x):
+    def incorporate_prompt(self, x, indices=None):
         # combine prompt embeddings with image-patch embeddings
         B = x.shape[0]
         if self.prompt_config.LOCATION == "prepend":
@@ -68,9 +71,15 @@ class PromptedVisionTransformerMoCo(VisionTransformerMoCo):
 
         return x
 
-    def embeddings(self, x):
+    def embeddings(self, x, indices=None):
         x = self.patch_embed(x)
-        cls_token = self.cls_token.expand(x.shape[0], -1, -1)
+        if self.cls_token.shape[0] == 1:
+            cls_token = self.cls_token.expand(x.shape[0], -1, -1)
+        else:
+            print(self.cls_token[indices, :, :].shape)
+            cls_token = self.cls_token[indices].unsqueeze(0).expand(x.shape[0], -1, -1)
+        #  Check cls_tokens
+        print(cls_token.shape)
         if self.dist_token is None:
             x = torch.cat((cls_token, x), dim=1)
         else:
@@ -93,8 +102,9 @@ class PromptedVisionTransformerMoCo(VisionTransformerMoCo):
             for module in self.children():
                 module.train(mode)
 
-    def forward_features(self, x):
-        x = self.incorporate_prompt(x)
+    def forward_features(self, x, indices):
+        x = self.incorporate_prompt(x, indices)
+        print("INCorporated prompt", x.shape)
 
         # deep
         if self.prompt_config.DEEP:
@@ -123,6 +133,13 @@ class PromptedVisionTransformerMoCo(VisionTransformerMoCo):
             return self.pre_logits(x[:, 0])
         else:
             return x[:, 0], x[:, 1]
+    
+    def forward(self, x, vis=False, indices=None, return_feats=False):
+        feats = self.forward_features(x, indices)
+        if return_feats:
+            return feats
+        else:
+            return self.head(feats), feats
 
 
 def vit_base(prompt_cfg, **kwargs):

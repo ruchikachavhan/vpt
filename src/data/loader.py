@@ -7,8 +7,9 @@ from torch.utils.data.sampler import RandomSampler
 
 from ..utils import logging
 from .datasets.json_dataset import (
-    CUB200Dataset, CarsDataset, DogsDataset, FlowersDataset, NabirdsDataset
+    CUB200Dataset, CarsDataset, DogsDataset, FlowersDataset, NabirdsDataset, AnimalPoseDataset
 )
+from .datasets.imagenet_dataset import ImagenetDataset
 
 logger = logging.get_logger("visual_prompt")
 _DATASET_CATALOG = {
@@ -17,6 +18,8 @@ _DATASET_CATALOG = {
     'StanfordCars': CarsDataset,
     'StanfordDogs': DogsDataset,
     "nabirds": NabirdsDataset,
+    "imagenet": ImagenetDataset,
+    "animal_pose": AnimalPoseDataset,
 }
 
 
@@ -46,6 +49,7 @@ def _construct_loader(cfg, split, batch_size, shuffle, drop_last):
         num_workers=cfg.DATA.NUM_WORKERS,
         pin_memory=cfg.DATA.PIN_MEMORY,
         drop_last=drop_last,
+        collate_fn=dataset.collate_fn if hasattr(dataset, "collate_fn") else None
     )
     return loader
 

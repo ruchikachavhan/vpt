@@ -1,0 +1,26 @@
+_BASE_: "../base-prompt.yaml"
+RUN_N_TIMES: 1
+NUM_GPUS: 1
+DATA:
+  NAME: "imagenet"
+  DATAPATH: "../../imagenet1k"  #TODO: need to specify here
+  NUMBER_CLASSES: 1000
+  MULTILABEL: False
+  TRANSFORM: "rotation"
+  BATCH_SIZE: 64
+  FEATURE: "sup_vitb16_imagenet21k"
+  NO_TEST: True
+MODEL:
+  TYPE: "vit"
+  MODEL_ROOT: "checkpoints"
+  PROMPT:
+    NUM_TOKENS: 10
+    DEEP: False
+    DROPOUT: 0.1
+    NUM_TOKENS_PER_TYPE: 50
+    NUM_INVAR_TYPES: 10
+  MULTIPLE_HEAD: True
+SOLVER:
+  BASE_LR: 0.001
+  WEIGHT_DECAY: 0.0001
+  LOSS: "mse"
